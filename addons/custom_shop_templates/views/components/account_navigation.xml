@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Account Navigation Component - Reusable for all account pages -->
+    <!-- Based on Addresses design with halftone reusable system -->
+
+    <data>
+        <!-- ============================================
+             ACCOUNT NAVIGATION COMPONENT
+             ============================================
+
+             Usage:
+             <t t-call="custom_shop_templates.account_navigation">
+                 <t t-set="current_page" t-value="'orders'"/>
+                 <t t-set="with_shadow" t-value="True"/>
+             </t>
+
+             Parameters:
+             - current_page: 'orders' | 'addresses' | 'payment_method' | 'account_details'
+             - with_shadow: True | False (optional, default False)
+
+             ============================================ -->
+
+        <template id="account_navigation" name="Account Navigation Component">
+
+            <!-- Map current_page to display name and icon -->
+            <t t-set="page_config" t-value="{
+                'orders': {'name': 'Orders', 'icon': 'account_orders.svg'},
+                'addresses': {'name': 'Addresses', 'icon': 'account_addresses.svg'},
+                'payment_method': {'name': 'Payment Method', 'icon': 'account_payment.svg'},
+                'account_details': {'name': 'Account Details', 'icon': 'account_details.svg'}
+            }"/>
+
+            <t t-set="page_info" t-value="page_config.get(current_page, {})"/>
+            <t t-set="page_name" t-value="page_info.get('name', 'My Account')"/>
+            <t t-set="page_icon" t-value="page_info.get('icon', 'account_orders.svg')"/>
+
+            <!-- ============================================
+                 ACCOUNT SELECTOR (SM/MD only)
+                 ============================================ -->
+
+            <div class="tts-account-selector-wrapper">
+                <div class="tts-account-selector">
+                    <!-- Halftone Shadow (conditional) -->
+                    <t t-if="with_shadow">
+                        <div class="tts-account-selector-shadow">
+                            <img src="data:image/svg+xml,%3Csvg width='343' height='56' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='343' height='56' fill='%23000' opacity='0.2'/%3E%3C/svg%3E" alt=""/>
+                        </div>
+                    </t>
+
+                    <!-- Selector Button (Toggle) -->
+                    <button type="button" class="tts-account-selector-button" data-toggle="account-dropdown">
+                        <div class="tts-selector-content">
+                            <div class="tts-selector-icon">
+                                <img t-attf-src="/custom_shop_templates/static/src/img/icons/{{page_icon}}" t-att-alt="page_name"/>
+                            </div>
+                            <div class="tts-selector-text" t-esc="page_name"/>
+                        </div>
+                        <div class="tts-selector-chevron">
+                            <img src="/custom_shop_templates/static/src/img/icons/trigger_icon_sorting.svg"
+                                 alt="Expand"
+                                 width="20"
+                                 height="20"/>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Dropdown Menu (SM/MD only) -->
+                <div class="tts-account-dropdown">
+                    <!-- Orders -->
+                    <a t-attf-href="/my/orders" t-attf-class="tts-dropdown-item {{'is-current' if current_page == 'orders' else ''}}">
+                        <div class="tts-dropdown-text">Orders</div>
+                        <div class="tts-dropdown-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_orders.svg" alt="Orders"/>
+                        </div>
+                    </a>
+
+                    <!-- Addresses -->
+                    <a t-attf-href="/my/addresses" t-attf-class="tts-dropdown-item {{'is-current' if current_page == 'addresses' else ''}}">
+                        <div class="tts-dropdown-text">Addresses</div>
+                        <div class="tts-dropdown-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_addresses.svg" alt="Addresses"/>
+                        </div>
+                    </a>
+
+                    <!-- Payment Method -->
+                    <a t-attf-href="/my/payment_method" t-attf-class="tts-dropdown-item {{'is-current' if current_page == 'payment_method' else ''}}">
+                        <div class="tts-dropdown-text">Payment Method</div>
+                        <div class="tts-dropdown-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_payment.svg" alt="Payment"/>
+                        </div>
+                    </a>
+
+                    <!-- Account Details -->
+                    <a t-attf-href="/my/account" t-attf-class="tts-dropdown-item {{'is-current' if current_page == 'account_details' else ''}}">
+                        <div class="tts-dropdown-text">Account Details</div>
+                        <div class="tts-dropdown-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_details.svg" alt="Account"/>
+                        </div>
+                    </a>
+
+                    <!-- Logout -->
+                    <a href="/web/session/logout" class="tts-dropdown-item">
+                        <div class="tts-dropdown-text">Logout</div>
+                        <div class="tts-dropdown-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_logout.svg" alt="Logout"/>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 DASHBOARD MENU (LG only)
+                 ============================================ -->
+            <div class="tts-dashboard-menu-wrapper">
+                <div class="tts-dashboard-menu">
+                    <!-- Orders -->
+                    <a href="/my/orders" class="tts-menu-item">
+                        <div class="tts-menu-text">Orders</div>
+                        <div class="tts-menu-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_orders.svg" alt="Orders"/>
+                        </div>
+                    </a>
+
+                    <!-- Addresses -->
+                    <a href="/my/addresses" class="tts-menu-item">
+                        <div class="tts-menu-text">Addresses</div>
+                        <div class="tts-menu-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_addresses.svg" alt="Addresses"/>
+                        </div>
+                    </a>
+
+                    <!-- Payment Method -->
+                    <a href="/my/payment_method" class="tts-menu-item">
+                        <div class="tts-menu-text">Payment Method</div>
+                        <div class="tts-menu-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_payment.svg" alt="Payment"/>
+                        </div>
+                    </a>
+
+                    <!-- Account Details -->
+                    <a href="/my/account" class="tts-menu-item">
+                        <div class="tts-menu-text">Account Details</div>
+                        <div class="tts-menu-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_details.svg" alt="Account"/>
+                        </div>
+                    </a>
+
+                    <!-- Logout -->
+                    <a href="/web/session/logout" class="tts-menu-item">
+                        <div class="tts-menu-text">Logout</div>
+                        <div class="tts-menu-icon">
+                            <img src="/custom_shop_templates/static/src/img/icons/account_logout.svg" alt="Logout"/>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ============================================
+                 INLINE STYLES
+                 Minimal inline styles to ensure component works standalone
+                 Based on Addresses design: font-size 14px, font-weight 400
+                 ============================================ -->
+                <!-- Account navigation styles migrated to static/src/scss/pages/_account-navigation.scss (PHASE 5) -->        </template>
+
+    </data>
+</odoo>

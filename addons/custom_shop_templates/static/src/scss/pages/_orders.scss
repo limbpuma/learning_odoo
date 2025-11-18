@@ -1,0 +1,447 @@
+// ========================================
+// TTS ORDERS - ACCOUNT PAGE STYLES
+// ========================================
+// Migrated from views/account/orders.xml <style> block (lines 15-473)
+// Phase 5: Style block extraction to SCSS
+// Compatible with Odoo portal modules (sale)
+// Responsive breakpoints: SM (Mobile-first) / MD (768px+) / LG (1024px+)
+
+/* =======================================================
+   RESET AND BASE STYLES
+   ======================================================= */
+* {
+    box-sizing: border-box;
+}
+
+/* =======================================================
+   ORDERS SECTION - Page-specific styles
+   ======================================================= */
+.tts-orders-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-section-title {
+    width: 100%;
+    color: $tts-light;
+    font-size: 24px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+}
+
+/* =======================================================
+   ORDER CARD
+   ======================================================= */
+.tts-order-card-wrapper {
+    width: 100%;
+    min-width: 292px;
+    position: relative;
+    display: inline-flex;
+}
+
+.tts-order-card-container {
+    flex: 1 1 0;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.tts-order-card-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: $tts-halftone-z-index;
+}
+
+.tts-order-card {
+    width: 100%;
+    padding: 16px;
+    background: $tts-card-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: inline-flex;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-order-card-content {
+    flex: 1 1 0;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Order Header (Number + View link) */
+.tts-order-header {
+    width: 100%;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.tts-order-info {
+    flex: 1 1 0;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-order-number {
+    color: $tts-light;
+    @include tts-text-body;
+}
+
+.tts-order-number strong {
+    font-weight: $tts-font-weight-bold;
+}
+
+.tts-order-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tts-order-detail-row {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-order-detail-label {
+    color: $tts-light;
+    @include tts-text-body;
+}
+
+.tts-order-detail-value {
+    color: $tts-light;
+    @include tts-text-body;
+}
+
+/* View Link */
+.tts-view-link {
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.tts-view-link:hover {
+    opacity: 0.8;
+}
+
+.tts-view-link-text {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+}
+
+.tts-view-chevron {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tts-view-chevron img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Product Grid */
+.tts-products-grid {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.tts-product-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Product Thumbnail */
+.tts-product-thumbnail-wrapper {
+    width: 64px;
+    height: 64px;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.tts-thumbnail-shadow {
+    width: 64px;
+    height: 64px;
+    left: 6px;
+    top: 6px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tts-thumbnail-shadow img {
+    width: 100%;
+    height: 100%;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    border-radius: $tts-border-radius;
+}
+
+.tts-product-thumbnail {
+    width: 100%;
+    height: 100%;
+    background: $tts-card-dark;
+    overflow: hidden;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.tts-thumbnail-inner {
+    width: 100%;
+    height: 100%;
+    background: $tts-light;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.tts-thumbnail-image {
+    width: 100%;
+    height: 100%;
+    box-shadow: 28px 65px 64px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Product Name + Qty */
+.tts-product-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-product-qty {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 16px;
+}
+
+.tts-product-name {
+    color: $tts-light;
+    @include tts-text-body;
+}
+
+/* More Items Link */
+.tts-more-link {
+    overflow: hidden;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.tts-more-link:hover {
+    opacity: 0.8;
+}
+
+.tts-more-link-inner {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.tts-more-link-text {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+}
+
+.tts-more-link-underline {
+    width: 100%;
+    height: 2px;
+    background: $tts-light;
+}
+
+/* =======================================================
+   RESPONSIVE - MD Breakpoint (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+    /* No adjustments needed - shadow uses relative positioning */
+}
+
+/* =======================================================
+   RESPONSIVE - LG Breakpoint (1024px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    /* Main Content: Orders Section */
+    .tts-orders-section {
+        flex: 1;
+        max-width: 738px;
+    }
+
+    /* No shadow adjustments needed - uses relative positioning */
+}
+
+/* =======================================================
+   EMPTY STATE - NO ORDERS
+   ======================================================= */
+.tts-empty-orders {
+    width: 100%;
+    padding: 80px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    text-align: center;
+}
+
+.tts-empty-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+}
+
+.tts-empty-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tts-empty-title {
+    color: $tts-light;
+    font-size: 28px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 36px;
+    margin: 0;
+    padding: 0;
+}
+
+.tts-empty-description {
+    color: $tts-light;
+    @include tts-text-medium;
+    opacity: 0.7;
+    max-width: 400px;
+    margin: 0;
+    padding: 0;
+}
+
+.tts-empty-cta {
+    margin-top: 16px;
+    padding: 14px 32px;
+    background: $tts-light;
+    color: $tts-surface-dark;
+    @include tts-text-medium-bold;
+    border-radius: $tts-border-radius-sm;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-empty-cta:hover {
+    opacity: 0.9;
+    color: $tts-surface-dark;
+}
+
+/* MD Breakpoint - Tablet */
+@media (min-width: $tts-width-md) {
+    .tts-empty-orders {
+        padding: 120px 48px;
+        gap: 32px;
+    }
+
+    .tts-empty-icon {
+        width: 96px;
+        height: 96px;
+    }
+
+    .tts-empty-title {
+        font-size: 36px;
+        line-height: 44px;
+    }
+
+    .tts-empty-description {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .tts-empty-cta {
+        padding: 16px 40px;
+        font-size: 18px;
+    }
+}
+
+/* LG Breakpoint - Desktop */
+@media (min-width: $tts-width-lg) {
+    .tts-empty-orders {
+        padding: 160px 80px;
+        gap: 40px;
+    }
+
+    .tts-empty-icon {
+        width: 120px;
+        height: 120px;
+    }
+
+    .tts-empty-title {
+        font-size: 48px;
+        line-height: 56px;
+    }
+
+    .tts-empty-description {
+        font-size: 20px;
+        line-height: 32px;
+        max-width: 600px;
+    }
+
+    .tts-empty-cta {
+        padding: 18px 48px;
+        font-size: 18px;
+    }
+}

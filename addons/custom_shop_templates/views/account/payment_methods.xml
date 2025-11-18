@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Payment Methods Page - Full Figma Design Implementation -->
+
+    <data>
+        <!-- Standalone template for payment methods page -->
+        <template id="portal_my_payment_methods" name="TTS Payment Methods">
+
+            <!-- Payment methods styles migrated to static/src/scss/pages/_payment-methods.scss (PHASE 5) -->
+                <!-- PAYMENT METHODS PAGE - Using common account_page_layout -->
+                <t t-call="custom_shop_templates.account_page_layout">
+                    <t t-set="current_page" t-value="'payment_method'"/>
+                    <t t-set="with_shadow" t-value="False"/>
+
+                    <!-- CONTENT SECTION - Page-specific content -->
+                    <div class="tts-content-section">
+
+                            <!-- MAIN CONTENT AREA -->
+                            <div>
+                                <t t-set="partner" t-value="request.env.user.partner_id"/>
+                                <t t-set="preferred_method" t-value="partner.preferred_payment_method_code or ''"/>
+                                <t t-set="has_saved_method" t-value="bool(partner.preferred_payment_method_code)"/>
+                                <t t-set="show_form" t-value="request.params.get('edit') == '1'"/>
+                                <t t-set="show_success" t-value="request.params.get('success') == '1'"/>
+
+                                <!-- SUCCESS BANNER -->
+                                <t t-if="show_success">
+                                    <t t-call="custom_shop_templates.banner_alert">
+                                        <t t-set="banner_type" t-value="'success'"/>
+                                        <t t-set="banner_message" t-value="'Payment Method changed successfully.'"/>
+                                        <t t-set="banner_class" t-value="'tts-mb-24'"/>
+                                    </t>
+                                </t>
+
+                                <!-- SHOW SAVED METHOD (if exists and not in edit mode) -->
+                                <t t-if="has_saved_method">
+                                    <div class="tts-payment-card-section"
+                                         data-view="card"
+                                         t-att-style="'display: none;' if show_form else ''">
+                                        <div class="tts-flex-col-gap-24">
+                                        <p class="tts-section-description">The following Payment Method will be used on the checkout page by default.</p>
+
+                                        <div class="tts-payment-method-card-wrapper">
+                                            <div class="tts-payment-card-shadow"></div>
+                                            <div class="tts-payment-method-card">
+                                                <div class="tts-payment-card-content">
+                                                    <p class="tts-payment-card-title">Payment Method</p>
+                                                    <p class="tts-payment-card-value">
+                                                        <t t-if="partner.preferred_payment_method_code in ['card', 'credit_card']">Credit Card</t>
+                                                        <t t-elif="partner.preferred_payment_method_code == 'paypal'">PayPal</t>
+                                                        <t t-elif="partner.preferred_payment_method_code == 'bank_transfer'">Bank Transfer</t>
+                                                        <t t-elif="partner.preferred_payment_method_code == 'demo'">Demo (Testing)</t>
+                                                        <t t-else="">Not Set</t>
+                                                    </p>
+                                                </div>
+                                                <a href="#" class="tts-edit-button" data-action="show-form">
+                                                    <span class="tts-edit-text">edit</span>
+                                                    <img class="tts-edit-icon" src="/custom_shop_templates/static/src/img/icons/account_edit_icon.svg" alt="Edit"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        </div>  <!-- Close tts-flex-col-gap-24 -->
+                                    </div>  <!-- Close tts-payment-card-section -->
+                                </t>  <!-- Close t-if has_saved_method -->
+
+                                <!-- SHOW EMPTY STATE OR FORM -->
+                                <div class="tts-payment-form-section"
+                                     data-view="form"
+                                     t-att-style="'display: block;' if show_form else 'display: none;'">
+                                    <!-- INFO BANNER (only if no saved method) -->
+                                    <t t-if="not has_saved_method">
+                                        <t t-call="custom_shop_templates.banner_alert">
+                                            <t t-set="banner_type" t-value="'info'"/>
+                                            <t t-set="banner_message" t-value="'You have not set any default Payment Method yet.'"/>
+                                            <t t-set="banner_class" t-value="'tts-mb-64'"/>
+                                        </t>
+                                    </t>
+
+                                    <!-- PAYMENT FORM -->
+                                    <div class="tts-payment-form">
+                                        <h2 class="tts-section-title">Payment</h2>
+                                        <p class="tts-section-description">Please select your default Payment Method.</p>
+
+                                        <form id="tts-payment-form" class="tts-flex-col-gap-24">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" id="selected-method" name="payment_method" value=""/>
+
+                                            <!-- CREDIT CARD OPTION -->
+                                            <div class="tts-payment-option" data-method="credit_card">
+                                                    <div class="tts-payment-option-shadow"></div>
+                                                    <div class="tts-payment-option-content" onclick="toggleCreditCard()">
+                                                        <div class="tts-payment-option-header">
+                                                            <img class="tts-payment-icon" src="/custom_shop_templates/static/src/img/payment/single_bank_icon.svg" alt=""/>
+                                                            <p class="tts-payment-label">Credit Card</p>
+                                                            <div class="tts-radio-button" id="radio-credit-card"></div>
+                                                        </div>
+
+                                                        <div class="tts-card-brands">
+                                                            <div class="tts-card-brand">
+                                                                <img src="/custom_shop_templates/static/src/img/payment/visa-icon.svg" alt="Visa"/>
+                                                            </div>
+                                                            <div class="tts-card-brand">
+                                                                <img src="/custom_shop_templates/static/src/img/payment/mastercard-icon.svg" alt="Mastercard"/>
+                                                            </div>
+                                                            <div class="tts-card-brand">
+                                                                <img src="/custom_shop_templates/static/src/img/payment/amex-icon.svg" alt="Amex"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <p class="tts-payment-description">
+                                                            Pay with your credit card via <a href="#">Stripe</a>.
+                                                        </p>
+
+                                                        <div class="tts-credit-card-fields" id="credit-card-fields">
+                                                            <!-- DEMO MODE: Functional HTML inputs -->
+                                                            <div class="tts-payment-form-field">
+                                                                <label class="tts-payment-form-label">Card Number</label>
+                                                                <div class="tts-payment-form-input-wrapper">
+                                                                    <div class="tts-payment-form-input-shadow"></div>
+                                                                    <input type="text"
+                                                                           id="demo-card-number"
+                                                                           class="tts-payment-form-input demo-input"
+                                                                           placeholder="1234 1234 1234 1234"
+                                                                           maxlength="19"
+                                                                           data-stripe-element="cardNumber"/>
+                                                                    <!-- PRODUCTION: Stripe Elements will replace this -->
+                                                                    <div id="card-number-element" class="stripe-element tts-display-none"></div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tts-payment-form-row">
+                                                                <div class="tts-payment-form-field">
+                                                                    <label class="tts-payment-form-label">Expiry Date</label>
+                                                                    <div class="tts-payment-form-input-wrapper">
+                                                                        <div class="tts-payment-form-input-shadow"></div>
+                                                                        <input type="text"
+                                                                               id="demo-card-expiry"
+                                                                               class="tts-payment-form-input demo-input"
+                                                                               placeholder="MM / YY"
+                                                                               maxlength="7"
+                                                                               data-stripe-element="cardExpiry"/>
+                                                                        <!-- PRODUCTION: Stripe Elements -->
+                                                                        <div id="card-expiry-element" class="stripe-element tts-display-none"></div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="tts-payment-form-field">
+                                                                    <label class="tts-payment-form-label">Card Code (CVC)</label>
+                                                                    <div class="tts-payment-form-input-wrapper">
+                                                                        <div class="tts-payment-form-input-shadow"></div>
+                                                                        <input type="text"
+                                                                               id="demo-card-cvc"
+                                                                               class="tts-payment-form-input demo-input"
+                                                                               placeholder="CVC"
+                                                                               maxlength="4"
+                                                                               data-stripe-element="cardCvc"/>
+                                                                        <!-- PRODUCTION: Stripe Elements -->
+                                                                        <div id="card-cvc-element" class="stripe-element tts-display-none"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <p class="tts-demo-note tts-mt-8">
+                                                                Demo mode - Use test card: 4242 4242 4242 4242
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            <!-- PAYPAL OPTION -->
+                                            <div class="tts-payment-option" data-method="paypal">
+                                                <div class="tts-payment-option-shadow"></div>
+                                                <div class="tts-payment-option-content" onclick="selectPaymentMethod('paypal')">
+                                                    <div class="tts-payment-option-header">
+                                                        <img class="tts-payment-icon" src="/custom_shop_templates/static/src/img/payment/single_paypal_icon.svg" alt=""/>
+                                                        <p class="tts-payment-label">PayPal</p>
+                                                        <div class="tts-radio-button" id="radio-paypal"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- BANK TRANSFER OPTION -->
+                                            <div class="tts-payment-option" data-method="bank_transfer">
+                                                <div class="tts-payment-option-shadow"></div>
+                                                <div class="tts-payment-option-content" onclick="selectPaymentMethod('bank_transfer')">
+                                                    <div class="tts-payment-option-header">
+                                                        <img class="tts-payment-icon" src="/custom_shop_templates/static/src/img/payment/single_bank_icon.svg" alt=""/>
+                                                        <p class="tts-payment-label">Bank Transfer</p>
+                                                        <div class="tts-radio-button" id="radio-bank-transfer"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- DEMO OPTION (Development only) -->
+                                            <div class="tts-payment-option" data-method="demo">
+                                                <div class="tts-payment-option-shadow"></div>
+                                                <div class="tts-payment-option-content" onclick="selectPaymentMethod('demo')">
+                                                    <div class="tts-payment-option-header">
+                                                        <img class="tts-payment-icon" src="/custom_shop_templates/static/src/img/payment/single_bank_icon.svg" alt=""/>
+                                                        <p class="tts-payment-label">Demo (Testing)</p>
+                                                        <div class="tts-radio-button" id="radio-demo"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- SAVE BUTTON -->
+                                            <div class="tts-button-wrapper">
+                                                <div class="tts-button-shadow"></div>
+                                                <button type="submit" class="tts-button tts-button-primary">
+                                                    Save changes
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>  <!-- Close tts-payment-form-section -->
+
+                            </div>  <!-- Close main content area div (line 21) -->
+
+                    </div>  <!-- Close tts-content-section -->
+
+                </t>  <!-- Close t-call="account_page_layout" -->
+
+                <script type="text/javascript">
+                    <![CDATA[
+                    // Global state
+                    let selectedMethod = null;
+
+                    // Toggle Credit Card expansion
+                    function toggleCreditCard() {
+                        const fields = document.getElementById('credit-card-fields');
+                        const isExpanded = fields.classList.contains('expanded');
+
+                        if (!isExpanded) {
+                            fields.classList.add('expanded');
+                            selectPaymentMethod('credit_card');
+                        }
+                    }
+
+                    // Select payment method
+                    function selectPaymentMethod(method) {
+                        selectedMethod = method;
+                        document.getElementById('selected-method').value = method;
+
+                        // Update radio buttons
+                        document.querySelectorAll('.tts-radio-button').forEach(radio => {
+                            radio.classList.remove('selected');
+                        });
+
+                        const radioId = 'radio-' + method.replace('_', '-');
+                        const radioElement = document.getElementById(radioId);
+                        if (radioElement) {
+                            radioElement.classList.add('selected');
+                        }
+
+                        // Collapse/expand payment method specific fields
+                        // Only Credit Card has expandable content (will save payment.token)
+                        // PayPal, Bank Transfer, Demo only save preference (no expandable content)
+                        const creditCardFields = document.getElementById('credit-card-fields');
+
+                        if (method === 'credit_card') {
+                            if (creditCardFields) creditCardFields.classList.add('expanded');
+                        } else {
+                            // For paypal, bank_transfer, demo - just collapse credit card
+                            if (creditCardFields) creditCardFields.classList.remove('expanded');
+                        }
+                    }
+
+                    // Auto-format card number (add spaces every 4 digits)
+                    function formatCardNumber(input) {
+                        let value = input.value.replace(/\s/g, '');
+                        let formatted = value.match(/.{1,4}/g);
+                        input.value = formatted ? formatted.join(' ') : value;
+                    }
+
+                    // Format expiry date (add / after MM)
+                    function formatExpiry(input) {
+                        let value = input.value.replace(/\D/g, '');
+                        if (value.length >= 2) {
+                            input.value = value.substring(0, 2) + ' / ' + value.substring(2, 4);
+                        } else {
+                            input.value = value;
+                        }
+                    }
+
+                    // Basic validation for demo inputs
+                    function validateDemoInputs() {
+                        if (selectedMethod === 'credit_card') {
+                            const cardNumber = document.getElementById('demo-card-number').value.replace(/\s/g, '');
+                            const expiry = document.getElementById('demo-card-expiry').value;
+                            const cvc = document.getElementById('demo-card-cvc').value;
+
+                            if (cardNumber.length < 13) {
+                                alert('Please enter a valid card number');
+                                return false;
+                            }
+                            if (!expiry.includes('/') || expiry.length < 7) {
+                                alert('Please enter a valid expiry date (MM / YY)');
+                                return false;
+                            }
+                            if (cvc.length < 3) {
+                                alert('Please enter a valid CVC code');
+                                return false;
+                            }
+                        } else if (selectedMethod === 'paypal') {
+                            const email = document.getElementById('demo-paypal-email').value;
+                            if (!email.includes('@')) {
+                                alert('Please enter a valid PayPal email');
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
+                    // Save preference via JSON RPC
+                    async function savePaymentPreference(methodCode) {
+                        try {
+                            const response = await fetch('/my/payment_method/save_preference', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    jsonrpc: '2.0',
+                                    method: 'call',
+                                    params: {
+                                        payment_method_code: methodCode
+                                    }
+                                })
+                            });
+                            const data = await response.json();
+                            return data.result;
+                        } catch (error) {
+                            console.error('Error saving preference:', error);
+                            return {success: false, error: error.message};
+                        }
+                    }
+
+                    // Form submission
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Pre-select preferred method from server
+                        const preferredMethod = '<t t-esc="preferred_method"/>';
+                        if (preferredMethod) {
+                            selectPaymentMethod(preferredMethod);
+                        }
+
+                        // Setup card number formatting
+                        const cardNumberInput = document.getElementById('demo-card-number');
+                        if (cardNumberInput) {
+                            cardNumberInput.addEventListener('input', function() {
+                                formatCardNumber(this);
+                            });
+                        }
+
+                        // Setup expiry formatting
+                        const expiryInput = document.getElementById('demo-card-expiry');
+                        if (expiryInput) {
+                            expiryInput.addEventListener('input', function() {
+                                formatExpiry(this);
+                            });
+                        }
+
+                        // Form submission handler
+                        const form = document.getElementById('tts-payment-form');
+                        if (form) {
+                            form.addEventListener('submit', async function(e) {
+                                e.preventDefault();
+
+                                if (!selectedMethod) {
+                                    alert('Please select a payment method');
+                                    return;
+                                }
+
+                                // Validate demo inputs
+                                if (!validateDemoInputs()) {
+                                    return;
+                                }
+
+                                // Save preference via JSON
+                                console.log('Saving payment preference:', selectedMethod);
+                                const result = await savePaymentPreference(selectedMethod);
+
+                                if (result.success) {
+                                    console.log('Preference saved successfully');
+                                    // TODO: If credit_card, also create payment.token via Odoo backend
+                                    // For now, just show success
+                                    window.location.href = '/my/payment_method?success=1';
+                                } else {
+                                    alert('Error saving preference: ' + (result.error || 'Unknown error'));
+                                }
+                            });
+                        }
+                    });
+                    ]]>
+                </script>
+
+        </template>
+    </data>
+</odoo>

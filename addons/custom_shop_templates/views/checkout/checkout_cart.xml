@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CHECKOUT CART LAYOUT - Using same pattern as shop_cart.xml
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="checkout_layout_cart_header" inherit_id="website_sale.checkout_layout">
+            <!-- Disable Odoo wizard checkout in ALL checkout pages -->
+            <xpath expr="//t[@t-set='show_wizard_checkout']" position="replace">
+                <t t-set="show_wizard_checkout" t-value="False"/>
+            </xpath>
+
+            <!-- Insert breadcrumb and title BEFORE checkout (outside) -->
+            <xpath expr="//div[hasclass('oe_website_sale')]" position="before">
+                <div class="tts-account-wrapper">
+                    <!-- Cart breadcrumb and title -->
+                    <t t-if="show_shorter_cart_summary">
+                        <div class="tts-breadcrumb-wrapper">
+                            <t t-call="custom_shop_templates.breadcrumb_cart"/>
+                            <div class="tts-account-header">
+                                <h1 class="tts-cart-page-title">Cart</h1>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Checkout steps breadcrumb and title (address, shipping, payment) -->
+                    <t t-if="not show_shorter_cart_summary">
+                        <div class="tts-breadcrumb-wrapper">
+                            <t t-call="custom_shop_templates.breadcrumb_checkout"/>
+                            <div class="tts-checkout-header">
+                                <h1 class="tts-cart-page-title">Checkout</h1>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+
+            <!-- Add custom class for CSS targeting -->
+            <xpath expr="//div[hasclass('oe_website_sale')]" position="attributes">
+                <attribute name="class" add="o_website_sale_checkout tts-checkout-page" separator=" "/>
+            </xpath>
+        </template>
+
+        <template id="checkout_cart" inherit_id="website_sale.cart" name="TTS Checkout Cart">
+            <!-- Hide "ORDER OVERVIEW" text -->
+            <xpath expr="//h3[text()='Order overview']" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </xpath>
+        </template>
+
+        <!-- Cart Lines Custom - Replicas cart_lines para usar el diseño de shop_cart.xml -->
+        <template id="checkout_cart_lines_custom" inherit_id="website_sale.cart_lines">
+            <!-- Replace the entire cart_lines content with our custom design -->
+            <xpath expr="//div[@id='cart_products']" position="replace">
+                <!-- Cart Products - Show when there are items -->
+                <div id="cart_products"       
+                     t-if="website_sale_order and website_sale_order.website_order_line"
+                     class="js_cart_lines">
+
+                    <!-- Cart Items List - Figma Design (same as shop_cart.xml) -->
+                    <t t-foreach="website_sale_order.website_order_line" t-as="line">
+                        <div class="cart-item o_cart_product">
+                            <div class="cart-item-image-wrapper tts-halftone-shadow">
+                                <!-- Product Image -->
+                                <div class="cart-item-image">
+                                    <div class="cart-item-image-inner">
+                                        <img t-att-src="line.product_id.image_1920 and '/web/image/product.product/%s/image_1920' % line.product_id.id or '/web/static/img/placeholder.png'"
+                                             t-att-alt="line.product_id.name"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart Item Content -->
+                            <div class="cart-item-content">
+                                <!-- Item Header -->
+                                <div class="cart-item-header">
+                                    <div class="cart-item-info">
+                                        <h3 class="cart-item-title" t-field="line.product_id.name"/>
+                                        <p class="cart-item-description">Short product description</p>
+                                        <p class="cart-item-delivery">
+                                            Delivery:
+                                            <t t-if="line.product_id.sale_delay">
+                                                <t t-esc="line.product_id.sale_delay"/> Days
+                                            </t>
+                                            <t t-else="">
+                                                1 Week
+                                            </t>
+                                        </p>
+                                    </div>
+                                    <div class="cart-item-price">
+                                        <span t-field="line.price_subtotal"
+                                              t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                    </div>
+                                </div>
+
+                                <!-- Item Actions -->
+                                <div class="cart-item-actions">
+                                    <!-- Quantity Selector (Odoo Functional - input-group requerido) -->
+                                    <div class="quantity-selector tts-halftone-shadow input-group">
+                                        <div class="quantity-selector-inner">
+                                            <input type="text"
+                                                   t-att-value="int(line.product_uom_qty)"
+                                                   t-att-data-line-id="line.id"
+                                                   t-att-data-product-id="line.product_id.id"
+                                                   class="js_quantity form-control"
+                                                   name="quantity"/>
+
+                                            <!-- Dropdown Figma con botones +/- heredados -->
+                                            <div class="quantity-selector-dropdown">
+                                                <!-- Botón Superior: Incrementar (+) -->
+                                                <a href="#"
+                                                   class="js_add_cart_json quantity-dropdown-plus"
+                                                   t-att-data-line-id="line.id"
+                                                   t-att-data-product-id="line.product_id.id"
+                                                   aria-label="Add one"
+                                                   title="Add one">
+                                                    <i class="fa fa-plus tts-d-none"></i>
+                                                </a>
+
+                                                <!-- Botón Inferior: Decrementar (-) -->
+                                                <a href="#"
+                                                   class="js_add_cart_json quantity-dropdown-minus"
+                                                   t-att-data-line-id="line.id"
+                                                   t-att-data-product-id="line.product_id.id"
+                                                   aria-label="Remove one"
+                                                   title="Remove one">
+                                                    <i class="fa fa-minus tts-d-none"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete Button (Odoo Functional) -->
+                                    <a href="#"
+                                       class="delete-button js_delete_product"
+                                       t-att-data-line-id="line.id"
+                                       t-att-data-product-id="line.product_id.id"
+                                       title="Remove from cart">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+                <!-- Empty Cart Message - Figma Design -->
+                <div t-if="not website_sale_order or not website_sale_order.website_order_line"
+                     class="empty-cart js_cart_lines">
+                    <h2 class="empty-cart-title">Your cart is empty</h2>
+                    <p class="empty-cart-description">Add some products to get started</p>
+                </div>
+            </xpath>
+        </template>
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CHECKOUT LAYOUT CUSTOM - Replace entire summary section (cart + accordion)
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="checkout_layout_summary_full" inherit_id="website_sale.checkout_layout">
+            <!-- Replace both conditional blocks: show_shorter_cart_summary AND accordion -->
+            <xpath expr="//div[@id='o_cart_summary']" position="replace">
+                <!-- CART PAGE: Shorter summary (only prices, products shown in main area) -->
+                <div t-if="show_shorter_cart_summary"
+                     class="offset-xl-1 col-lg-5 col-xl-4 order-2"
+                     id="o_cart_summary">
+                    <!-- TTS cart summary design (prices only) -->
+                    <t t-call="custom_shop_templates.checkout_cart_summary_tts"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='o_wsale_total_accordion']" position="replace">
+                <!-- CHECKOUT PAGES: Unified summary card (products + coupon + prices) -->
+                <div t-if="not show_shorter_cart_summary"
+                     class="offset-xl-1 col-lg-5 col-xl-4 order-1 order-lg-2"
+                     id="o_wsale_total_accordion">
+                    <div class="tts-checkout-summary tts-halftone-shadow"
+                         t-if="website_sale_order and website_sale_order.website_order_line">
+
+                        <!-- Summary Header -->
+                        <div class="tts-summary-header">
+                            <h2 class="tts-summary-title">Order Summary</h2>
+                            <a href="/shop/cart" class="tts-edit-cart-link">
+                                <span>edit Cart</span>
+                            </a>
+                        </div>
+
+                        <!-- Products Section (scrollable) -->
+                        <div class="tts-summary-products">
+                            <t t-foreach="website_sale_order.website_order_line" t-as="line">
+                                <t t-if="line.product_id and not line.display_type">
+                                    <div class="tts-summary-product-item">
+                                        <!-- Product Image -->
+                                        <div class="tts-product-image-wrapper">
+                                            <div class="tts-product-image">
+                                                <div class="tts-product-image-inner">
+                                                    <img t-att-src="line.product_id.image_128 and '/web/image/product.product/%s/image_128' % line.product_id.id or '/web/static/img/placeholder.png'"
+                                                         t-att-alt="line.product_id.name"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Product Details -->
+                                        <div class="tts-product-details">
+                                            <div class="tts-product-info">
+                                                <h6 class="tts-product-name" t-field="line.product_id.name"/>
+                                                <p class="tts-product-description" t-if="line.product_id.description_sale" t-esc="line.product_id.description_sale"/>
+                                                <p class="tts-product-delivery">
+                                                    Delivery:
+                                                    <t t-if="line.product_id.sale_delay">
+                                                        <t t-esc="line.product_id.sale_delay"/> Days
+                                                    </t>
+                                                    <t t-else="">1 Week</t>
+                                                </p>
+                                                <p class="tts-product-quantity">
+                                                    Quantity: <t t-esc="int(line.product_uom_qty)"/>
+                                                </p>
+                                            </div>
+                                            <div class="tts-product-price">
+                                                <span t-field="line.price_subtotal"
+                                                      t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+                        </div>
+
+                        <!-- Coupon Section -->
+                        <div class="tts-summary-coupon">
+                            <form class="tts-coupon-form" method="post" t-attf-action="/shop/cart?#{keep_query('*', code=False)}">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="tts-coupon-input-wrapper">
+                                    <input type="text"
+                                           name="promo"
+                                           class="tts-coupon-input"
+                                           placeholder="Coupon code"
+                                           t-att-value="website_sale_order.pricelist_id.code if website_sale_order.pricelist_id and website_sale_order.pricelist_id.code else ''"/>
+                                    <button type="submit" class="tts-coupon-button">Apply</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Prices Section -->
+                        <div class="tts-summary-prices">
+                            <div class="tts-price-rows">
+                                <div class="tts-price-row">
+                                    <span class="tts-price-label bold">Subtotal</span>
+                                    <span class="tts-price-value bold">
+                                        <span t-field="website_sale_order.amount_untaxed"
+                                              t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                    </span>
+                                </div>
+                                <div class="tts-price-row">
+                                    <span class="tts-price-label">Shipping</span>
+                                    <span class="tts-price-value">
+                                        <span t-if="website_sale_order._has_deliverable_products() and website_sale_order.carrier_id"
+                                              t-field="website_sale_order.amount_delivery"
+                                              t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                        <span t-else="">€ 0,00</span>
+                                    </span>
+                                </div>
+                                <div class="tts-price-row">
+                                    <span class="tts-price-label">19% VAT</span>
+                                    <span class="tts-price-value">
+                                        <span t-field="website_sale_order.amount_tax"
+                                              t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tts-price-total">
+                                <span class="tts-price-label bold">Total</span>
+                                <span class="tts-price-value bold tts-total-amount">
+                                    <span t-field="website_sale_order.amount_total"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <div class="tts-summary-action">
+                            <div class="tts-action-button">
+                                <button type="button" class="tts-button-disabled" disabled="">Buy now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        TTS CART SUMMARY - Reusable summary component (prices + button)
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="checkout_cart_summary_tts" name="TTS Cart Summary">
+            <!-- TTS cart summary design -->
+            <div id="cart_total" t-if="website_sale_order and website_sale_order.website_order_line" class="cart-summary tts-halftone-shadow">
+
+                    <div class="cart-summary-container">
+                        <!-- Summary Header -->
+                        <div class="cart-summary-header">
+                            <h2 class="cart-summary-title">
+                                Your Order (<t t-esc="len([l for l in website_sale_order.website_order_line if l.product_id and not l.display_type])"/>)
+                            </h2>
+                        </div>
+
+                        <!-- Price Breakdown -->
+                        <div class="cart-summary-price-section">
+                            <!-- Subtotal Row -->
+                            <div class="cart-summary-row" id="order_total_untaxed">
+                                <span class="cart-summary-label bold">Subtotal</span>
+                                <span class="cart-summary-value bold">
+                                    <span t-field="website_sale_order.amount_untaxed"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+
+                            <!-- Delivery Row -->
+                            <div class="cart-summary-row" id="order_delivery">
+                                <span class="cart-summary-label">Shipping</span>
+                                <span class="cart-summary-value">
+                                    <span t-if="website_sale_order._has_deliverable_products() and website_sale_order.carrier_id"
+                                          t-field="website_sale_order.amount_delivery"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                    <span t-else="">Calculated at checkout</span>
+                                </span>
+                            </div>
+
+                            <!-- Taxes Row -->
+                            <div class="cart-summary-row" id="order_total_taxes">
+                                <span class="cart-summary-label">VAT</span>
+                                <span class="cart-summary-value">
+                                    <span t-field="website_sale_order.amount_tax"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+
+                            <!-- Total Row -->
+                            <div class="cart-summary-row total" id="order_total">
+                                <span class="cart-summary-label bold">Total</span>
+                                <span class="cart-summary-value bold cart-summary-total">
+                                    <span t-field="website_sale_order.amount_total"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="cart-summary-actions">
+                            <!-- Checkout Button -->
+                            <div class="checkout-button tts-halftone-shadow">
+                                <a href="/shop/checkout"
+                                   t-attf-class="tts-button w-100 {{'' if website_sale_order and website_sale_order.website_order_line else 'disabled'}}"
+                                   t-att-aria-disabled="'true' if not website_sale_order or not website_sale_order.website_order_line else None">
+                                    <span>Go to checkout</span>
+                                </a>
+                            </div>
+
+                            <!-- Payment Methods -->
+                            <div class="payment-methods">
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/visa-icon.svg" alt="Visa"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/mastercard-icon.svg" alt="Mastercard"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/amex-icon.svg" alt="American Express"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/paypal-icon.svg" alt="PayPal"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </template>
+    </data>
+
+</odoo>

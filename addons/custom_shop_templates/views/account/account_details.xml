@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Account Details Page - Figma MCP Design with 3 responsive breakpoints (SM/MD/LG) -->
+
+    <data>
+        <!-- ============================================
+             ACCOUNT DETAILS MAIN VIEW - Read-only Card
+             ============================================ -->
+        <template id="portal_my_account_details" name="TTS Portal Account Details">
+
+            <t t-call="portal.frontend_layout">
+                <t t-set="page_title" t-value="'Account Details'"/>
+                <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+            <div class="wrap">
+        <!-- Account details styles migrated to static/src/scss/pages/_account-details.scss (PHASE 5) -->
+                <div class="tts-account-details-page">
+                    <div class="tts-account-details-wrapper">
+                        <!-- Breadcrumb -->
+                        <t t-call="custom_shop_templates.breadcrumb_account"/>
+
+                        <!-- Header -->
+                        <div class="tts-account-details-header">
+                            <t t-call="custom_shop_templates.account_page_title"/>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="tts-account-details-content">
+                            <!-- ACCOUNT NAVIGATION (Reusable Component) -->
+                            <t t-call="custom_shop_templates.account_navigation">
+                                <t t-set="current_page" t-value="'account_details'"/>
+                                <t t-set="with_shadow" t-value="False"/>
+                            </t>
+
+                            <!-- Account Details Section -->
+                            <div class="tts-details-section w-100">
+                                <!-- Success Banner -->
+                                <t t-if="success">
+                                    <t t-call="custom_shop_templates.banner_alert">
+                                        <t t-set="banner_type" t-value="'success'"/>
+                                        <t t-set="banner_message" t-value="'Account Details changed successfully.'"/>
+                                        <t t-set="banner_class" t-value="'tts-mb-24'"/>
+                                    </t>
+                                </t>
+
+                                <!-- Account Details Card -->
+                                <div class="tts-details-card-wrapper">
+                                    <div class="tts-details-card-shadow"></div>
+                                    <div class="tts-details-card">
+                                        <div class="tts-details-card-content">
+                                            <h3 class="tts-details-card-title">Account Details</h3>
+                                            <div class="tts-details-info">
+                                                <p class="tts-details-line">
+                                                    <t t-esc="partner.name or ''"/>
+                                                    <span class="tts-mx-20"></span>
+                                                    <t t-esc="partner.phone or ''"/>
+                                                    <span class="tts-mx-20"></span>
+                                                    <t t-esc="partner.email or ''"/>
+                                                </p>
+                                                <p class="tts-details-line">
+                                                    <strong>Display Name:</strong> <t t-esc="partner.name or ''"/>
+                                                </p>
+                                                <p class="tts-details-line">
+                                                    <strong>Password:</strong> Last update <t t-esc="password_write_date.strftime('%Y-%m-%d') if password_write_date else 'Never'"/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a href="/my/account/edit" class="tts-edit-btn">
+                                            <span>edit</span>
+                                            <div class="tts-edit-icon">
+                                                <img src="/custom_shop_templates/static/src/img/icons/account_edit_icon.svg" alt="Edit"/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>  <!-- Close wrap -->
+            </t>  <!-- Close t-call="portal.frontend_layout" -->
+        </template>
+
+        <!-- ============================================
+             ACCOUNT DETAILS EDIT VIEW - Form
+             ============================================ -->
+        <template id="portal_my_account_details_edit" name="TTS Portal Account Details Edit">
+
+            <t t-call="portal.frontend_layout">
+                <t t-set="page_title" t-value="'Account Details'"/>
+                <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+            <div class="wrap">
+        <!-- Account details styles migrated to static/src/scss/pages/_account-details.scss (PHASE 5) -->
+                <div class="tts-account-edit-page">
+                    <div class="tts-account-edit-wrapper">
+                        <!-- Breadcrumb -->
+                        <t t-call="custom_shop_templates.breadcrumb_account"/>
+
+                        <!-- Header -->
+                        <div class="tts-account-details-header">
+                            <t t-call="custom_shop_templates.account_page_title"/>
+                        </div>
+
+                        <!-- Content -->
+                        <div class="tts-account-details-content">
+                            <!-- ACCOUNT NAVIGATION (Reusable Component) -->
+                            <t t-call="custom_shop_templates.account_navigation">
+                                <t t-set="current_page" t-value="'account_details'"/>
+                                <t t-set="with_shadow" t-value="True"/>
+                            </t>
+
+                            <!-- Form Section -->
+                            <div class="tts-account-form-section">
+                                <form method="POST" action="/my/account/save" class="tts-form-container" id="account-details-form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <!-- Personal Information Section -->
+                                    <div class="tts-account-form-section">
+                                        <!-- First Name + Last Name (2 columns in LG) -->
+                                        <div class="tts-account-form-row two-cols">
+                                            <div class="tts-account-form-field">
+                                                <label class="tts-account-form-label" for="first_name">First name</label>
+                                                <div class="tts-account-form-input-wrapper">
+                                                    <div class="tts-account-form-input-shadow"></div>
+                                                    <input type="text"
+                                                           id="first_name"
+                                                           name="first_name"
+                                                           class="tts-account-form-input"
+                                                           t-att-value="partner.name.split()[0] if partner.name else ''"
+                                                           required="required"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="tts-account-form-field">
+                                                <label class="tts-account-form-label" for="last_name">Last name</label>
+                                                <div class="tts-account-form-input-wrapper">
+                                                    <div class="tts-account-form-input-shadow"></div>
+                                                    <input type="text"
+                                                           id="last_name"
+                                                           name="last_name"
+                                                           class="tts-account-form-input"
+                                                           t-att-value="' '.join(partner.name.split()[1:]) if partner.name and len(partner.name.split()) > 1 else ''"
+                                                           required="required"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Display Name -->
+                                        <div class="tts-account-form-field">
+                                            <label class="tts-account-form-label" for="display_name">Display name</label>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <input type="text"
+                                                       id="display_name"
+                                                       name="display_name"
+                                                       class="tts-account-form-input"
+                                                       t-att-value="partner.name or ''"
+                                                       required="required"/>
+                                            </div>
+                                            <p class="tts-form-help-text">This will be how your name will be displayed in the account section and in reviews</p>
+                                        </div>
+
+                                        <!-- Company Name (Optional) -->
+                                        <div class="tts-account-form-field">
+                                            <div class="tts-account-form-label-row">
+                                                <label class="tts-account-form-label" for="company_name">Company name</label>
+                                                <span class="tts-account-form-label-optional">Optional</span>
+                                            </div>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <input type="text"
+                                                       id="company_name"
+                                                       name="company_name"
+                                                       class="tts-account-form-input"
+                                                       t-att-value="partner.commercial_company_name or ''"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- VAT-ID (Optional) -->
+                                        <div class="tts-account-form-field">
+                                            <div class="tts-account-form-label-row">
+                                                <label class="tts-account-form-label" for="vat">VAT-ID</label>
+                                                <span class="tts-account-form-label-optional">Optional</span>
+                                            </div>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <input type="text"
+                                                       id="vat"
+                                                       name="vat"
+                                                       class="tts-account-form-input"
+                                                       t-att-value="partner.vat or ''"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Phone (Optional) -->
+                                        <div class="tts-account-form-field">
+                                            <div class="tts-account-form-label-row">
+                                                <label class="tts-account-form-label" for="phone">Phone</label>
+                                                <span class="tts-account-form-label-optional">Optional</span>
+                                            </div>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <input type="tel"
+                                                       id="phone"
+                                                       name="phone"
+                                                       class="tts-account-form-input"
+                                                       t-att-value="partner.phone or ''"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email (Required) -->
+                                        <div class="tts-account-form-field">
+                                            <label class="tts-account-form-label" for="email">Email</label>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <input type="email"
+                                                       id="email"
+                                                       name="email"
+                                                       t-attf-class="tts-account-form-input #{error == 'email' and 'error' or ''}"
+                                                       t-att-value="partner.email or ''"
+                                                       required="required"/>
+                                            </div>
+                                            <t t-if="error == 'email'">
+                                                <p class="tts-form-error-text" t-esc="error_message or 'Please enter a valid Email Address.'"/>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Change Section -->
+                                    <div class="tts-account-form-section">
+                                        <h2 class="tts-account-form-section-title">Password change</h2>
+
+                                        <!-- Current Password -->
+                                        <div class="tts-account-form-field">
+                                            <label class="tts-account-form-label" for="current_password">Current Password</label>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <div class="tts-password-wrapper">
+                                                    <input type="password"
+                                                           id="current_password"
+                                                           name="current_password"
+                                                           class="tts-account-form-input"/>
+                                                    <button type="button" class="tts-password-toggle" onclick="togglePassword('current_password')">
+                                                        <svg viewBox="0 0 20 20" fill="none">
+                                                            <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z" stroke="#FFEBDC" stroke-width="1"/>
+                                                            <circle cx="10" cy="10" r="3" stroke="#FFEBDC" stroke-width="1"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <t t-if="error == 'password'">
+                                                <p class="tts-form-error-text" t-esc="error_message or 'Password error'"/>
+                                            </t>
+                                        </div>
+
+                                        <!-- New Password -->
+                                        <div class="tts-account-form-field">
+                                            <label class="tts-account-form-label" for="new_password">New Password</label>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <div class="tts-password-wrapper">
+                                                    <input type="password"
+                                                           id="new_password"
+                                                           name="new_password"
+                                                           class="tts-account-form-input"/>
+                                                    <button type="button" class="tts-password-toggle" onclick="togglePassword('new_password')">
+                                                        <svg viewBox="0 0 20 20" fill="none">
+                                                            <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z" stroke="#FFEBDC" stroke-width="1"/>
+                                                            <circle cx="10" cy="10" r="3" stroke="#FFEBDC" stroke-width="1"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Confirm Password -->
+                                        <div class="tts-account-form-field">
+                                            <label class="tts-account-form-label" for="confirm_password">Confirm new Password</label>
+                                            <div class="tts-account-form-input-wrapper">
+                                                <div class="tts-account-form-input-shadow"></div>
+                                                <div class="tts-password-wrapper">
+                                                    <input type="password"
+                                                           id="confirm_password"
+                                                           name="confirm_password"
+                                                           class="tts-account-form-input"/>
+                                                    <button type="button" class="tts-password-toggle" onclick="togglePassword('confirm_password')">
+                                                        <svg viewBox="0 0 20 20" fill="none">
+                                                            <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z" stroke="#FFEBDC" stroke-width="1"/>
+                                                            <circle cx="10" cy="10" r="3" stroke="#FFEBDC" stroke-width="1"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="tts-button-wrapper">
+                                        <div class="tts-button-shadow"></div>
+                                        <button type="submit" class="tts-button-primary">
+                                            Save changes
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript for Password Toggle -->
+                <script type="text/javascript">
+                    function togglePassword(inputId) {
+                        const input = document.getElementById(inputId);
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                        } else {
+                            input.type = 'password';
+                        }
+                    }
+                </script>
+
+            </div>  <!-- Close wrap -->
+            </t>  <!-- Close t-call="portal.frontend_layout" -->
+        </template>
+
+    </data>
+</odoo>

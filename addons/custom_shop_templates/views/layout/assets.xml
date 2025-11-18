@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ========================================
+             TTS BOOTSTRAP WEBSITE - FRONTEND ASSETS
+             ========================================
+
+             NOTE: In Odoo 18/19, we add CSS/JS assets via the 'assets' key in __manifest__.py
+             OR we can add inline styles via website.layout template inheritance.
+
+             For now, CSS variables are defined in addons/custom_shop_templates/static/src/scss/base_layout.xml (inline in head)
+        -->
+
+        <!-- PLACEHOLDER: Assets will be loaded via __manifest__.py 'assets' section when needed -->
+
+        <!-- Example of how to add assets via manifest (currently commented out in __manifest__.py):
+
+        'assets': {
+            'web.assets_frontend': [
+                'custom_shop_templates/static/src/scss/variables.scss',
+                'custom_shop_templates/static/src/scss/main.scss',
+                'custom_shop_templates/static/src/js/app.js',
+            ],
+        },
+        -->
+
+    </data>
+</odoo>

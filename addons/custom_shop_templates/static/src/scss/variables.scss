@@ -1,0 +1,412 @@
+// ========================================
+// TTS BOOTSTRAP WEBSITE - VARIABLES
+// ========================================
+// TTS brand variables for Bootstrap integration
+
+// ========================================
+// TTS BRAND COLORS - MOST USED COLORS FROM FIGMA
+// ========================================
+// Based on frequency analysis of variable_colors.md
+
+// CSS Custom Properties (for direct use in templates)
+:root {
+  /* MOST USED COLORS (Defined as variables - frequency based) */
+  --tts-light: #FFEBDC;             /* Most used (39 times) - Light backgrounds, text */
+  --tts-dark: #000000;              /* 2nd most used (32 times) - Primary text, borders */
+  --tts-secondary: #C1A998;         /* 3rd most used (15 times) - Secondary text, placeholders */
+  --tts-surface-dark: #171717;      /* 4th most used (9 times) - Dark surfaces */
+  --tts-surface-medium: #404040;    /* 5th most used (8 times) - Medium surfaces */
+  --tts-brand-primary: #FF4600;     /* 6th most used (7 times) - Brand orange */
+  --tts-card-dark: #525252;         /* 7th most used (6 times) - Dark cards */
+
+  /* TYPOGRAPHY */
+  --tts-font-family: 'BentonSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// SCSS Variables (for internal use in SCSS files)
+// MOST FREQUENT COLORS ONLY
+$tts-light: #FFEBDC;               // 39 occurrences
+$tts-dark: #000000;                // 32 occurrences
+$tts-secondary: #C1A998;           // 15 occurrences
+$tts-surface-dark: #171717;        // 9 occurrences
+$tts-surface-medium: #404040;      // 8 occurrences
+$tts-brand-primary: #FF4600;       // 7 occurrences
+$tts-card-dark: #525252;           // 6 occurrences
+
+// ========================================
+// BASE LAYOUT VARIABLES
+// ========================================
+// Layout background: #404040 (Medium gray surface - main page background)
+
+$base-body-bg: $tts-surface-medium;      // #404040 - Main layout background
+$base-body-color: $tts-light;            // #FFEBDC - Main text color
+
+// ========================================
+// FIGMA COLOR DICTIONARY - LESS FREQUENT COLORS
+// ========================================
+// Complete dictionary of all other colors from Figma (not defined as variables)
+// Use these hex codes directly when needed: style="color: #22C55E"
+
+/* 
+COLOR FREQUENCY DICTIONARY (Remaining colors from variable_colors.md):
+
+FEEDBACK & STATUS COLORS:
+#22C55E    (2 times) - Success green, feedback active
+#E0F2FE    (2 times) - Info surface, light blue background  
+#0369A1    (2 times) - Info blue, links
+#15803D    (1 time)  - Success message text (dark green)
+#DCFCE7    (1 time)  - Success surface background (light green)
+#FEE2E2    (1 time)  - Error surface background (light red)
+#B91C1C    (1 time)  - Error text color (dark red)
+
+ALTERNATIVE BRAND COLORS:
+#FF5E00    (1 time)  - Alternative orange
+#F9A000    (1 time)  - Warm orange  
+#ED0006    (1 time)  - Red accent
+#EAB308    (1 time)  - Yellow accent
+
+BLUE SYSTEM COLORS:
+#1F72CD    (1 time)  - Primary blue
+#179BD7    (1 time)  - Light blue  
+#172B85    (1 time)  - Dark blue
+#253B80    (1 time)  - Navy blue
+#222D65    (1 time)  - Dark navy
+#BAE6FD    (1 time)  - Very light blue
+
+NEUTRAL COLORS:
+#FFFFFF    (1 time)  - Pure white
+
+USAGE EXAMPLES:
+// For success states: color: #22C55E; background: #DCFCE7;
+// For error states: color: #B91C1C; background: #FEE2E2;  
+// For info states: color: #0369A1; background: #E0F2FE;
+// For alternative orange: background-color: #FF5E00;
+// For yellow accents: color: #EAB308;
+*/
+
+// ========================================
+// TTS TYPOGRAPHY
+// ========================================
+
+// ========================================
+// BENTONSANS FONT FILES - CURRENTLY DISABLED
+// ========================================
+// ⚠️ BentonSans @font-face declarations are COMMENTED OUT
+// ⚠️ Font files DO NOT EXIST in static/src/fonts/
+// ⚠️ Browser is using FALLBACK FONTS (system fonts)
+//
+// Current fallback stack:
+// -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
+//
+// TO ENABLE BENTONSANS:
+// 1. Create directory: static/src/fonts/
+// 2. Add these font files:
+//    - BentonSans-Regular.woff2 (weight: 400)
+//    - BentonSans-Medium.woff2 (weight: 500)
+//    - BentonSans-Bold.woff2 (weight: 700)
+// 3. Uncomment @font-face declarations below (lines 101-127)
+// 4. Restart Odoo to recompile SCSS
+//
+// NOTE: Even though font-family: BentonSans is declared everywhere,
+// it won't render until @font-face is uncommented and files exist.
+// ========================================
+
+/*
+@font-face {
+  font-family: 'BentonSans';
+  src: url('../fonts/BentonSans-Regular.woff2') format('woff2'),
+       url('../fonts/BentonSans-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BentonSans';
+  src: url('../fonts/BentonSans-Medium.woff2') format('woff2'),
+       url('../fonts/BentonSans-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'BentonSans';
+  src: url('../fonts/BentonSans-Bold.woff2') format('woff2'),
+       url('../fonts/BentonSans-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+// ========================================
+// TTS TYPOGRAPHY SYSTEM (FIGMA-BASED)
+// ========================================
+// Typography variables from Figma design system analysis
+// All combinations extracted from sm.html, md.html, lg.html
+
+// Font Family
+$tts-font-family: 'BentonSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+// Font Weights
+$tts-font-weight-regular: 400;
+$tts-font-weight-medium: 500;
+$tts-font-weight-bold: 700;
+
+// ========================================
+// OVERRIDE BOOTSTRAP/ODOO FONT VARIABLES
+// ========================================
+// Override Odoo's Bootstrap font variables to use BentonSans
+// These must be set BEFORE Bootstrap compiles (though they load after, we use !default fallback)
+
+// Override Bootstrap base font
+$font-family-base: $tts-font-family !default;
+$font-family-sans-serif: $tts-font-family !default;
+
+// Override Odoo font variables (if they exist when our SCSS loads)
+$o-font-family-sans-serif: $tts-font-family !default;
+$o-headings-font-family: $tts-font-family !default;
+
+// ========================================
+// TYPOGRAPHY SCALE (Figma combinations)
+// ========================================
+// Format: size/weight/line-height (frequency in Figma)
+
+// Body Text (14px - most used)
+$tts-text-body-size: 14px;
+$tts-text-body-weight: $tts-font-weight-regular;      // 400
+$tts-text-body-line-height: 20px;
+// Usage: 52 times - Main body text, descriptions, labels
+
+$tts-text-body-bold-size: 14px;
+$tts-text-body-bold-weight: $tts-font-weight-bold;    // 700
+$tts-text-body-bold-line-height: 20px;
+// Usage: 26 times - Bold body text, emphasized text
+
+// Small Text (14px bold with taller line-height)
+$tts-text-small-bold-size: 14px;
+$tts-text-small-bold-weight: $tts-font-weight-bold;   // 700
+$tts-text-small-bold-line-height: 24px;
+// Usage: 2 times - Small bold text with extra spacing
+
+// Medium Text (16px)
+$tts-text-medium-size: 16px;
+$tts-text-medium-weight: $tts-font-weight-regular;    // 400
+$tts-text-medium-line-height: 24px;
+// Usage: Medium body text, subtitles
+
+$tts-text-medium-bold-size: 16px;
+$tts-text-medium-bold-weight: $tts-font-weight-bold;  // 700
+$tts-text-medium-bold-line-height: 24px;
+// Usage: 4 times - Bold medium text
+
+// Large Text (18px)
+$tts-text-large-size: 18px;
+$tts-text-large-weight: $tts-font-weight-regular;     // 400
+$tts-text-large-line-height: 32px;
+// Usage: 2 times - Large regular text with spacious line-height
+
+$tts-text-large-bold-size: 18px;
+$tts-text-large-bold-weight: $tts-font-weight-bold;   // 700
+$tts-text-large-bold-line-height: 28px;
+// Usage: 12 times - Large bold headings (primary variant)
+
+$tts-text-large-bold-alt-size: 18px;
+$tts-text-large-bold-alt-weight: $tts-font-weight-bold; // 700
+$tts-text-large-bold-alt-line-height: 24px;
+// Usage: 12 times - Large bold headings (compact variant)
+
+// Heading Text (20px)
+$tts-heading-size: 20px;
+$tts-heading-weight: $tts-font-weight-regular;        // 400
+$tts-heading-line-height: 32px;
+// Usage: Regular heading text
+
+$tts-heading-bold-size: 20px;
+$tts-heading-bold-weight: $tts-font-weight-bold;      // 700
+$tts-heading-bold-line-height: 32px;
+// Usage: Bold heading text
+
+// ========================================
+// TYPOGRAPHY MIXINS (for easy application)
+// ========================================
+
+// Body Text Mixin (most common - 14px/400/20px)
+@mixin tts-text-body {
+  font-family: $tts-font-family;
+  font-size: $tts-text-body-size;
+  font-weight: $tts-text-body-weight;
+  line-height: $tts-text-body-line-height;
+}
+
+// Body Bold Mixin (14px/700/20px)
+@mixin tts-text-body-bold {
+  font-family: $tts-font-family;
+  font-size: $tts-text-body-bold-size;
+  font-weight: $tts-text-body-bold-weight;
+  line-height: $tts-text-body-bold-line-height;
+}
+
+// Medium Text Mixin (16px/400/24px)
+@mixin tts-text-medium {
+  font-family: $tts-font-family;
+  font-size: $tts-text-medium-size;
+  font-weight: $tts-text-medium-weight;
+  line-height: $tts-text-medium-line-height;
+}
+
+// Medium Bold Mixin (16px/700/24px)
+@mixin tts-text-medium-bold {
+  font-family: $tts-font-family;
+  font-size: $tts-text-medium-bold-size;
+  font-weight: $tts-text-medium-bold-weight;
+  line-height: $tts-text-medium-bold-line-height;
+}
+
+// Large Text Mixin (18px/400/32px)
+@mixin tts-text-large {
+  font-family: $tts-font-family;
+  font-size: $tts-text-large-size;
+  font-weight: $tts-text-large-weight;
+  line-height: $tts-text-large-line-height;
+}
+
+// Large Bold Mixin (18px/700/28px)
+@mixin tts-text-large-bold {
+  font-family: $tts-font-family;
+  font-size: $tts-text-large-bold-size;
+  font-weight: $tts-text-large-bold-weight;
+  line-height: $tts-text-large-bold-line-height;
+}
+
+// Heading Mixin (20px/400/32px)
+@mixin tts-heading {
+  font-family: $tts-font-family;
+  font-size: $tts-heading-size;
+  font-weight: $tts-heading-weight;
+  line-height: $tts-heading-line-height;
+}
+
+// Heading Bold Mixin (20px/700/32px)
+@mixin tts-heading-bold {
+  font-family: $tts-font-family;
+  font-size: $tts-heading-bold-size;
+  font-weight: $tts-heading-bold-weight;
+  line-height: $tts-heading-bold-line-height;
+}
+
+// ========================================
+// SPACING SYSTEM (EJE Y - VERTICAL)
+// ========================================
+// Espaciado entre secciones en eje Y (vertical)
+// - Mobile (SM): 64px total
+// - Tablet (MD): 120px total
+// - Desktop (LG): 128px total
+
+// CSS Custom Properties (for direct use in templates)
+:root {
+  // Mobile (< 768px): 64px spacing
+  --tts-section-spacing-y: 4rem;        // 64px - Total vertical spacing
+  --tts-section-padding-y: 2rem;        // 32px - Padding Y (top + bottom)
+
+  // Tablet (≥ 768px): 120px spacing
+  --tts-section-spacing-y-md: 7.5rem;   // 120px - Total vertical spacing
+  --tts-section-padding-y-md: 3.75rem;  // 60px - Padding Y (top + bottom)
+
+  // Desktop (≥ 992px): 128px spacing
+  --tts-section-spacing-y-lg: 8rem;     // 128px - Total vertical spacing
+  --tts-section-padding-y-lg: 4rem;     // 64px - Padding Y (top + bottom)
+}
+
+// SCSS Variables
+// Mobile (SM < 768px)
+$tts-section-spacing-y-sm: 4rem;      // 64px total
+$tts-section-padding-y-sm: 2rem;      // 32px padding Y
+
+// Tablet (MD ≥ 768px)
+$tts-section-spacing-y-md: 7.5rem;    // 120px total
+$tts-section-padding-y-md: 3.75rem;   // 60px padding Y
+
+// Desktop (LG ≥ 992px)
+$tts-section-spacing-y-lg: 8rem;      // 128px total
+$tts-section-padding-y-lg: 4rem;      // 64px padding Y
+
+// ========================================
+// BORDER RADIUS DICTIONARY
+// ========================================
+$tts-border-radius-sm: 8px;      // Small elements (buttons, icons)
+$tts-border-radius: 12px;         // Standard (cards, inputs)
+$tts-border-radius-lg: 16px;      // Large (sections, containers)
+$tts-border-radius-pill: 9999px;  // Pills/rounded buttons
+
+// ========================================
+// HALFTONE SHADOW SYSTEM
+// ========================================
+// Universal halftone SVG (replaces 16 individual SVG files)
+// Path is relative from static/src/scss/ to static/src/img/
+$tts-halftone-pattern-url: '../img/halftone/halftone-universal.svg';
+$tts-halftone-offset-x: 6px;
+$tts-halftone-offset-y: 6px;
+$tts-halftone-rotation: -1deg;
+$tts-halftone-z-index: 0;  // Changed from -1 to 0, content must have z-index: 1
+
+// CSS Custom Properties (for direct use in templates)
+:root {
+  --tts-halftone-pattern-url: '/custom_shop_templates/static/src/img/halftone/halftone-universal.svg';
+  --tts-halftone-offset-x: 6px;
+  --tts-halftone-offset-y: 6px;
+  --tts-halftone-rotation: -1deg;
+  --tts-halftone-z-index: 0;
+}
+
+// ========================================
+// USAGE EXAMPLES
+// ========================================
+/*
+SCSS Usage with Mixins:
+.product-description {
+  @include tts-text-body;        // 14px/400/20px
+  color: $tts-secondary;
+}
+
+.product-title {
+  @include tts-text-large-bold;  // 18px/700/28px
+  color: $tts-dark;
+}
+
+.section-heading {
+  @include tts-heading-bold;     // 20px/700/32px
+  color: $tts-light;
+}
+
+QWeb/HTML Usage with inline styles:
+<div style="font-family: BentonSans; font-size: 14px; font-weight: 400; line-height: 20px;">
+  Body text
+</div>
+
+<div style="font-family: BentonSans; font-size: 18px; font-weight: 700; line-height: 28px;">
+  Large bold heading
+</div>
+*/
+
+// ========================================
+// PHASE 5: ADDITIONAL VARIABLES FOR STYLE BLOCKS MIGRATION
+// ========================================
+
+// Gap/Spacing Variables
+$tts-gap-40: 40px;
+$tts-gap-48: 48px;
+$tts-gap-64: 64px;
+$tts-gap-82: 82px;
+$tts-gap-119: 119px;
+$tts-gap-120: 120px;
+
+// Border Radius XL (24px)
+$tts-border-radius-xl: 24px;
+
+// Common Responsive Widths
+$tts-width-sm: 375px;
+$tts-width-md: 768px;
+$tts-width-lg: 992px;   // Aligned with Bootstrap LG breakpoint (was 1280px)
+$tts-width-xl: 1536px;

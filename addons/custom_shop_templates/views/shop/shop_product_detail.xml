@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <data>
+        <template id="product_detail_custom" inherit_id="website_sale.product">
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            1. HIDE UNNECESSARY ELEMENTS
+            ═══════════════════════════════════════════════════════════════
+            -->
+            <!-- Hide Odoo's default breadcrumb -->
+            <xpath expr="//ol[hasclass('breadcrumb')]" position="replace"/>
+
+            <!-- Hide search box -->
+            <xpath expr="//t[@t-call='website_sale.search']" position="replace"/>
+
+            <!-- Hide pricelist -->
+            <xpath expr="//t[@t-call='website_sale.pricelist_list']" position="replace"/>
+
+            <!-- Note: o_wsale_product_images div is hidden via CSS in base_layout.xml -->
+
+            <!-- Hide Odoo's product title (we'll add our Figma design) -->
+            <xpath expr="//h1[@itemprop='name']" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </xpath>
+
+            <!-- Hide Odoo's product description -->
+            <xpath expr="//div[@t-field='product.description_ecommerce']" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </xpath>
+
+            <!-- Hide Odoo's product price section -->
+            <xpath expr="//t[@t-call='website_sale.product_price']" position="replace"/>
+
+            <!-- Note: Share buttons and terms text are optional elements added by other templates.
+                 They will be hidden via CSS in the base_layout.xml if needed. -->
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            2. ADD BREADCRUMB NAVIGATION
+            ═══════════════════════════════════════════════════════════════
+            -->
+            <xpath expr="//div[@id='product_detail_main']" position="before">
+                <!-- Breadcrumb: HOME > Shop > Product Name -->
+                <t t-call="custom_shop_templates.breadcrumb_product"/>
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            3. ADD FIGMA TWO-COLUMN LAYOUT STYLES
+            ═══════════════════════════════════════════════════════════════
+            -->
+            <xpath expr="//div[@id='product_detail_main']" position="attributes">
+                <attribute name="class" add="row product-details-row" separator=" "/>
+            </xpath>
+
+            <xpath expr="//div[@id='product_detail_main']" position="inside">
+            <!-- Product detail layout styles migrated to static/src/scss/components.scss (PHASE 5) -->            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            4. ADD FIGMA IMAGE GALLERY (LEFT COLUMN)
+            ═══════════════════════════════════════════════════════════════
+            -->
+            <xpath expr="//div[@id='product_details']" position="before">
+                <!-- LEFT COLUMN: IMAGE GALLERY -->
+                <div class="col-12 col-md-auto image-gallery-col">
+
+                    <!-- Main Product Image with Halftone -->
+                    <div class="mb-3">
+
+                        <!-- Main Image Container with Halftone -->
+                        <div class="tts-halftone-shadow-image-large position-relative border border-2 border-dark rounded tts-bg-light tts-radius-24 tts-border-dark tts-z-1">
+
+                            <!-- Product Image -->
+                            <img t-attf-src="/web/image/product.template/#{product.id}/image_1920"
+                                 t-att-alt="product.name"
+                                 class="img-fluid w-100 rounded position-relative tts-radius-24 tts-img-cover tts-z-1 tts-aspect-1"/>
+
+                            <!-- Zoom Button - Figma specs: 32x32px, bg-dark, circular halftone shadow -->
+                            <!-- TODO: Implement zoom functionality when Figma product card template is released -->
+                            <!-- Outer wrapper: Positioning (position: absolute + z-index to elevate above image) -->
+                            <div class="position-absolute bottom-0 end-0 m-3" style="z-index: 2;">
+                                <!-- Inner wrapper: Halftone shadow (position: relative from mixin) -->
+                                <div class="tts-halftone-shadow-zoom">
+                                    <button type="button"
+                                            class="position-relative d-flex align-items-center justify-content-center w-100 h-100 p-2 tts-bg-surface-dark rounded-circle border border-2 border-dark tts-z-1">
+                                        <!-- Icon: 16x16 maximise.svg -->
+                                        <img t-att-src="'/custom_shop_templates/static/src/img/icons/maximise.svg'"
+                                             style="width: 16px; height: 16px;"
+                                             alt="Zoom"/>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Thumbnail Gallery (gap-8px constant, pb-8px) -->
+                        <div class="d-flex overflow-auto tts-gallery-container">
+
+                            <!-- Thumbnail 1: Main product image (always shown) -->
+                            <div class="tts-halftone-shadow-button-cart flex-shrink-0 tts-w-64">
+                                <img t-attf-src="/web/image/product.template/#{product.id}/image_256"
+                                     t-att-alt="product.name"
+                                     class="img-fluid border border-2 border-dark rounded cursor-pointer position-relative tts-thumbnail-64"/>
+                            </div>
+
+                            <!-- Thumbnails 2-4: Additional product images (only if they exist) -->
+                            <t t-foreach="product.product_template_image_ids[:3]" t-as="extra_image">
+                                <div class="tts-halftone-shadow-button-cart flex-shrink-0 tts-w-64">
+                                    <img t-attf-src="/web/image/product.image/#{extra_image.id}/image_256"
+                                         t-att-alt="product.name"
+                                         class="img-fluid border border-2 border-dark rounded cursor-pointer opacity-50 position-relative tts-thumbnail-64"/>
+                                </div>
+                            </t>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            5. ADD FIGMA PRODUCT INFO (RIGHT COLUMN)
+            ═══════════════════════════════════════════════════════════════
+            Insert content BEFORE the CTA wrapper so it appears in correct order
+            -->
+            <xpath expr="//div[@id='product_details']" position="attributes">
+                <attribute name="class" add="col-12 col-md d-flex flex-column justify-content-center justify-content-md-start" separator=" "/>
+            </xpath>
+
+            <!-- Insert content BEFORE CTA wrapper for correct order -->
+            <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="before">
+
+                <!-- Product Meta Information -->
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+
+                    <!-- Discount Badge -->
+                    <t t-set="discount_percent" t-value="int(((product.compare_list_price - product.list_price) / product.compare_list_price) * 100) if product.compare_list_price and product.compare_list_price > product.list_price else 0"/>
+                    <div t-if="discount_percent > 0"
+                         class="badge border border-2 border-dark rounded-pill px-3 py-2 tts-bg-brand-primary tts-badge-discount">
+                        -<t t-esc="discount_percent"/>%
+                    </div>
+
+                    <!-- SKU -->
+                    <span class="text-nowrap tts-text-light tts-meta-text">
+                        SKU: <t t-esc="product.default_code or 'N/A'"/>
+                    </span>
+
+                    <!-- Category -->
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="tts-text-light tts-meta-text">
+                            Category:
+                        </span>
+                        <t t-if="product.public_categ_ids">
+                            <t t-foreach="product.public_categ_ids[:1]" t-as="category">
+                                <a t-attf-href="/shop/category/#{slug(category)}"
+                                   class="text-decoration-none position-relative tts-text-light tts-meta-link">
+                                    <t t-esc="category.name"/>
+                                    <div class="position-absolute bottom-0 start-0 w-100 tts-link-underline"></div>
+                                </a>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <a href="#"
+                               class="text-decoration-none position-relative tts-text-light tts-meta-link">
+                                Uncategorized
+                                <div class="position-absolute bottom-0 start-0 w-100 tts-link-underline"></div>
+                            </a>
+                        </t>
+                    </div>
+                </div>
+
+                <!-- Product Title -->
+                <h1 class="mb-4 tts-product-title">
+                    <t t-esc="product.name or 'Product Name'"/>
+                </h1>
+
+                <!-- Product Description -->
+                <p class="mb-4 tts-product-description">
+                    <t t-if="product.description_ecommerce">
+                        <t t-esc="product.description_ecommerce"/>
+                    </t>
+                    <t t-elif="product.description_sale">
+                        <t t-esc="product.description_sale"/>
+                    </t>
+                    <t t-else="">
+                        High-quality product with premium features and exceptional performance. Perfect for your needs.
+                    </t>
+                </p>
+
+                <!-- Pricing Section -->
+                <div class="mb-4">
+
+                    <!-- Prices -->
+                    <div class="mb-2">
+                        <!-- Original Price (if discounted) -->
+                        <div t-if="product.compare_list_price and product.compare_list_price > product.list_price"
+                             class="text-decoration-line-through mb-1 tts-price-original">
+                            <t t-esc="product.compare_list_price"
+                               t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        </div>
+
+                        <!-- Current Price -->
+                        <div class="tts-price-current">
+                            <t t-esc="product.list_price or '0,00'"
+                               t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                        </div>
+                    </div>
+
+                    <!-- VAT and Shipping Info -->
+                    <t t-set="vat_tax" t-value="product.taxes_id.filtered(lambda t: t.type_tax_use == 'sale' and t.amount_type == 'percent')[:1]"/>
+                    <t t-set="vat_rate" t-value="int(vat_tax.amount) if vat_tax else 19"/>
+
+                    <div class="d-flex flex-wrap align-items-center gap-1 tts-vat-info">
+                        <span>excl. <t t-esc="vat_rate"/>% VAT plus</span>
+                        <a href="#"
+                           class="text-decoration-none position-relative tts-text-light tts-shipping-link">
+                            shipping costs
+                            <div class="position-absolute bottom-0 start-0 w-100 tts-link-underline"></div>
+                        </a>
+                    </div>
+
+                    <!-- Stock Status -->
+                    <t t-set="total_stock" t-value="sum(product.sudo().product_variant_ids.mapped('qty_available')) if product.product_variant_ids else 0"/>
+                    <t t-set="stock_bg_color" t-value="'#22C55E' if total_stock > 10 else ('#EAB308' if total_stock > 0 else '#EF4444')"/>
+
+                    <div class="d-flex align-items-center gap-3 mt-4">
+                        <div class="rounded-circle border border-2 border-dark tts-stock-dot"
+                             t-attf-style="background-color: #{stock_bg_color};"></div>
+                        <span class="tts-text-light tts-stock-text">
+                            <t t-if="total_stock > 10">In stock</t>
+                            <t t-elif="total_stock > 0">Limited stock</t>
+                            <t t-else="">Out of stock</t>
+                        </span>
+                    </div>
+
+                </div>
+
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            6. REPLACE CTA WRAPPER WITH CUSTOM DESIGN (Odoo Functional)
+            ═══════════════════════════════════════════════════════════════
+            Replace o_wsale_cta_wrapper with our Figma design while preserving
+            all Odoo functional IDs and classes for JavaScript compatibility
+            -->
+            <xpath expr="//div[@id='o_wsale_cta_wrapper']" position="replace">
+                <!-- Custom CTA Wrapper (Figma Design + Odoo Functional) -->
+                <div id="o_wsale_cta_wrapper" class="d-flex flex-wrap align-items-center">
+
+                    <!-- Combined Container (Quantity + Button) - Unified Design -->
+                    <div class="tts-halftone-shadow w-100">
+                        <div class="d-flex border border-2 border-dark rounded overflow-hidden position-relative tts-cta-border">
+
+                        <!-- Quantity Selector (Odoo Functional + Custom Design) -->
+                        <div class="css_quantity input-group d-flex align-items-center gap-3 px-3 tts-quantity-bg">
+
+                            <!-- Decrease Button -->
+                            <a href="#"
+                               class="btn btn-link js_add_cart_json d-inline-flex align-items-center justify-content-center p-0 border-0 tts-btn-transparent"
+                               aria-label="Remove one"
+                               title="Remove one">
+                                <!-- Hidden Font Awesome icon for Odoo JS detection -->
+                                <i class="fa fa-minus d-none"></i>
+                                <!-- Visible custom SVG icon -->
+                                <img src="/custom_shop_templates/static/src/img/icons/minus-icon.svg"
+                                     alt="Minus"
+                                     class="tts-icon-24 tts-icon-no-events"/>
+                            </a>
+
+                            <!-- Quantity Input (Odoo Functional) -->
+                            <input type="text"
+                                   name="add_qty"
+                                   value="1"
+                                   data-min="1"
+                                   class="quantity form-control text-center border-0 p-0 tts-quantity-input"/>
+
+                            <!-- Increase Button -->
+                            <a href="#"
+                               class="btn btn-link js_add_cart_json d-inline-flex align-items-center justify-content-center p-0 border-0 tts-btn-transparent"
+                               aria-label="Add one"
+                               title="Add one">
+                                <!-- Hidden Font Awesome icon for Odoo JS detection -->
+                                <i class="fa fa-plus d-none"></i>
+                                <!-- Visible custom SVG icon -->
+                                <img src="/custom_shop_templates/static/src/img/icons/plus-icon.svg"
+                                     alt="Plus"
+                                     class="tts-icon-24 tts-icon-no-events"/>
+                            </a>
+
+                        </div>
+
+                        <!-- Add to Cart Button (Odoo Functional + Custom Design) -->
+                        <div id="add_to_cart_wrap" class="flex-grow-1">
+                            <a href="#"
+                               role="button"
+                               id="add_to_cart"
+                               data-animation-selector=".o_wsale_product_images"
+                               class="js_check_product a-submit d-flex align-items-center justify-content-center gap-3 border-0 text-decoration-none w-100 tts-add-to-cart-btn">
+                                Add to cart
+                                <img src="/custom_shop_templates/static/src/img/icons/cart-header.svg"
+                                     alt="Cart"
+                                     class="tts-icon-20"/>
+                            </a>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Product Option Block (Required for Variants) -->
+                    <div id="product_option_block" class="d-flex flex-wrap w-100"></div>
+
+                </div>
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════
+            2. ADD COMPONENTS AFTER PRODUCT DETAIL SECTION
+            ═══════════════════════════════════════════════════════════════
+            -->
+            <xpath expr="//section[@id='product_detail']" position="after">
+
+                <!-- Article Narrow - Dynamic (uses product data) -->
+                <t t-call="custom_shop_templates.article_narrow_dynamic">
+                    <t t-set="product" t-value="product"/>
+                </t>
+
+                <!-- Related Products (standalone component for product detail page) -->
+                <t t-call="custom_shop_templates.related_products_detail">
+                    <t t-set="product" t-value="product"/>
+                </t>
+
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

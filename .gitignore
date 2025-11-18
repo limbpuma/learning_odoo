@@ -1,0 +1,36 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# IDE workspace files
+.idea/
+.vscode/
+*.code-workspace
+*.iml
+*.iws
+*.ipr
+.code-workspace
+.env
+.claude
+.github
+.DS_Store
+
+# Developer learning/testing modules
+addons/developer_learning/
+addons/tts_website/tests
+addons/tts_website/tests/*
+
+# Playwright (legacy - now in .assistant/)
+baseline/
+screenshots/
+regression-diffs/
+*.log
+
+# Assistant workspace - not part of project (MANDATORY)
+.assistant/
+
+# Local configuration files
+addons/custom_pdf_templates
+addons/custom_email_templates

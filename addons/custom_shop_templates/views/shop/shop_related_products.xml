@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <template id="shop_related_products" inherit_id="website_sale.products">
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            RELATED PRODUCTS SECTION
+            ═══════════════════════════════════════════════════════════════════
+            Add related products section after the View All button
+            -->
+            <xpath expr="//div[@id='tts_view_all_button']" position="after">
+
+                <!--
+                ═══════════════════════════════════════════════════════════════════
+                RELATED PRODUCTS - Bootstrap Grid
+                ═══════════════════════════════════════════════════════════════════
+                Shows additional products not in current page
+                Similar to Odoo's alternative_product_ids logic
+                -->
+
+                <!--
+                Build list of product IDs currently shown in bins (current page)
+                This prevents showing duplicate products
+                -->
+                <t t-set="shown_product_ids" t-value="[]"/>
+                <t t-foreach="bins" t-as="tr_product">
+                    <t t-foreach="tr_product" t-as="td_product">
+                        <t t-if="td_product">
+                            <t t-set="shown_product_ids" t-value="shown_product_ids + [td_product['product'].id]"/>
+                        </t>
+                    </t>
+                </t>
+
+                <!--
+                Get related products: products from search_product NOT in current page
+                Limit to 4 products (similar to Odoo's default)
+                -->
+                <t t-set="related_products" t-value="[]"/>
+                <t t-set="related_count" t-value="0"/>
+                <t t-if="search_product">
+                    <t t-foreach="search_product" t-as="product">
+                        <t t-if="product.id not in shown_product_ids and related_count &lt; 4">
+                            <t t-set="related_products" t-value="related_products + [product]"/>
+                            <t t-set="related_count" t-value="related_count + 1"/>
+                        </t>
+                    </t>
+                </t>
+
+                <!--
+                ═══════════════════════════════════════════════════════════════════
+                RELATED PRODUCTS SECTION - Full Bootstrap Container
+                ═══════════════════════════════════════════════════════════════════
+                Consistent padding with main products grid:
+                - container-fluid: Full width container
+                - px-3 px-md-4 px-lg-5: Responsive horizontal padding
+                - Only render if we have related products
+                -->
+                <div t-if="related_products" class="container-fluid px-3 px-md-4 px-lg-5 mt-5 pt-5">
+
+                    <!-- Section Header -->
+                    <div class="mb-4">
+                        <h2 class="h3 fw-bold mb-2 text-center $tts-light">
+                            <t t-if="category">
+                                More from <span t-esc="category.name"/>
+                            </t>
+                            <t t-else="">
+                                RELATED PRODUCTS
+                            </t>
+                        </h2>
+                    </div>
+
+                    <!--
+                    ═══════════════════════════════════════════════════════════════
+                    RELATED PRODUCTS GRID - Full Bootstrap Layout
+                    ═══════════════════════════════════════════════════════════════
+
+                    Breakpoints:
+                    - SM (Mobile < 768px):  1 column  (col-12)
+                    - MD (Tablet ≥ 768px):  2 columns (col-md-6)
+                    - LG (Desktop ≥ 992px): 4 columns (col-lg-3)
+
+                    Bootstrap Classes:
+                    - row: Flex container for grid
+                    - g-5: Gap 3rem (48px) on mobile
+                    - g-md-3: Gap 1rem (16px) on tablet
+                    - g-lg-3: Gap 1rem (16px) on desktop
+                    - col-12, col-md-6, col-lg-3: Responsive columns
+                    -->
+                    <div class="row g-5 g-md-3 g-lg-3 mb-5">
+                        <t t-foreach="related_products" t-as="product">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <!--
+                                ═══════════════════════════════════════
+                                RELATED PRODUCT CARD
+                                ═══════════════════════════════════════
+                                Same TTS product_card component
+                                Uses product directly (not td_product dict)
+                                -->
+                                <t t-call="custom_shop_templates.product_card">
+                                    <t t-set="product" t-value="product"/>
+                                </t>
+                            </div>
+                        </t>
+                    </div>
+
+                </div>
+
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

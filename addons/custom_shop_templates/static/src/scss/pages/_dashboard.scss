@@ -1,0 +1,34 @@
+// ========================================
+// TTS DASHBOARD - ACCOUNT PAGE STYLES
+// ========================================
+// Now uses common account_page_layout structure
+// Dashboard-specific styles for user info display
+// Responsive breakpoints: SM (Mobile-first) / MD (768px+) / LG (1280px+)
+
+// Note: Dashboard uses position="after" + CSS hiding because account module
+// inherits from portal_my_home and we can't use position="replace"
+
+/* =======================================================
+   DASHBOARD SECTION - Page-specific content
+   ======================================================= */
+.tts-dashboard-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* User Info */
+.tts-user-info {
+    width: 100%;
+    color: $tts-light;
+    @include tts-text-medium;
+}
+
+/* =======================================================
+   RESPONSIVE - LG Breakpoint (1280px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    .tts-dashboard-section {
+        max-width: 738px;
+    }
+}

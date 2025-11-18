@@ -1,0 +1,155 @@
+// ============================================================================
+// CHECKOUT SUMMARY - CHECKOUT PAGES SPECIFIC STYLES
+// ============================================================================
+// Styles specific to checkout flow summary (address, shipping, payment pages)
+// Inherits base styles from _summary-base.scss
+//
+// CHECKOUT-SPECIFIC FEATURES:
+// - Scrollable products section with custom scrollbar
+// - Coupon input section with apply button
+// - "Edit Cart" link in header
+// - "Buy now" button (disabled state)
+//
+// NOTE: Checkout summary shows FULL content: products + coupon + prices
+// Based on design references from .assistant/developer_learning/website/structures/checkout/checkout_summary/
+// ============================================================================
+
+// ============================================================================
+// PRODUCTS SECTION (SCROLLABLE)
+// ============================================================================
+// Scrollable list of products with custom scrollbar styling
+
+.tts-summary-products {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 400px; // Adjust based on design needs
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+
+    // Custom scrollbar styling for webkit browsers
+    &::-webkit-scrollbar {
+        width: 15px;
+        background: #FAFAFA;
+        box-shadow: -1px 0px 0px #F0F0F0 inset;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #C1C1C1;
+        border-radius: 4px;
+        border: 4px solid #FAFAFA;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #FAFAFA;
+    }
+
+    // Firefox scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: #C1C1C1 #FAFAFA;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-products {
+        padding-right: 16px; // Space for scrollbar
+    }
+}
+
+// ============================================================================
+// COUPON SECTION
+// ============================================================================
+// Coupon code input with apply button and shadow
+
+.tts-summary-coupon {
+    padding: 16px 16px 24px 16px; // SM: 16px left/right/top, 24px bottom
+    background-color: $tts-surface-dark;
+    border-top: 2px solid $tts-dark;
+    border-bottom: 2px solid $tts-dark;
+    box-shadow: 0px -8px 12px rgba(0, 0, 0, 0.78);
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-coupon {
+        padding: 24px; // MD/LG: 24px all around
+    }
+}
+
+.tts-coupon-form {
+    width: 100%;
+}
+
+.tts-coupon-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    background-color: $tts-surface-dark;
+    border: 2px solid $tts-light;
+    border-radius: $tts-border-radius;
+    overflow: hidden;
+}
+
+.tts-coupon-input {
+    flex: 1;
+    padding: 16px;
+    font-family: $tts-font-family;
+    font-size: 14px;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+    color: $tts-light;
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+        color: $tts-secondary;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.tts-coupon-button {
+    height: 56px;
+    padding: 16px 20px;
+    background-color: $tts-light;
+    border: none;
+    border-left: 2px solid $tts-light;
+    font-family: $tts-font-family;
+    font-size: 14px;
+    font-weight: $tts-font-weight-bold;
+    line-height: 20px;
+    color: $tts-dark;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:active {
+        opacity: 0.8;
+    }
+}
+
+// ============================================================================
+// CHECKOUT-SPECIFIC OVERRIDES
+// ============================================================================
+
+// Action section border for checkout (prices section already has border-bottom)
+.tts-checkout-summary .tts-summary-action {
+    border-bottom: 2px solid $tts-dark;
+}
+
+// Sticky positioning for checkout summary on large screens
+@media (min-width: $tts-width-lg) {
+    .tts-checkout-summary {
+        position: sticky;
+        top: 24px;
+    }
+}

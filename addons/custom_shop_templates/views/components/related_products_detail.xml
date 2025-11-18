@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Related products grid with responsive layout -->
+
+    <data>
+        <template id="related_products_detail" name="Related Products (Detail Page)">
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            BUILD RELATED PRODUCTS LIST
+            ═══════════════════════════════════════════════════════════════════
+            Priority:
+            1. Alternative products (product.alternative_product_ids)
+            2. Products from same category (if no alternatives)
+            Limit: 4 products maximum
+            -->
+
+            <!-- Get alternative products first -->
+            <t t-set="related_products" t-value="product.alternative_product_ids[:4] if product.alternative_product_ids else []"/>
+
+            <!-- If no alternatives, get products from same category -->
+            <t t-if="not related_products and product.public_categ_ids">
+                <t t-set="category_products" t-value="request.env['product.template'].search([
+                    ('public_categ_ids', 'in', product.public_categ_ids.ids),
+                    ('id', '!=', product.id),
+                    ('website_published', '=', True)
+                ], limit=4)"/>
+                <t t-set="related_products" t-value="category_products"/>
+            </t>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            RELATED PRODUCTS SECTION
+            ═══════════════════════════════════════════════════════════════════
+            Only render if we have related products
+            -->
+            <section t-if="related_products"
+                     class="container-fluid px-3 px-md-4 px-lg-5 py-5"
+                     >
+
+                <!-- Section Header -->
+                <div class="mb-4 mb-md-5">
+                    <h2 class="tts-heading-section">
+                        RELATED PRODUCTS
+                    </h2>
+                </div>
+
+                <!--
+                ═══════════════════════════════════════════════════════════════
+                RELATED PRODUCTS GRID - Bootstrap Layout
+                ═══════════════════════════════════════════════════════════════
+                Breakpoints:
+                - SM (Mobile < 768px):  1 column  (col-12)
+                - MD (Tablet ≥ 768px):  2 columns (col-md-6)
+                - LG (Desktop ≥ 992px): 4 columns (col-lg-3)
+
+                Gap: g-4 (1.5rem / 24px)
+                -->
+                <div class="row g-4">
+                    <t t-foreach="related_products" t-as="related_product">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <!--
+                            ═══════════════════════════════════════
+                            PRODUCT CARD COMPONENT
+                            ═══════════════════════════════════════
+                            Reuses TTS product_card component
+                            -->
+                            <t t-call="custom_shop_templates.product_card">
+                                <t t-set="product" t-value="related_product"/>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+
+            </section>
+
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,456 @@
+// ========================================
+// PAYMENT METHODS PAGE - Migrated from payment_methods.xml <style> block
+// ========================================
+// Extracted styles from lines 11-453 of views/account/payment_methods.xml
+// Converted to SCSS with variables and mixins
+
+/* =======================================================
+   PAYMENT METHOD CONTENT SECTION - Page-specific styles
+   ======================================================= */
+
+.tts-content-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* =======================================================
+   BANNERS - Info and Success
+   ======================================================= */
+
+.tts-info-banner,
+.tts-success-banner {
+    width: 100%;
+    padding: 16px;
+    border-radius: $tts-border-radius;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.tts-info-banner {
+    background: #E0F2FE;  // Info surface - light blue background
+}
+
+.tts-success-banner {
+    background: #DCFCE7;  // Success surface - light green background
+}
+
+.tts-banner-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.tts-banner-text {
+    flex: 1;
+    padding-top: 2px;
+    @include tts-text-body;
+    margin: 0;
+}
+
+.tts-info-banner .tts-banner-text {
+    color: #0369A1;  // Info blue
+}
+
+.tts-success-banner .tts-banner-text {
+    color: #15803D;  // Success message text
+}
+
+/* =======================================================
+   SECTION ELEMENTS - Titles and Descriptions
+   ======================================================= */
+
+.tts-section-title {
+    color: $tts-light;
+    font-size: 24px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+.tts-section-description {
+    color: $tts-light;
+    @include tts-text-medium;
+    margin: 0;
+}
+
+/* =======================================================
+   PAYMENT METHOD CARD - Saved method display
+   ======================================================= */
+
+.tts-payment-method-card-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.tts-payment-card-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: url($tts-halftone-pattern-url) repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: $tts-halftone-z-index;
+}
+
+.tts-payment-method-card {
+    width: 100%;
+    padding: 16px;
+    background: $tts-card-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-payment-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-payment-card-title {
+    color: $tts-light;
+    @include tts-text-body-bold;
+    margin: 0;
+}
+
+.tts-payment-card-value {
+    color: $tts-light;
+    @include tts-text-body;
+    margin: 0;
+}
+
+.tts-edit-button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.tts-edit-text {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+}
+
+.tts-edit-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* =======================================================
+   PAYMENT FORM
+   ======================================================= */
+
+.tts-payment-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* =======================================================
+   PAYMENT OPTION - Radio selection cards
+   ======================================================= */
+
+.tts-payment-option {
+    width: 100%;
+    position: relative;
+}
+
+.tts-payment-option-shadow {
+    position: absolute;
+    left: $tts-halftone-offset-x;
+    top: $tts-halftone-offset-y;
+    right: -$tts-halftone-offset-x;
+    bottom: -$tts-halftone-offset-y;
+    background: url($tts-halftone-pattern-url) repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: $tts-halftone-z-index;
+}
+
+.tts-payment-option-content {
+    width: 100%;
+    padding: 18px 16px 20px;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: #262626;  // Slightly lighter on hover
+    }
+}
+
+.tts-payment-option-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-payment-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.tts-payment-label {
+    flex: 1;
+    color: $tts-light;
+    @include tts-text-body;
+    margin: 0;
+}
+
+/* Radio Button */
+.tts-radio-button {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border: 2px solid $tts-light;
+    background: transparent;
+    position: relative;
+    flex-shrink: 0;
+
+    &.selected::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $tts-light;
+    }
+}
+
+/* =======================================================
+   CARD BRAND ICONS - Visa, Mastercard, Amex
+   ======================================================= */
+
+.tts-card-brands {
+    display: flex;
+    gap: 8px;
+}
+
+.tts-card-brand {
+    width: 34px;
+    height: 24px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+/* =======================================================
+   PAYMENT DESCRIPTION
+   ======================================================= */
+
+.tts-payment-description {
+    color: $tts-light;
+    @include tts-text-body;
+    line-height: 24px;  // Override mixin for this specific case
+    margin: 0;
+
+    a {
+        text-decoration: underline;
+        color: inherit;
+    }
+}
+
+/* =======================================================
+   CREDIT CARD FIELDS - Expandable form section
+   ======================================================= */
+
+.tts-credit-card-fields {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+
+    &.expanded {
+        display: flex;
+    }
+}
+
+.tts-payment-form-row {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.tts-payment-form-field {
+    flex: 1 1 0;
+    min-width: 244px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-payment-form-label {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 16px;
+}
+
+.tts-payment-form-input-wrapper {
+    position: relative;
+}
+
+.tts-payment-form-input-shadow {
+    position: absolute;
+    left: $tts-halftone-offset-x;
+    top: $tts-halftone-offset-y;
+    right: -$tts-halftone-offset-x;
+    bottom: -$tts-halftone-offset-y;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: $tts-halftone-z-index;
+}
+
+.tts-payment-form-input {
+    width: 100%;
+    padding: 18px 16px;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-light;
+    outline-offset: -2px;
+    border: none;
+    color: $tts-light;
+    @include tts-text-body;
+    position: relative;
+    z-index: 1;
+
+    &::placeholder {
+        color: #C1AA99;  // Placeholder color (close to $tts-secondary)
+    }
+
+    &:focus {
+        outline-color: $tts-light;
+        outline-width: 3px;
+    }
+}
+
+/* =======================================================
+   BUTTONS - Primary and Secondary
+   ======================================================= */
+
+.tts-button {
+    height: 56px;
+    padding: 23px 24px;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    @include tts-text-body-bold;
+    text-transform: uppercase;
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.tts-button-primary {
+    background: $tts-light;
+    color: $tts-dark;
+}
+
+.tts-button-secondary {
+    background: transparent;
+    outline-color: $tts-light;
+    color: $tts-light;
+}
+
+.tts-button-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.tts-button-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+.tts-button-shadow {
+    position: absolute;
+    left: $tts-halftone-offset-x;
+    top: $tts-halftone-offset-y;
+    width: 100%;
+    height: 100%;
+    background: url($tts-halftone-pattern-url) repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* =======================================================
+   UTILITY CLASSES
+   ======================================================= */
+
+.hidden {
+    display: none !important;
+}

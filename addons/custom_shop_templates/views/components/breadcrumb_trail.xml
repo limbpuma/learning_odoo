@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Breadcrumb Navigation Trail - Responsive breadcrumb with HOME link + dynamic items + current page -->
+    <!-- Usage: Set breadcrumb_items (list of dicts) and page_title, then t-call="custom_shop_templates.breadcrumb_trail" -->
+
+    <template id="breadcrumb_trail" name="Breadcrumb Navigation Trail">
+        <!-- Breadcrumb Styles -->
+    <!-- Breadcrumb styles migrated to static/src/scss/components.scss (PHASE 5) -->
+        <nav aria-label="breadcrumb" class="tts-breadcrumb">
+            <div class="container-fluid">
+                <div>
+                    <ol class="breadcrumb mb-0 bg-transparent p-0 tts-font-family">
+
+                        <!-- Home breadcrumb item (always present with underline) -->
+                        <li class="breadcrumb-item">
+                            <a href="/"
+                               class="text-decoration-underline text-uppercase fw-bold tts-text-light">
+                                HOME
+                            </a>
+                        </li>
+
+                        <!-- Dynamic breadcrumb items (intermediate pages with links) -->
+                        <t t-if="breadcrumb_items">
+                            <t t-foreach="breadcrumb_items" t-as="item">
+                                <li class="breadcrumb-item">
+                                    <a t-att-href="item.get('url', '#')"
+                                       class="text-decoration-underline text-uppercase fw-bold tts-text-light">
+                                        <t t-esc="item.get('name', '')"/>
+                                    </a>
+                                </li>
+                            </t>
+                        </t>
+
+                        <!-- Current page breadcrumb item (inactive, no link) -->
+                        <li class="breadcrumb-item active text-uppercase fw-bold tts-text-light"
+                            aria-current="page">
+                            <t t-esc="page_title or 'Page'"/>
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </nav>
+    </template>
+
+    <!-- Wrapper templates for specific pages -->
+    <template id="breadcrumb_shop" name="Shop Breadcrumb">
+        <t t-set="page_title" t-value="'Shop'"/>
+        <t t-call="custom_shop_templates.breadcrumb_trail"/>
+    </template>
+
+    <template id="breadcrumb_product" name="Product Detail Breadcrumb">
+        <t t-set="page_title" t-value="product.name if product else 'Product'"/>
+        <t t-call="custom_shop_templates.breadcrumb_trail"/>
+    </template>
+
+    <template id="breadcrumb_cart" name="Cart Breadcrumb">
+        <t t-set="page_title" t-value="'Cart'"/>
+        <t t-call="custom_shop_templates.breadcrumb_trail"/>
+    </template>
+
+    <template id="breadcrumb_checkout" name="Checkout Breadcrumb">
+        <t t-set="page_title" t-value="'Checkout'"/>
+        <t t-call="custom_shop_templates.breadcrumb_trail"/>
+    </template>
+
+    <template id="breadcrumb_account" name="Account Breadcrumb">
+        <t t-set="page_title" t-value="'My Account'"/>
+        <t t-call="custom_shop_templates.breadcrumb_trail"/>
+    </template>
+
+</odoo>

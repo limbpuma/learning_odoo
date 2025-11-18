@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ========================================
+         TTS BOOTSTRAP WEBSITE - FOOTER
+         ========================================
+         Replicated from Figma design - Tentacle Sync footer
+         Responsive: sm (mobile), md (tablet), lg (desktop)
+         Multilanguage support with English as default
+    -->
+
+    <data>
+        <!-- ======================================
+             MAIN FOOTER TEMPLATE
+             ====================================== -->
+        <template id="footer">
+
+            <!-- Footer Container with dark background -->
+            <div class="w-100">
+
+                <!-- Inner container with padding -->
+                <div class="container tts-py-64">
+
+                    <!-- TEAM IMAGE -->
+                    <div class="row mb-4 mb-lg-5">
+                        <div class="col-12">
+                            <img src="/custom_shop_templates/static/src/img/footer/team-photo.png"
+                                 alt="Tentacle Sync Team"
+                                 class="img-fluid w-100 tts-team-img"
+                                 loading="lazy"/>
+                        </div>
+                    </div>
+
+                    <!-- MAIN CONTENT ROW (Two columns on desktop) -->
+                    <div class="row g-4 g-lg-5 mb-5">
+
+                        <!-- LEFT COLUMN: How Can We Help -->
+                        <div class="col-12 col-lg-6">
+
+                            <!-- Heading with description -->
+                            <div class="row align-items-end mb-4">
+                                <div class="col-12 col-md-auto mb-3 mb-md-0">
+                                    <!-- Heading Image SVG with Halftone -->
+                                    <div class="tts-text-halftone-shadow"
+                                         style="--mask-url: url('/custom_shop_templates/static/src/img/footer/heading_how_can_we_help.svg'); max-width: 213px;">
+                                        <img src="/custom_shop_templates/static/src/img/footer/heading_how_can_we_help.svg"
+                                             alt="How can we help?"
+                                             class="tts-img-full-auto"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md">
+                                    <p class="fw-bold mb-0 tts-footer-text">
+                                        See our Help Desk for detailed info about our products and visit our Website to learn more about us.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-flex flex-column flex-sm-row gap-3">
+                                <!-- Visit Help Desk Button (Primary) with Halftone -->
+                                <div class="tts-halftone-shadow d-inline-flex">
+                                    <a href="/help" class="tts-button">
+                                        <span>Visit The Help Desk</span>
+                                        <!-- External link icon -->
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15 10.8333V15C15 15.442 14.8244 15.866 14.5118 16.1785C14.1993 16.4911 13.7754 16.6667 13.3333 16.6667H5C4.55797 16.6667 4.13405 16.4911 3.82149 16.1785C3.50893 15.866 3.33333 15.442 3.33333 15V6.66667C3.33333 6.22464 3.50893 5.80072 3.82149 5.48816C4.13405 5.17559 4.55797 5 5 5H9.16667M12.5 3.33333H16.6667M16.6667 3.33333V7.5M16.6667 3.33333L8.33333 11.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </a>
+                                </div>
+
+                                <!-- Go to Website Button (Secondary) - NO halftone -->
+                                <a href="https://tent-co.com" target="_blank" class="tts-button-outline">
+                                    <span>Go to tent-co.com</span>
+                                    <!-- External link icon -->
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 10.8333V15C15 15.442 14.8244 15.866 14.5118 16.1785C14.1993 16.4911 13.7754 16.6667 13.3333 16.6667H5C4.55797 16.6667 4.13405 16.4911 3.82149 16.1785C3.50893 15.866 3.33333 15.442 3.33333 15V6.66667C3.33333 6.22464 3.50893 5.80072 3.82149 5.48816C4.13405 5.17559 4.55797 5 5 5H9.16667M12.5 3.33333H16.6667M16.6667 3.33333V7.5M16.6667 3.33333L8.33333 11.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <!-- RIGHT COLUMN: Newsletter -->
+                        <div class="col-12 col-lg-6">
+
+                            <!-- Heading with description -->
+                            <div class="row align-items-center mb-4">
+                                <div class="col-12 col-md-auto mb-3 mb-md-0">
+                                    <!-- Heading Image SVG with Halftone -->
+                                    <div class="tts-text-halftone-shadow"
+                                         style="--mask-url: url('/custom_shop_templates/static/src/img/footer/heading_tentacle_newsletter.svg'); max-width: 273px;">
+                                        <img src="/custom_shop_templates/static/src/img/footer/heading_tentacle_newsletter.svg"
+                                             alt="Tentacle Newsletter"
+                                             class="tts-img-full-auto"/>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md">
+                                    <p class="fw-bold mb-0 tts-footer-text">
+                                        Be the first to hear about new products, live events, and more.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Newsletter Form -->
+                            <form action="/newsletter/subscribe" method="post" class="position-relative">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <!-- Newsletter with Halftone (input + button together) -->
+                                <div class="tts-halftone-shadow d-flex">
+                                    <!-- Input + Button wrapper -->
+                                    <div class="input-group position-relative tts-z-1">
+                                        <input type="email"
+                                               name="email"
+                                               class="form-control tts-newsletter-input"
+                                               placeholder="Your email address"
+                                               required="required"/>
+
+                                        <button type="submit"
+                                                class="btn fw-bold text-uppercase tts-newsletter-button">
+                                            Subscribe now!
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                    <!-- FOOTER LINKS & COPYRIGHT -->
+                    <div class="border-top pt-4 pt-lg-5 tts-border-light">
+
+                        <!-- Footer Links -->
+                        <div class="d-flex flex-wrap justify-content-center gap-3 gap-sm-4 mb-4">
+
+                            <a href="/page/payment-methods" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Payment Methods</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/shipping-costs" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Shipping Costs</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/terms-conditions" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Terms &amp; Conditions</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/power-of-revocation" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Power of Revocation</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/privacy-policy" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Privacy Policy</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/imprint" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Imprint</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                            <a href="/page/cookies" class="text-decoration-none d-inline-block">
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold text-uppercase tts-footer-link">Cookies</span>
+                                    <div class="tts-footer-link-underline"></div>
+                                </div>
+                            </a>
+
+                        </div>
+
+                        <!-- Copyright -->
+                        <div class="text-center fw-bold tts-footer-copyright">
+                            © <span t-esc="datetime.datetime.now().year"/> TentSync
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </template>
+
+    </data>
+</odoo>

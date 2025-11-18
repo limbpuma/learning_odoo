@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <template id="shop_products_custom" inherit_id="website_sale.products">
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            1. REMOVE ODOO DEFAULT COMPONENTS
+            ═══════════════════════════════════════════════════════════════════
+            -->
+
+            <!-- Remove left sidebar (categories, attributes filters) -->
+            <xpath expr="//aside[@id='products_grid_before']" position="replace"/>
+
+            <!-- Force full width on products_grid container (override col-lg-9) -->
+            <xpath expr="//div[@id='products_grid']" position="attributes">
+                <attribute name="t-attf-class">col-12</attribute>
+            </xpath>
+
+            <!-- Remove filmstrip categories (horizontal category carousel) -->
+            <xpath expr="//t[@t-call='website_sale.filmstrip_categories']" position="replace"/>
+
+            <!-- Remove Odoo default breadcrumb -->
+            <xpath expr="//t[@t-call='website_sale.products_breadcrumb']" position="replace"/>
+
+            <!-- Remove Odoo category title (H1 with category name) -->
+            <xpath expr="//h1[@t-if='category']" position="replace"/>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            2. REPLACE PRODUCTS HEADER (Search Box, Sort, Filters)
+            ═══════════════════════════════════════════════════════════════════
+            Replace Odoo's products_header div with TTS search and filters
+            -->
+            <xpath expr="//div[hasclass('products_header')]" position="replace">
+                <div class="container-fluid px-3 px-md-4 px-lg-5 mb-4">
+                    <!--
+                    ═════════════════════════════════════════════════════════
+                    SHOP SEARCH + FILTER - Unified Responsive Component
+                    ═════════════════════════════════════════════════════════
+                    Combines search box and filter pills in single component
+
+                    Responsive Layout:
+                    - SM/MD: Column layout (search top, pills bottom, gap 24px)
+                    - LG: Row layout (pills left flex-grow, search right 262px)
+
+                    Dynamic data:
+                    - categories: Odoo product.public.category
+                    - category: Current active category
+                    - search_term: Search query from params
+
+                    Full Bootstrap + Figma replica
+                    -->
+                    <t t-call="custom_shop_templates.shop_search_filter">
+                        <t t-set="categories" t-value="categories"/>
+                        <t t-set="category" t-value="category"/>
+                        <t t-set="search_term" t-value="search"/>
+                    </t>
+                </div>
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            3. REPLACE PRODUCTS GRID SECTION
+            ═══════════════════════════════════════════════════════════════════
+            Replace Odoo's products grid with TTS Bootstrap grid
+            -->
+            <xpath expr="//section[@id='o_wsale_products_grid']" position="replace">
+
+                <!-- Products Grid Section -->
+                <section id="o_wsale_products_grid"
+                         class="o_wsale_products_grid_table"
+                         t-att-data-ppg="ppg"
+                         t-att-data-ppr="ppr"
+                         t-att-data-default-sort="website.shop_default_sort"
+                         t-att-data-name="grid_block_name">
+
+                    <div class="container-fluid px-3 px-md-4 px-lg-5">
+                        <!--
+                        ═══════════════════════════════════════════════════════
+                        PRODUCTS WRAPPER - Results Info + Grid (Figma Structure)
+                        ═══════════════════════════════════════════════════════
+                        Full Bootstrap wrapper matching Figma design:
+                        - gap-3: 24px gap between results info and grid
+                        - d-inline-flex: Inline flex display
+                        - flex-column: Vertical stack
+                        - w-100: Full width
+
+                        Contains:
+                        1. Product Results Info (count + sort)
+                        2. Products Grid (Bootstrap grid)
+                        -->
+                        <div class="w-100 d-inline-flex flex-column gap-3">
+
+                            <!--
+                            ═════════════════════════════════════════════════════
+                            RESULTS INFO - Product Count + Sort
+                            ═════════════════════════════════════════════════════
+                            Component: product_results_info_functional
+
+                            Shows: "Showing 1 to X (of Y)" + Sort dropdown
+                            - Full Bootstrap + Figma replica
+                            - Responsive (same structure SM/MD/LG)
+                            - Functional sort dropdown
+
+                            Dynamic data:
+                            - bins: Product bins for counting
+                            - pager: Pagination data from Odoo
+                            - ppg: Products per page
+                            -->
+                            <t t-call="custom_shop_templates.product_results_info_functional">
+                                <t t-set="bins" t-value="bins"/>
+                                <t t-set="pager" t-value="pager"/>
+                                <t t-set="ppg" t-value="ppg"/>
+                            </t>
+
+                            <!--
+                            ═════════════════════════════════════════════════════
+                            PRODUCTS GRID - Full Bootstrap Layout
+                            ═════════════════════════════════════════════════════
+
+                            Breakpoints:
+                            - SM (Mobile < 768px):  1 column  (col-12)
+                            - MD (Tablet ≥ 768px):  2 columns (col-md-6)
+                            - LG (Desktop ≥ 992px): 4 columns (col-lg-3)
+
+                            Bootstrap Classes:
+                            - row: Flex container for grid
+                            - g-5: Gap 3rem (48px) on mobile
+                            - g-md-3: Gap 1rem (16px) on tablet
+                            - g-lg-3: Gap 1rem (16px) on desktop
+                            - col-12, col-md-6, col-lg-3: Responsive columns
+                            -->
+                            <div class="row g-5 g-md-3 g-lg-3">
+                                <!-- Loop through products (bins structure from Odoo) -->
+                                <t t-foreach="bins" t-as="tr_product">
+                                    <t t-foreach="tr_product" t-as="td_product">
+                                        <t t-if="td_product">
+                                            <!-- Get product from bin -->
+                                            <t t-set="product" t-value="td_product['product']"/>
+
+                                            <!-- Calculate total stock manually by iterating variants -->
+                                            <t t-set="product_stock" t-value="0"/>
+                                            <t t-foreach="product.product_variant_ids" t-as="pv">
+                                                <t t-set="product_stock" t-value="product_stock + (pv.sudo().qty_available or 0)"/>
+                                            </t>
+
+                                            <!-- Only show products with stock > 0 (green or yellow) -->
+                                            <t t-if="product_stock > 0">
+                                                <div class="col-12 col-md-6 col-lg-3">
+                                                    <!--
+                                                    ═══════════════════════════════════════
+                                                    PRODUCT CARD - TTS Bootstrap Component
+                                                    ═══════════════════════════════════════
+                                                    Dynamic data from Odoo product.template
+                                                    Only shown if stock > 0 (filters out red)
+                                                    -->
+                                                    <t t-call="custom_shop_templates.product_card">
+                                                        <t t-set="product" t-value="product"/>
+                                                    </t>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+
+                            <!--
+                            ═════════════════════════════════════════════════════
+                            EMPTY STATE - No Products Found
+                            ═════════════════════════════════════════════════════
+                            Show when no products match filters/search
+                            -->
+                            <div t-if="not bins or not bins[0]"
+                                 class="text-center py-5 my-5">
+                                <!-- Icon -->
+                                <div class="mb-4">
+                                    <i class="fa fa-search fa-4x text-secondary opacity-50"></i>
+                                </div>
+
+                                <!-- Message -->
+                                <h3 class="h4 fw-bold text-dark mb-2">No products found</h3>
+                                <p class="text-secondary mb-4">
+                                    Try adjusting your filters or browse all products
+                                </p>
+
+                                <!-- CTA Button with Halftone -->
+                                <div class="tts-halftone-shadow d-inline-flex">
+                                    <a href="/shop"
+                                       class="btn btn-dark btn-lg rounded-pill px-5 position-relative tts-z-1">
+                                        LOAD MORE ...
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            4. REPLACE PAGINATION WITH VIEW ALL BUTTON
+            ═══════════════════════════════════════════════════════════════════
+            Remove Odoo's pagination and replace with "View All" button
+            -->
+            <xpath expr="//div[hasclass('products_pager')]" position="replace">
+                <!--
+                ═════════════════════════════════════════════════════════════
+                VIEW ALL BUTTON - Show All Products (Remove Filters)
+                ═════════════════════════════════════════════════════════════
+                Always shows "View All Products" and links to /shop
+                This removes any category/search filters applied
+                Replaces Odoo pagination
+                Full Bootstrap design with halftone shadow
+                -->
+                <div id="tts_view_all_button" t-if="bins and bins[0]" class="container-fluid px-3 px-md-4 px-lg-5 mt-5 mb-4 d-flex justify-content-center">
+                    <!-- Button wrapper - centered with inline-flex + halftone shadow -->
+                    <div class="tts-halftone-shadow d-inline-flex justify-content-center align-items-center tts-h-56">
+
+                        <!-- Button content -->
+                        <a href="/shop"
+                           class="d-flex align-items-center justify-content-center position-relative text-decoration-none gap-3 tts-btn-halftone-base tts-btn-bg-light tts-btn-outline-dark">
+                            <!-- Button Text -->
+                            <div class="text-uppercase tts-btn-halftone-text tts-btn-text-dark">
+                                Load more
+                            </div>
+                            <!-- Icon (three dots) -->
+                            <div class="d-flex justify-content-center align-items-center tts-icon-20">
+                                <img t-att-src="'/custom_shop_templates/static/src/img/halftone/button-icon-right.svg'"
+                                     alt="More"
+                                     class="tts-w-20 tts-h-20"/>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </xpath>
+
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            5. ADD ARTICLE NARROW ACCORDION COMPONENT
+            ═══════════════════════════════════════════════════════════════════
+            Add accordion component at the bottom of the shop page
+            -->
+            <xpath expr="//div[@id='tts_view_all_button']" position="after">
+                <!-- Spacer before component -->
+                <div class="w-100"></div>
+
+                <!--
+                ═══════════════════════════════════════════════════════════════
+                FAQ SECTION COMPONENT
+                ═══════════════════════════════════════════════════════════════
+                Frequently Asked Questions
+                -->
+                <t t-call="custom_shop_templates.faq_section"/>
+
+                <!--
+                ═══════════════════════════════════════════════════════════════
+                RESELLER SECTION COMPONENT
+                ═══════════════════════════════════════════════════════════════
+                Become our Reseller
+                -->
+                <t t-call="custom_shop_templates.reseller_section"/>
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

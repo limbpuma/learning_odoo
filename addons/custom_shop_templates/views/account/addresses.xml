@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Addresses Page - Figma MCP Design with 3 responsive breakpoints (SM/MD/LG) -->
+
+    <data>
+        <!-- ============================================
+             ADDRESSES MAIN VIEW - List with Cards
+             ============================================ -->
+        <template id="portal_my_addresses" name="TTS Portal Addresses">
+
+            <t t-call="portal.frontend_layout">
+                <t t-set="page_title" t-value="'Addresses'"/>
+                <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+            <div class="wrap">
+        <!-- Addresses styles migrated to static/src/scss/pages/_addresses.scss (PHASE 5) -->
+                <!-- ADDRESSES LIST PAGE - Using common account_page_layout -->
+                <t t-call="custom_shop_templates.account_page_layout">
+                    <t t-set="current_page" t-value="'addresses'"/>
+                    <t t-set="with_shadow" t-value="False"/>
+
+                    <!-- ADDRESSES LIST VIEW (Cards) - Default view -->
+                    <div class="tts-addresses-section" data-view="list" t-att-style="'display: none;' if show_form else ''">
+
+                                <!-- SUCCESS BANNER -->
+                                <t t-if="show_success">
+                                    <t t-call="custom_shop_templates.banner_alert">
+                                        <t t-set="banner_type" t-value="'success'"/>
+                                        <t t-set="banner_message" t-value="'Address changed successfully.'"/>
+                                        <t t-set="banner_class" t-value="'mb-3'"/>
+                                    </t>
+                                </t>
+
+                                <!-- Check if user has any address -->
+                                <t t-if="billing_address or shipping_address">
+                                    <p class="tts-section-subtitle">The following addresses will be used on the checkout page by default.</p>
+
+                                    <div class="tts-address-cards">
+                                        <!-- Billing Address Card (only show if exists) -->
+                                        <t t-if="billing_address">
+                                            <div class="tts-address-card-wrapper">
+                                                <!-- Halftone shadow -->
+                                                <div class="tts-address-card-shadow"></div>
+
+                                                <div class="tts-address-card">
+                                                    <div class="tts-address-card-content">
+                                                        <h3 class="tts-address-card-title">Billing Address</h3>
+                                                        <p class="tts-address-line" t-if="billing_address.name" t-esc="billing_address.name"/>
+                                                        <p class="tts-address-line" t-if="billing_address.street" t-esc="billing_address.street"/>
+                                                        <p class="tts-address-line" t-if="billing_address.street2" t-esc="billing_address.street2"/>
+                                                        <p class="tts-address-line">
+                                                            <t t-if="billing_address.zip" t-esc="billing_address.zip"/>
+                                                            <t t-if="billing_address.city"> <t t-esc="billing_address.city"/></t>
+                                                        </p>
+                                                        <p class="tts-address-line" t-if="billing_address.country_id" t-esc="billing_address.country_id.name"/>
+                                                    </div>
+                                                    <a href="#" class="tts-edit-btn" data-action="show-form">
+                                                        <span>edit</span>
+                                                        <div class="tts-edit-icon">
+                                                            <img src="/custom_shop_templates/static/src/img/icons/account_edit_icon.svg" alt="Edit"/>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </t>
+
+                                        <!-- Shipping Address Card (only show if exists and different from billing) -->
+                                        <t t-if="shipping_address and shipping_address != billing_address">
+                                            <div class="tts-address-card-wrapper">
+                                                <!-- Halftone shadow -->
+                                                <div class="tts-address-card-shadow"></div>
+
+                                                <div class="tts-address-card">
+                                                    <div class="tts-address-card-content">
+                                                        <h3 class="tts-address-card-title">Shipping Address</h3>
+                                                        <p class="tts-address-line" t-if="shipping_address.name" t-esc="shipping_address.name"/>
+                                                        <p class="tts-address-line" t-if="shipping_address.street" t-esc="shipping_address.street"/>
+                                                        <p class="tts-address-line" t-if="shipping_address.street2" t-esc="shipping_address.street2"/>
+                                                        <p class="tts-address-line">
+                                                            <t t-if="shipping_address.zip" t-esc="shipping_address.zip"/>
+                                                            <t t-if="shipping_address.city"> <t t-esc="shipping_address.city"/></t>
+                                                        </p>
+                                                        <p class="tts-address-line" t-if="shipping_address.country_id" t-esc="shipping_address.country_id.name"/>
+                                                    </div>
+                                                    <a href="#" class="tts-edit-btn" data-action="show-form">
+                                                        <span>edit</span>
+                                                        <div class="tts-edit-icon">
+                                                            <img src="/custom_shop_templates/static/src/img/icons/account_edit_icon.svg" alt="Edit"/>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+
+                                <t t-else="">
+                                    <!-- Empty State -->
+                                    <div class="tts-empty-state">
+                                        <p class="tts-empty-text">As soon as you place your first order, your billing and shipping address will show up here.</p>
+                                        <a href="#" class="tts-edit-btn" data-action="show-form">Edit Address</a>
+                                    </div>
+                                </t>
+
+                    </div>  <!-- Close tts-addresses-section -->
+
+                    <!-- ADDRESSES FORM VIEW - Edit form -->
+                    <div class="tts-addresses-form-section" data-view="form" t-att-style="'display: block;' if show_form else 'display: none;'">
+                        <h2 class="tts-section-title">Billing Address</h2>
+
+                        <form method="POST" action="/my/addresses/save" class="tts-form-container" id="addresses-form">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <!-- First + Last Name Row (2 columns in MD/LG) -->
+                            <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="first_name">First name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="first_name"
+                                               name="first_name"
+                                               class="tts-addresses-form-input"
+                                               placeholder="Max"
+                                               t-att-value="partner.name.split()[0] if partner.name else ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="last_name">Last name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="last_name"
+                                               name="last_name"
+                                               class="tts-addresses-form-input"
+                                               placeholder="Mustermann"
+                                               t-att-value="' '.join(partner.name.split()[1:]) if partner.name and len(partner.name.split()) > 1 else ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 1 -->
+                            <div class="tts-addresses-form-row">
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="street">Address 1</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="street"
+                                               name="street"
+                                               class="tts-addresses-form-input"
+                                               placeholder="Musterstraße 1"
+                                               t-att-value="partner.street or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 2 -->
+                            <div class="tts-addresses-form-row">
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="street2">
+                                        Address 2
+                                        <span class="tts-addresses-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="street2"
+                                               name="street2"
+                                               class="tts-addresses-form-input"
+                                               placeholder="Apartment, suite, unit, etc."
+                                               t-att-value="partner.street2 or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Postcode + City Row (2 columns in MD/LG) -->
+                            <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="zip">Postcode / ZIP</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="zip"
+                                               name="zip"
+                                               class="tts-addresses-form-input"
+                                               placeholder="12345"
+                                               t-att-value="partner.zip or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="city">City</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="city"
+                                               name="city"
+                                               class="tts-addresses-form-input"
+                                               placeholder="Musterstadt"
+                                               t-att-value="partner.city or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- State + Country Row (2 columns in MD/LG) -->
+                            <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="state_id">
+                                        State
+                                        <span class="tts-addresses-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="state_id" name="state_id" class="tts-form-select">
+                                            <option value="">Select state</option>
+                                            <t t-foreach="states" t-as="state">
+                                                <option t-att-value="state.id"
+                                                        t-att-selected="'selected' if partner.state_id and partner.state_id.id == state.id else None"
+                                                        t-esc="state.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tts-addresses-form-group">
+                                    <label class="tts-addresses-form-label" for="country_id">Country</label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="country_id" name="country_id" class="tts-form-select" required="required">
+                                            <t t-foreach="countries" t-as="country">
+                                                <option t-att-value="country.id"
+                                                        t-att-selected="'selected' if partner.country_id and partner.country_id.id == country.id else ('selected' if not partner.country_id and country.id == request.env.ref('base.de').id else None)"
+                                                        t-esc="country.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipping Same Checkbox -->
+                            <div class="tts-addresses-form-row">
+                                <label class="tts-shipping-checkbox" onclick="toggleCheckbox()">
+                                    <input type="checkbox" class="tts-checkbox" id="shipping_same" name="shipping_same" value="1"/>
+                                    <img src="/custom_shop_templates/static/src/img/icons/checkbox.svg" alt="Checkbox" class="tts-checkbox-icon" id="checkbox-icon"/>
+                                    <span class="tts-checkbox-label">My shipping address is the same</span>
+                                </label>
+                            </div>
+
+                            <!-- Save Button -->
+                            <div class="tts-addresses-form-row">
+                                <div class="tts-save-button-wrapper">
+                                    <button type="submit" class="tts-save-button">Save Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>  <!-- Close tts-addresses-form-section -->
+
+                </t>  <!-- Close t-call="account_page_layout" -->
+
+            </div>  <!-- Close wrap -->
+            </t>  <!-- Close t-call="portal.frontend_layout" -->
+        </template>
+
+        <!-- ============================================
+             ADDRESSES EDIT FORM
+             ============================================ -->
+        <template id="portal_my_addresses_edit" name="TTS Portal Addresses Edit">
+
+            <t t-call="portal.frontend_layout">
+                <t t-set="page_title" t-value="'Addresses'"/>
+                <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+            <div class="wrap">
+                <!-- ADDRESSES EDIT PAGE - Using common account_page_layout -->
+                <t t-call="custom_shop_templates.account_page_layout">
+                    <t t-set="current_page" t-value="'addresses'"/>
+                    <t t-set="with_shadow" t-value="True"/>
+
+                    <!-- FORM SECTION - Page-specific content -->
+                    <div class="tts-addresses-form-section">
+                                <h2 class="tts-section-title">Billing Address</h2>
+
+                                <form method="POST" action="/my/addresses/save" class="tts-form-container" id="addresses-form">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                    <!-- First + Last Name Row (2 columns in MD/LG) -->
+                                    <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="first_name">First name</label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="first_name"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="Max"
+                                                       t-att-value="partner.name.split()[0] if partner.name else ''"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="last_name">Last name</label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="last_name"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="Mustermann"
+                                                       t-att-value="' '.join(partner.name.split()[1:]) if partner.name and len(partner.name.split()) > 1 else ''"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address 1 -->
+                                    <div class="tts-addresses-form-row">
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="street">Address 1</label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="street"
+                                                       name="street"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="Musterstraße 1"
+                                                       t-att-value="partner.street or ''"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address 2 -->
+                                    <div class="tts-addresses-form-row">
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="street2">
+                                                Address 2
+                                                <span class="tts-addresses-form-label-optional">Optional</span>
+                                            </label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="street2"
+                                                       name="street2"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="Apartment, suite, unit, etc."
+                                                       t-att-value="partner.street2 or ''"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Postcode + City Row (2 columns in MD/LG) -->
+                                    <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="zip">Postcode / ZIP</label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="zip"
+                                                       name="zip"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="12345"
+                                                       t-att-value="partner.zip or ''"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="city">City</label>
+                                            <div class="tts-input-wrapper">
+                                                <input type="text"
+                                                       id="city"
+                                                       name="city"
+                                                       class="tts-addresses-form-input"
+                                                       placeholder="Musterstadt"
+                                                       t-att-value="partner.city or ''"
+                                                       required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- State + Country Row (2 columns in MD/LG) -->
+                                    <div class="tts-addresses-form-row tts-addresses-form-row-2col">
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="state_id">
+                                                State
+                                                <span class="tts-addresses-form-label-optional">Optional</span>
+                                            </label>
+                                            <div class="tts-input-wrapper">
+                                                <select id="state_id" name="state_id" class="tts-form-select">
+                                                    <option value="">Select state</option>
+                                                    <t t-foreach="states" t-as="state">
+                                                        <option t-att-value="state.id"
+                                                                t-att-selected="'selected' if partner.state_id and partner.state_id.id == state.id else None"
+                                                                t-esc="state.name"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="tts-addresses-form-group">
+                                            <label class="tts-addresses-form-label" for="country_id">Country</label>
+                                            <div class="tts-input-wrapper">
+                                                <select id="country_id" name="country_id" class="tts-form-select" required="required">
+                                                    <t t-foreach="countries" t-as="country">
+                                                        <option t-att-value="country.id"
+                                                                t-att-selected="'selected' if partner.country_id and partner.country_id.id == country.id else ('selected' if not partner.country_id and country.id == request.env.ref('base.de').id else None)"
+                                                                t-esc="country.name"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Shipping Same Checkbox -->
+                                    <div class="tts-addresses-form-row">
+                                        <label class="tts-shipping-checkbox" onclick="toggleCheckbox()">
+                                            <input type="checkbox" class="tts-checkbox" id="shipping_same" name="shipping_same" value="1"/>
+                                            <img src="/custom_shop_templates/static/src/img/icons/checkbox.svg" alt="Checkbox" class="tts-checkbox-icon" id="checkbox-icon"/>
+                                            <span class="tts-checkbox-label">My shipping address is the same</span>
+                                        </label>
+                                    </div>
+
+                                    <!-- Save Button -->
+                                    <div class="tts-addresses-form-row">
+                                        <div class="tts-save-button-wrapper">
+                                            <button type="submit" class="tts-save-button">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+                    </div>  <!-- Close tts-addresses-form-section -->
+
+                </t>  <!-- Close t-call="account_page_layout" -->
+
+                <!-- JavaScript -->
+                <script>
+                    // Checkbox Toggle (from register.xml pattern)
+                    function toggleCheckbox() {
+                        const checkbox = document.getElementById('shipping_same');
+                        const checkboxIcon = document.getElementById('checkbox-icon');
+
+                        if (checkbox.checked) {
+                            checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox-checked.svg';
+                        } else {
+                            checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox.svg';
+                        }
+                    }
+
+                    // Form submission handler - Combine first and last name (from register.xml pattern)
+                    document.getElementById('addresses-form').addEventListener('submit', function(e) {
+                        const firstName = document.getElementById('first_name').value;
+                        const lastName = document.getElementById('last_name').value;
+
+                        // Create hidden 'name' field for Odoo
+                        const nameInput = document.createElement('input');
+                        nameInput.type = 'hidden';
+                        nameInput.name = 'name';
+                        nameInput.value = firstName + ' ' + lastName;
+                        this.appendChild(nameInput);
+                    });
+
+                    // Pre-populate form with existing user data
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // This will be populated from backend when we add controller
+                        // For now, just ensure form is ready
+                    });
+                </script>
+
+            </div>  <!-- Close wrap -->
+            </t>  <!-- Close t-call="portal.frontend_layout" -->
+
+        </template>
+
+    </data>
+</odoo>

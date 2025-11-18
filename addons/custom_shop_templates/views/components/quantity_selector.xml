@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Quantity selector component with +/- buttons -->
+
+    <data>
+        <template id="quantity_selector" name="TTS Quantity Selector (Bootstrap)">
+            <!-- Set default values -->
+            <t t-set="input_name" t-value="input_name or 'add_qty'"/>
+            <t t-set="input_value" t-value="input_value or '1'"/>
+            <t t-set="input_min" t-value="input_min or '1'"/>
+            <t t-set="input_max" t-value="input_max or '99'"/>
+
+            <!-- Quantity selector input group -->
+            <div class="input-group tts-max-w-150">
+                <!-- Minus Button -->
+                <button class="btn btn-outline-dark border-2 px-3"
+                        type="button"
+                        onclick="this.nextElementSibling.stepDown()"
+                        aria-label="Decrease quantity">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+
+                <!-- Number Input -->
+                <input type="number"
+                       class="form-control text-center border-2 border-dark fw-semibold tts-max-w-70"
+                       t-att-name="input_name"
+                       t-att-value="input_value"
+                       t-att-min="input_min"
+                       t-att-max="input_max"
+                       aria-label="Quantity"/>
+
+                <!-- Plus Button -->
+                <button class="btn btn-outline-dark border-2 px-3"
+                        type="button"
+                        onclick="this.previousElementSibling.stepUp()"
+                        aria-label="Increase quantity">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 2V10M2 6H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </template>
+    </data>
+</odoo>

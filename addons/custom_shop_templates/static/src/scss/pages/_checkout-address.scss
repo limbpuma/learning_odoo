@@ -1,0 +1,313 @@
+// ============================================================================
+// CHECKOUT ADDRESS PAGE STYLES
+// ============================================================================
+// Styles for the checkout address selection/entry step
+// Namespaced with 'checkout-address-' to avoid conflicts with utility classes
+//
+// NAMESPACING STRATEGY:
+// - .tts-section-title → .tts-checkout-address-section-title (conflict with utilities)
+// - .tts-link → .tts-checkout-address-link (conflict with utilities)
+// - .tts-button-primary → .tts-checkout-address-button (conflict with utilities)
+// - All other classes (tts-address-*) kept as-is (already namespaced)
+
+// ============================================================================
+// MAIN CONTAINER
+// ============================================================================
+
+.tts-checkout-address {
+    width: 100%;
+}
+
+// ============================================================================
+// ADDRESS SECTIONS (Billing & Shipping)
+// ============================================================================
+
+.tts-checkout-billing-address,
+.tts-checkout-shipping-address {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-checkout-billing-address,
+    .tts-checkout-shipping-address {
+        gap: 32px;
+    }
+}
+
+// Gap between billing and shipping sections
+.tts-checkout-shipping-address {
+    margin-top: 24px;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-checkout-shipping-address {
+        margin-top: 32px;
+    }
+}
+
+@media (min-width: $tts-width-lg) {
+    .tts-checkout-shipping-address {
+        margin-top: 40px;
+    }
+}
+
+// ============================================================================
+// SECTION TITLES (Billing Address / Shipping Address)
+// ============================================================================
+
+.tts-checkout-address-title {
+    font-family: $tts-font-family;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: $tts-font-weight-bold;
+    color: $tts-light;
+    margin: 0;
+    letter-spacing: 0.48px;
+}
+
+// ============================================================================
+// CHECKOUT ADDRESS FORM
+// ============================================================================
+
+.tts-checkout-address-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-checkout-address-form {
+        gap: 32px;
+    }
+}
+
+// ============================================================================
+// FORM ROWS
+// ============================================================================
+
+.tts-checkout-form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 2-column layout for MD/LG breakpoints */
+.tts-checkout-form-row-2col {
+    @media (min-width: $tts-width-md) {
+        flex-direction: row;
+        gap: 24px;
+
+        .tts-checkout-form-group {
+            flex: 1;
+        }
+    }
+}
+
+// ============================================================================
+// FORM GROUPS
+// ============================================================================
+
+.tts-checkout-form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+// ============================================================================
+// FORM LABELS
+// ============================================================================
+
+.tts-checkout-form-label {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-checkout-form-label-optional {
+    color: $tts-secondary;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+}
+
+// ============================================================================
+// INPUT WRAPPER WITH HALFTONE SHADOW
+// ============================================================================
+
+.tts-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tts-input-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    right: -6px;
+    bottom: -6px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+// ============================================================================
+// FORM INPUTS AND SELECTS
+// ============================================================================
+
+.tts-checkout-form-input,
+.tts-checkout-form-select {
+    width: 100%;
+    padding: 16px;
+    background: $tts-surface-dark;
+    border: none;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    color: $tts-light;
+    font-size: 16px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-checkout-form-input::placeholder {
+    color: $tts-secondary;
+}
+
+.tts-checkout-form-input:focus,
+.tts-checkout-form-select:focus {
+    outline: 2px solid $tts-light;
+    outline-offset: -2px;
+}
+
+.tts-checkout-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23FFEBDC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 48px;
+    cursor: pointer;
+}
+
+.tts-checkout-form-select option {
+    background: $tts-surface-dark;
+    color: $tts-light;
+}
+
+// ============================================================================
+// CONTINUE BUTTON
+// ============================================================================
+
+.tts-checkout-button-wrapper {
+    position: relative;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.tts-checkout-button-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    right: -4px;
+    bottom: -4px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius-sm;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tts-checkout-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 16px 32px;
+    background-color: $tts-light;
+    border: 2px solid $tts-dark;
+    border-radius: $tts-border-radius-sm;
+    font-family: $tts-font-family;
+    font-size: 16px;
+    font-weight: $tts-font-weight-bold;
+    color: $tts-dark;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+        background-color: $tts-dark;
+        color: $tts-light;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// ============================================================================
+// CHECKBOX - "My shipping address is the same"
+// ============================================================================
+// Pattern from addresses.xml (lines 312-340)
+
+.tts-shipping-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tts-checkbox {
+    display: none;
+}
+
+.tts-checkbox-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.tts-checkbox-label {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+}
+
+// ============================================================================
+// HIDDEN STATE FOR SHIPPING SECTION
+// ============================================================================
+
+.tts-checkout-shipping-address.hidden {
+    display: none !important;
+}

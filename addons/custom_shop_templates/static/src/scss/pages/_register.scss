@@ -1,0 +1,448 @@
+// Migrated from register.xml <style> block (PHASE 5)
+
+/* ==========================================================
+   RESET AND BASE STYLES
+   ========================================================== */
+* {
+  box-sizing: border-box;
+}
+
+/* ==========================================================
+   MAIN CONTAINER - Mobile First (XS/SM)
+   ========================================================== */
+.tts-register-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #595959;
+  padding: 32px 16px 64px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: 'BentonSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.tts-register-wrapper {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* =======================================================
+   HEADER SECTION
+   ======================================================= */
+.tts-register-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tts-register-title-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tts-register-title {
+  width: 100%;
+  text-align: center;
+  color: var(--tts-light);
+  font-size: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.tts-register-signin {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.tts-signin-text {
+  color: var(--tts-light);
+  @include tts-text-body;
+}
+
+.tts-signin-link {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tts-signin-link-text {
+  color: var(--tts-light);
+  @include tts-text-body-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.35px;
+}
+
+.tts-signin-link-underline {
+  width: 100%;
+  height: 2px;
+  background: var(--tts-light);
+}
+
+.tts-signin-link:hover .tts-signin-link-text {
+  opacity: 0.8;
+}
+
+/* =======================================================
+   FORM CONTAINER
+   ======================================================= */
+.tts-register-form-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tts-register-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Reset Odoo default form styles */
+.tts-register-form-container .oe_signup_form {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+/* =======================================================
+   ALERT/ERROR MESSAGE
+   ======================================================= */
+.tts-alert {
+  width: 100%;
+  padding: 16px;
+  background: #FEE2E2;
+  border-radius: $tts-border-radius;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tts-alert-content {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.tts-alert-icon-wrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tts-alert-icon {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #B91C1C;
+  border-radius: 50%;
+}
+
+.tts-alert-text {
+  flex: 1;
+  padding-top: 2px;
+  color: #B91C1C;
+  @include tts-text-body;
+}
+
+/* =======================================================
+   FIELDS ROW (for first name + last name)
+   ======================================================= */
+.tts-fields-row {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+/* =======================================================
+   FORM FIELDS
+   ======================================================= */
+.tts-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tts-field-half {
+  flex: 1 1 0;
+  min-width: 292px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tts-field-label-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.tts-field-label {
+  flex: 1;
+  color: var(--tts-light);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.tts-field-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Input wrapper con halftone shadow (usando clase tts-halftone-shadow-login) */
+.tts-input-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+/* Input visual container */
+.tts-input-visual {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  padding: 18px 16px;
+  background: var(--tts-surface-dark);
+  border-radius: $tts-border-radius;
+  border: 2px solid var(--tts-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tts-input-visual.error {
+  border-color: #B91C1C;
+}
+
+/* Input interno */
+.tts-input-inner {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tts-input-inner input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--tts-light);
+  font-family: 'BentonSans', sans-serif;
+  @include tts-text-body;
+  outline: none;
+  height: 20px;
+}
+
+.tts-input-inner input::placeholder {
+  color: #737373;
+  opacity: 0.6;
+}
+
+/* Password toggle icon */
+.tts-password-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.tts-password-icon:hover {
+  opacity: 0.8;
+}
+
+.tts-password-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Error message bajo input */
+.tts-field-error {
+  width: 100%;
+  color: var(--tts-light);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+/* =======================================================
+   CHECKBOX (Terms and Conditions)
+   ======================================================= */
+.tts-checkbox-container {
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tts-checkbox-content {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.tts-checkbox-wrapper {
+  width: 16px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.tts-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.tts-checkbox-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  pointer-events: none;
+}
+
+.tts-checkbox-label-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tts-checkbox-label {
+  width: 100%;
+  color: var(--tts-light);
+  @include tts-text-body;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tts-checkbox-label a {
+  color: var(--tts-light);
+  text-decoration: underline;
+}
+
+.tts-checkbox-label a:hover {
+  opacity: 0.8;
+}
+
+/* =======================================================
+   SUBMIT BUTTON
+   ======================================================= */
+.tts-button-wrapper {
+  width: 100%;
+  height: 56px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .tts-button uses global class from components.scss */
+/* Only register-specific overrides here */
+
+/* Register-specific button overrides (extends global .tts-button) */
+.tts-register-page .tts-button {
+  width: 100%;  /* Full width for register form */
+}
+
+.tts-register-page .tts-button:hover {
+  transform: translateY(-2px);  /* Additional hover effect */
+}
+
+.tts-register-page .tts-button:active {
+  transform: translateY(0);  /* Active state */
+}
+
+/* =======================================================
+   RESPONSIVE - MD Breakpoint (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+  .tts-register-page {
+    padding: 40px 48px 80px 48px;
+  }
+
+  .tts-register-wrapper {
+    gap: 40px;
+  }
+
+  .tts-register-header {
+    gap: 24px;
+  }
+
+  .tts-register-title {
+    font-size: 48px;
+    line-height: 48px;
+  }
+
+  .tts-register-form-section {
+    padding-left: 116px;
+    padding-right: 116px;
+  }
+}
+
+/* =======================================================
+   RESPONSIVE - LG Breakpoint (1024px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+  .tts-register-page {
+    padding: 64px 80px 128px 80px;
+  }
+
+  .tts-register-wrapper {
+    gap: 40px;
+  }
+
+  .tts-register-title {
+    font-size: 60px;
+    line-height: 64px;
+  }
+
+  .tts-register-form-section {
+    padding-left: 381px;
+    padding-right: 381px;
+  }
+}

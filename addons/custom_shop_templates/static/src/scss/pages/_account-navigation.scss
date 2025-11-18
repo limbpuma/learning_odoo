@@ -1,0 +1,345 @@
+// ========================================
+// ACCOUNT NAVIGATION COMPONENT STYLES
+// ========================================
+// Migrated from views/components/account_navigation.xml (lines 117-285)
+// Extracted: 2025-11-04
+//
+// Component: Account Navigation
+// Purpose: Navigation selector and dashboard menu for account pages
+// Usage: Loaded via component template (inline styles removed)
+//
+// Responsive Behavior:
+// - SM/MD (< 1024px): Shows account selector dropdown
+// - LG (1024px+): Shows vertical dashboard menu
+// ========================================
+
+/* ==========================================================
+   ACCOUNT SELECTOR WRAPPER (SM/MD Only)
+   ========================================================== */
+.tts-account-selector-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-account-selector {
+    width: 100%;
+    position: relative;
+}
+
+/* ==========================================================
+   HALFTONE SHADOW (Conditional)
+   ========================================================== */
+.tts-account-selector-shadow {
+    width: 343px;
+    height: 56px;
+    left: 6px;
+    top: 6px;
+    position: absolute;
+    pointer-events: none;
+}
+
+.tts-account-selector-shadow img {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-1deg);
+    transform-origin: top left;
+    border-radius: $tts-border-radius;
+}
+
+/* ==========================================================
+   SELECTOR BUTTON
+   ========================================================== */
+.tts-account-selector-button {
+    width: 100%;
+    padding: 16px;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.tts-account-selector-button:hover {
+    background: rgba($tts-light, 0.05);
+}
+
+/* ==========================================================
+   SELECTOR COMPONENTS (Content, Icon, Text, Chevron)
+   ========================================================== */
+.tts-selector-content {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+.tts-selector-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.tts-selector-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.tts-selector-text {
+    flex: 1 1 0;
+    color: $tts-light;
+    @include tts-text-body;
+    text-align: left;
+}
+
+.tts-selector-chevron {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.tts-selector-chevron img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ==========================================================
+   DROPDOWN MENU (SM/MD only)
+   ========================================================== */
+.tts-account-dropdown {
+    width: 100%;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    overflow: hidden;
+    flex-direction: column;
+    display: flex;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.tts-account-selector-wrapper.is-expanded .tts-account-dropdown {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.tts-dropdown-item {
+    width: 100%;
+    padding: 16px;
+    border-bottom: 2px solid $tts-dark;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.tts-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.tts-dropdown-item:hover {
+    background: #262626;
+}
+
+.tts-dropdown-item.is-current {
+    background: $tts-dark;
+}
+
+.tts-dropdown-text {
+    flex: 1;
+    color: $tts-secondary;
+    @include tts-text-medium;
+}
+
+.tts-dropdown-item.is-current .tts-dropdown-text {
+    color: $tts-light;
+}
+
+.tts-dropdown-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-dropdown-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================
+   DASHBOARD MENU (LG Only by default, ALL breakpoints for dashboard page)
+   ========================================================== */
+.tts-dashboard-menu-wrapper {
+    display: none;
+}
+
+/* ==========================================================
+   DASHBOARD PAGE OVERRIDE - Show menu in all breakpoints
+   ========================================================== */
+.tts-page-dashboard .tts-dashboard-menu-wrapper {
+    display: block;
+    width: 100%;
+}
+
+.tts-page-dashboard .tts-account-selector-wrapper {
+    display: none;
+}
+
+.tts-page-dashboard .tts-dashboard-menu {
+    width: 100%;
+    background: $tts-surface-dark;
+    overflow: hidden;
+    border-radius: $tts-border-radius;
+    outline: 2px $tts-dark solid;
+    outline-offset: -2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.tts-page-dashboard .tts-menu-item {
+    width: 100%;
+    padding: 16px;
+    border-bottom: 2px $tts-dark solid;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.tts-page-dashboard .tts-menu-item:last-child {
+    border-bottom: none;
+}
+
+.tts-page-dashboard .tts-menu-item:hover {
+    background: #262626;
+}
+
+.tts-page-dashboard .tts-menu-text {
+    flex: 1;
+    color: $tts-light;
+    @include tts-text-medium;
+}
+
+.tts-page-dashboard .tts-menu-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-page-dashboard .tts-menu-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================
+   RESPONSIVE - MD Breakpoint (768px+)
+   ========================================================== */
+@media (min-width: $tts-width-md) {
+    .tts-account-selector-shadow {
+        width: 672px;
+        height: 56px;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVE - LG Breakpoint (1280px+)
+   ========================================================== */
+@media (min-width: $tts-width-lg) {
+    /* Hide account selector */
+    .tts-account-selector-wrapper,
+    .tts-halftone-shadow-account-selector {
+        display: none;
+    }
+
+    /* Show dashboard menu */
+    .tts-dashboard-menu-wrapper {
+        display: block;
+        width: 263px;
+        flex-shrink: 0;
+    }
+
+    /* Dashboard page: full width menu in LG */
+    .tts-page-dashboard .tts-dashboard-menu-wrapper {
+        width: 263px;
+    }
+
+    .tts-dashboard-menu {
+        width: 100%;
+        background: $tts-surface-dark;
+        overflow: hidden;
+        border-radius: $tts-border-radius;
+        outline: 2px $tts-dark solid;
+        outline-offset: -2px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .tts-menu-item {
+        width: 100%;
+        padding: 16px;
+        border-bottom: 2px $tts-dark solid;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 16px;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .tts-menu-item:last-child {
+        border-bottom: none;
+    }
+
+    .tts-menu-item:hover {
+        background: #262626;
+    }
+
+    .tts-menu-text {
+        flex: 1;
+        color: $tts-light;
+        @include tts-text-medium;
+    }
+
+    .tts-menu-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tts-menu-icon img {
+        width: 100%;
+        height: 100%;
+    }
+}

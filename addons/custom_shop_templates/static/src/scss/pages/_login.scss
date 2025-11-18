@@ -1,0 +1,476 @@
+// Migrated from login.xml <style> block (PHASE 5)
+
+/* ==========================================================
+   RESET AND BASE STYLES
+   ========================================================== */
+* {
+    box-sizing: border-box;
+}
+
+/* ==========================================================
+   MAIN CONTAINER - Mobile First (XS/SM)
+   ========================================================== */
+.tts-login-page {
+    width: 100%;
+    min-height: 100vh;
+    background: #595959;
+    padding: 32px 16px 64px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: $tts-font-family;
+}
+
+.tts-login-wrapper {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* =======================================================
+   HEADER SECTION
+   ======================================================= */
+.tts-login-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-login-title-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tts-login-title {
+    width: 100%;
+    text-align: center;
+    color: var(--tts-light);
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.tts-login-signup {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.tts-signup-text {
+    color: var(--tts-light);
+    @include tts-text-body;
+}
+
+.tts-signup-link {
+    display: inline-flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tts-signup-link-text {
+    color: var(--tts-light);
+    @include tts-text-body-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+}
+
+.tts-signup-link-underline {
+    width: 100%;
+    height: 2px;
+    background: var(--tts-light);
+}
+
+.tts-signup-link:hover .tts-signup-link-text {
+    opacity: 0.8;
+}
+
+/* =======================================================
+   FORM CONTAINER
+   ======================================================= */
+.tts-login-form-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tts-login-form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Reset Odoo default form styles */
+.tts-login-form-container .oe_login_form {
+    max-width: none;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+/* =======================================================
+   ALERT/ERROR MESSAGE
+   ======================================================= */
+.tts-alert {
+    width: 100%;
+    padding: 16px;
+    background: #FEE2E2;
+    border-radius: $tts-border-radius;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tts-alert-content {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.tts-alert-icon-wrapper {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tts-alert-icon {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #B91C1C;
+    border-radius: 50%;
+}
+
+.tts-alert-text {
+    flex: 1;
+    padding-top: 2px;
+    color: #B91C1C;
+    @include tts-text-body;
+}
+
+/* =======================================================
+   FORM FIELDS
+   ======================================================= */
+.tts-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-field-label-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.tts-field-label {
+    flex: 1;
+    color: var(--tts-light);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.tts-field-input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Input wrapper con halftone shadow (usando clase tts-halftone-shadow-login) */
+.tts-input-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+/* Input visual container */
+.tts-input-visual {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    padding: 16px;
+    background: var(--tts-surface-dark);
+    border-radius: $tts-border-radius;
+    border: 2px solid var(--tts-dark);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tts-input-visual.error {
+    border-color: #B91C1C;
+}
+
+/* Input interno */
+.tts-input-inner {
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tts-input-inner input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: var(--tts-light);
+    font-family: $tts-font-family;
+    @include tts-text-body;
+    outline: none;
+    height: 20px;
+}
+
+.tts-input-inner input::placeholder {
+    color: #737373;
+    opacity: 0.6;
+}
+
+/* Password toggle icon */
+.tts-password-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.tts-password-icon:hover {
+    opacity: 0.8;
+}
+
+.tts-password-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Error message bajo input */
+.tts-field-error {
+    width: 100%;
+    color: var(--tts-light);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+/* =======================================================
+   PASSWORD CONTAINER (con forgot + checkbox)
+   ======================================================= */
+.tts-password-section {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Forgot Password Link */
+.tts-forgot-password {
+    width: 100%;
+    padding-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tts-forgot-link {
+    display: inline-flex;
+    flex-direction: column;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tts-forgot-text {
+    color: var(--tts-light);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+}
+
+.tts-forgot-underline {
+    width: 100%;
+    height: 2px;
+    background: var(--tts-light);
+}
+
+.tts-forgot-link:hover .tts-forgot-text {
+    opacity: 0.8;
+}
+
+/* Remember Me Checkbox */
+.tts-remember {
+    position: absolute;
+    left: 0;
+    top: 94px;
+    display: inline-flex;
+}
+
+/* Ajuste cuando hay error message debajo del password */
+.tts-field-input-section:has(.tts-field-error) ~ .tts-forgot-password ~ .tts-remember,
+.tts-password-section:has(.tts-field-error) .tts-remember {
+    top: 122px;
+}
+
+.tts-remember-content {
+    width: 91px;
+    display: flex;
+    gap: 12px;
+}
+
+.tts-checkbox-wrapper {
+    width: 16px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.tts-checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.tts-checkbox-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    pointer-events: none;
+}
+
+.tts-checkbox-label-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tts-checkbox-label {
+    width: 100%;
+    color: var(--tts-light);
+    @include tts-text-body;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* =======================================================
+   SUBMIT BUTTON
+   ======================================================= */
+/* .tts-button uses global class from components.scss */
+/* Only login-specific overrides here */
+.tts-button-wrapper {
+    /* Uses tts-halftone-shadow-login CSS class for halftone effect */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login-specific button overrides (extends global .tts-button) */
+.tts-login-page .tts-button {
+    width: 100%;  /* Full width for login form */
+}
+
+.tts-login-page .tts-button:hover {
+    transform: translateY(-2px);  /* Additional hover effect */
+}
+
+.tts-login-page .tts-button:active {
+    transform: translateY(0);  /* Active state */
+}
+
+/* =======================================================
+   RESPONSIVE - MD Breakpoint (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+    .tts-login-page {
+        padding: 40px 48px 80px 48px;
+    }
+
+    .tts-login-wrapper {
+        gap: 40px;
+    }
+
+    .tts-login-header {
+        gap: 24px;
+    }
+
+    .tts-login-title {
+        font-size: 48px;
+        line-height: 48px;
+    }
+
+    .tts-login-form-section {
+        padding-left: 116px;
+        padding-right: 116px;
+    }
+
+    .tts-halftone {
+        width: 440px;
+    }
+
+    .tts-button-shadow {
+        width: 440px;
+    }
+}
+
+/* =======================================================
+   RESPONSIVE - LG Breakpoint (1024px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    .tts-login-page {
+        padding: 64px 80px 128px 80px;
+    }
+
+    .tts-login-title {
+        font-size: 60px;
+        line-height: 64px;
+    }
+
+    .tts-login-form-section {
+        padding-left: 381px;
+        padding-right: 381px;
+    }
+
+    .tts-halftone {
+        width: 358px;
+    }
+
+    .tts-button-shadow {
+        width: 358px;
+    }
+}

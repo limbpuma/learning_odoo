@@ -1,0 +1,18 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 40 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Payment Method/Amex" filter="url(#filter0_d_7121_78818)">
+<rect x="2.79419" y="2.79419" width="33.7243" height="23.8054" rx="2.97567" fill="var(--fill-0, #1F72CD)" shape-rendering="crispEdges"/>
+<path id="AMEX" fill-rule="evenodd" clip-rule="evenodd" d="M8.77921 11.1584L5.65512 18.2882H9.3951L9.85875 17.1514H10.9185L11.3822 18.2882H15.4988V17.4206L15.8657 18.2882H17.9951L18.3619 17.4022V18.2882H26.9235L27.9645 17.1809L28.9393 18.2882L33.3367 18.2974L30.2027 14.7432L33.3367 11.1584H29.0075L27.9941 12.2452L27.05 11.1584H17.7362L16.9364 12.9987L16.1179 11.1584H12.3857V11.9965L11.9705 11.1584H8.77921ZM21.5625 12.1707H26.4789L27.9826 13.8458L29.5348 12.1707H31.0385L28.7538 14.7421L31.0385 17.2838H29.4666L27.9629 15.5892L26.4028 17.2838H21.5625V12.1707ZM22.7775 14.1636V13.2296V13.2287H25.8452L27.1838 14.7223L25.7859 16.2241H22.7775V15.2045H25.4596V14.1636H22.7775ZM9.50242 12.1703H11.3255L13.3977 17.0051V12.1703H15.3947L16.9953 15.6368L18.4704 12.1703H20.4574V17.2864H19.2483L19.2385 13.2775L17.4757 17.2864H16.3941L14.6215 13.2775V17.2864H12.1341L11.6626 16.1394H9.11489L8.6443 17.2854H7.31159L9.50242 12.1703ZM9.55129 15.0796L10.3906 13.0364L11.229 15.0796H9.55129Z" fill="var(--fill-0, white)"/>
+</g>
+<defs>
+<filter id="filter0_d_7121_78818" x="0" y="0" width="39.3126" height="29.3937" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="1.39709"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_7121_78818"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_7121_78818" result="shape"/>
+</filter>
+</defs>
+</svg>

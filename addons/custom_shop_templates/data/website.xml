@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================
+         TTS BOOTSTRAP WEBSITE - WEBSITE CONFIGURATION
+         ============================================ -->
+
+    <data noupdate="0">
+
+        <!-- Website Configuration Record -->
+        <record id="website.default_website" model="website">
+            <field name="name">TTS Website</field>
+            <field name="homepage_url">/shop</field>
+            <field name="shop_ppr">4</field>  <!-- 4 products per row (Bootstrap grid: col-lg-3) -->
+            <field name="shop_ppg">12</field> <!-- 12 products per page -->
+        </record>
+
+    </data>
+</odoo>

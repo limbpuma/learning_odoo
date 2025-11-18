@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    CHECKOUT PAYMENT STEP - Payment method selection for checkout flow
+    ═══════════════════════════════════════════════════════════════════════════
+    Route: /shop/payment
+    Inherits: website_sale.payment (NOT website_sale.checkout)
+    Context: payment_methods_sudo, website_sale_order, order, partner_id
+    Design: Matches payment_methods.xml visual style with halftone shadows
+    Uses: tts-checkout-payment-* classes (NO conflicts with payment_methods.xml)
+    ═══════════════════════════════════════════════════════════════════════════
+    -->
+    <data>
+        <!-- Payment Step Template -->
+        <template id="checkout_payment_tts" inherit_id="website_sale.payment" name="TTS Checkout Payment">
+
+            <!-- Remove h3 title -->
+            <xpath expr="//h3[hasclass('mb-4')]" position="replace"/>
+
+            <!-- Replace address_on_payment with custom summary cards -->
+            <xpath expr="//div[@id='address_on_payment']" position="replace">
+                <div class="tts-checkout-payment-wrapper mb-4">
+
+                        <!-- Address Summary Card -->
+                        <div class="tts-summary-card">
+                            <div class="tts-summary-card-header">
+                                <h3 class="tts-summary-card-title">Address</h3>
+                                <a href="/shop/checkout" class="tts-summary-edit-link">
+                                    <span>edit</span>
+                                    <svg class="tts-icon-edit" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M11.3333 2L14 4.66667L5.33333 13.3333H2.66667V10.6667L11.3333 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="tts-summary-card-content">
+                                <div class="tts-summary-column">
+                                    <h4 class="tts-summary-column-title">Billing Address</h4>
+                                    <div class="tts-summary-text">
+                                        <t t-if="website_sale_order and website_sale_order.partner_id">
+                                            <t t-if="website_sale_order.partner_id.company_name">
+                                                <t t-esc="website_sale_order.partner_id.company_name"/><br/>
+                                            </t>
+                                            <t t-esc="website_sale_order.partner_id.name"/><br/>
+                                            <t t-esc="website_sale_order.partner_id.street"/><br/>
+                                            <t t-if="website_sale_order.partner_id.street2">
+                                                <t t-esc="website_sale_order.partner_id.street2"/><br/>
+                                            </t>
+                                            <t t-esc="website_sale_order.partner_id.zip"/> <t t-esc="website_sale_order.partner_id.city"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="tts-summary-column">
+                                    <h4 class="tts-summary-column-title">Shipping Address</h4>
+                                    <div class="tts-summary-text">
+                                        <t t-if="website_sale_order and website_sale_order.partner_shipping_id">
+                                            <t t-if="website_sale_order.partner_shipping_id.id != website_sale_order.partner_id.id">
+                                                <t t-if="website_sale_order.partner_shipping_id.company_name">
+                                                    <t t-esc="website_sale_order.partner_shipping_id.company_name"/><br/>
+                                                </t>
+                                                <t t-esc="website_sale_order.partner_shipping_id.name"/><br/>
+                                                <t t-esc="website_sale_order.partner_shipping_id.street"/><br/>
+                                                <t t-if="website_sale_order.partner_shipping_id.street2">
+                                                    <t t-esc="website_sale_order.partner_shipping_id.street2"/><br/>
+                                                </t>
+                                                <t t-esc="website_sale_order.partner_shipping_id.zip"/> <t t-esc="website_sale_order.partner_shipping_id.city"/>
+                                            </t>
+                                            <t t-else="">
+                                                Same as billing address
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shipping Summary Card -->
+                        <div class="tts-summary-card">
+                            <div class="tts-summary-card-header">
+                                <h3 class="tts-summary-card-title">Shipping</h3>
+                                <a href="/shop/checkout" class="tts-summary-edit-link">
+                                    <span>edit</span>
+                                    <svg class="tts-icon-edit" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M11.3333 2L14 4.66667L5.33333 13.3333H2.66667V10.6667L11.3333 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="tts-summary-card-content">
+                                <div class="tts-summary-column">
+                                    <h4 class="tts-summary-column-title" t-if="website_sale_order and website_sale_order.carrier_id" t-esc="website_sale_order.carrier_id.name"/>
+                                    <h4 class="tts-summary-column-title" t-else="">No shipping method selected</h4>
+                                    <div class="tts-summary-text" t-if="website_sale_order and website_sale_order.carrier_id and website_sale_order.partner_shipping_id">
+                                        <t t-if="website_sale_order.partner_shipping_id.company_name">
+                                            <t t-esc="website_sale_order.partner_shipping_id.company_name"/><br/>
+                                        </t>
+                                        <t t-esc="website_sale_order.partner_shipping_id.name"/><br/>
+                                        <t t-esc="website_sale_order.partner_shipping_id.street"/><br/>
+                                        <t t-if="website_sale_order.partner_shipping_id.street2">
+                                            <t t-esc="website_sale_order.partner_shipping_id.street2"/><br/>
+                                        </t>
+                                        <t t-esc="website_sale_order.partner_shipping_id.zip"/> <t t-esc="website_sale_order.partner_shipping_id.city"/>
+                                    </div>
+                                </div>
+                                <div class="tts-summary-column">
+                                    <h4 class="tts-summary-column-title">Delivery time</h4>
+                                    <div class="tts-summary-text">1 week</div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </xpath>
+
+            <!-- Replace payment_method with custom payment form -->
+            <xpath expr="//div[@id='payment_method']" position="replace">
+                <div id="payment_method" class="o_not_editable mt-4">
+                    <form method="POST" action="/shop/payment/transaction" class="tts-checkout-payment-form o_payment_form" id="o_payment_form">
+                        <!-- Required hidden fields for payment processing -->
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="order_id" t-att-value="website_sale_order.id if website_sale_order else ''"/>
+                        <input type="hidden" name="partner_id" t-att-value="partner_id if partner_id else (website_sale_order.partner_id.id if website_sale_order else '')"/>
+                        <input type="hidden" name="currency_id" t-att-value="website_sale_order.currency_id.id if website_sale_order else ''"/>
+                        <input type="hidden" name="amount" t-att-value="website_sale_order.amount_total if website_sale_order else 0"/>
+                        <input type="hidden" name="reference" t-att-value="website_sale_order.name if website_sale_order else ''"/>
+
+                        <h2 class="tts-checkout-payment-title">Payment</h2>
+
+                        <!-- Payment Methods -->
+                        <div class="tts-checkout-payment-methods">
+                            <!-- Use payment_methods_sudo from controller context -->
+                            <t t-if="payment_methods_sudo">
+                                <t t-foreach="payment_methods_sudo" t-as="method">
+                                    <div class="tts-checkout-payment-method o_payment_option_card" t-att-data-provider="method.provider_id.code if method.provider_id else 'manual'">
+                                        <!-- Halftone shadow effect (matching payment_methods.xml design) -->
+                                        <div class="tts-checkout-payment-method-shadow"></div>
+
+                                        <!-- Payment method content card -->
+                                        <div class="tts-checkout-payment-method-content">
+                                            <label class="tts-checkout-payment-method-header">
+                                                <!-- Payment Icon -->
+                                                <div class="tts-checkout-payment-icon">
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                        <path d="M16.27 5.83H3.73C3.08 5.83 2.5 6.27 2.5 6.92V13.08C2.5 13.73 3.08 14.17 3.73 14.17H16.27C16.92 14.17 17.5 13.73 17.5 13.08V6.92C17.5 6.27 16.92 5.83 16.27 5.83Z" stroke="currentColor" stroke-width="1.93"/>
+                                                    </svg>
+                                                </div>
+
+                                                <!-- Payment Method Name -->
+                                                <span class="tts-checkout-payment-method-name" t-esc="method.name"/>
+
+                                                <!-- Radio Button (correct field name for Odoo 18) -->
+                                                <input type="radio"
+                                                       name="payment_method_id"
+                                                       t-att-value="method.id"
+                                                       class="tts-checkout-payment-radio o_payment_radio"
+                                                       t-att-checked="'checked' if method_index == 0 else None"/>
+                                                <div class="tts-checkout-radio-custom"></div>
+                                            </label>
+
+                                            <!-- Card Brands (Visa, Mastercard, Amex) -->
+                                            <div class="tts-checkout-card-brands" t-if="method.provider_id and method.provider_id.code in ['stripe', 'authorize']">
+                                                <div class="tts-checkout-card-brand">
+                                                    <img src="/custom_shop_templates/static/src/img/payment/visa-icon.svg" alt="Visa"/>
+                                                </div>
+                                                <div class="tts-checkout-card-brand">
+                                                    <img src="/custom_shop_templates/static/src/img/payment/mastercard-icon.svg" alt="Mastercard"/>
+                                                </div>
+                                                <div class="tts-checkout-card-brand">
+                                                    <img src="/custom_shop_templates/static/src/img/payment/amex-icon.svg" alt="Amex"/>
+                                                </div>
+                                            </div>
+
+                                            <!-- Description -->
+                                            <p class="tts-checkout-payment-description">
+                                                <t t-if="method.provider_id">
+                                                    <t t-if="method.provider_id.code == 'stripe'">
+                                                        Pay with your credit card via <a href="https://stripe.com" target="_blank" class="tts-checkout-payment-link">Stripe</a>.
+                                                    </t>
+                                                    <t t-elif="method.provider_id.code == 'paypal'">
+                                                        Pay securely with your PayPal account.
+                                                    </t>
+                                                    <t t-elif="method.provider_id.code == 'transfer'">
+                                                        Make your payment directly into our bank account.
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-esc="method.provider_id.pre_msg or 'Complete your payment'"/>
+                                                    </t>
+                                                </t>
+                                            </p>
+
+                                            <!-- Payment Form Fields (shown when selected) -->
+                                            <div class="tts-checkout-payment-method-fields o_payment_inline_form" t-att-data-provider="method.provider_id.code if method.provider_id else 'manual'">
+                                                <!-- Inline payment form placeholder -->
+                                                <div class="tts-checkout-payment-inline-form-container">
+                                                    <!-- Odoo's payment provider will inject form here via JavaScript -->
+                                                    <!-- The payment widget will handle inline forms based on o_payment_inline_form class -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </t>
+
+                            <!-- Fallback if no payment methods available -->
+                            <div t-if="not payment_methods_sudo" class="alert alert-warning">
+                                No payment methods available. Please contact support.
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="tts-checkout-payment-button-wrapper">
+                            <div class="tts-checkout-button-shadow"></div>
+                            <button type="submit" class="tts-checkout-payment-button o_payment_submit_button">Complete Order</button>
+                        </div>
+                    </form>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

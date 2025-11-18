@@ -1,0 +1,218 @@
+// ========================================
+// TTS BANNER/ALERT COMPONENTS
+// ========================================
+// Purpose: Unified styles for all banner/alert types
+// Types: success, error, info, warning
+// Usage: Used by banner_alert.xml component
+// ========================================
+
+/* ==========================================================
+   BASE BANNER STYLES
+   ========================================================== */
+
+.tts-banner {
+    width: 100%;
+    padding: 16px;
+    border-radius: $tts-border-radius;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ==========================================================
+   BANNER TYPE VARIANTS
+   ========================================================== */
+
+.tts-banner-success {
+    background: #DCFCE7;  // Light green
+}
+
+.tts-banner-error {
+    background: #FEE2E2;  // Light red
+}
+
+.tts-banner-info {
+    background: #E0F2FE;  // Light blue
+}
+
+.tts-banner-warning {
+    background: #FEF3C7;  // Light yellow
+}
+
+/* ==========================================================
+   BANNER ICON
+   ========================================================== */
+
+.tts-banner-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tts-banner-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+/* ==========================================================
+   BANNER CONTENT & TEXT
+   ========================================================== */
+
+.tts-banner-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.tts-banner-text {
+    flex: 1;
+    margin: 0;
+    padding-top: 2px;
+    @include tts-text-body;
+    line-height: 1.5;
+
+    // Allow links inside banner text
+    a {
+        text-decoration: underline;
+        font-weight: 600;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+// Text colors by banner type
+.tts-banner-success .tts-banner-text {
+    color: #15803D;  // Dark green
+}
+
+.tts-banner-error .tts-banner-text {
+    color: #B91C1C;  // Dark red
+}
+
+.tts-banner-info .tts-banner-text {
+    color: #0369A1;  // Dark blue
+}
+
+.tts-banner-warning .tts-banner-text {
+    color: #A16207;  // Dark yellow/orange
+}
+
+/* ==========================================================
+   LEGACY SUPPORT - Old class names (backward compatibility)
+   ========================================================== */
+
+// Support for old .tts-success-banner class
+.tts-success-banner {
+    @extend .tts-banner;
+    @extend .tts-banner-success;
+}
+
+// Support for old .tts-info-banner class
+.tts-info-banner {
+    @extend .tts-banner;
+    @extend .tts-banner-info;
+}
+
+// Support for old .tts-alert class (login/register)
+.tts-alert {
+    @extend .tts-banner;
+    @extend .tts-banner-error;
+}
+
+.tts-alert-info {
+    @extend .tts-banner;
+    @extend .tts-banner-info;
+}
+
+// Legacy structure support
+.tts-alert-content,
+.tts-success-banner,
+.tts-info-banner {
+    .tts-alert-icon-wrapper,
+    .tts-alert-icon {
+        @extend .tts-banner-icon-wrapper;
+    }
+
+    .tts-alert-text {
+        @extend .tts-banner-text;
+    }
+}
+
+/* ==========================================================
+   UTILITY CLASSES
+   ========================================================== */
+
+.tts-mb-24 {
+    margin-bottom: 24px;
+}
+
+.tts-mb-64 {
+    margin-bottom: 64px;
+}
+
+/* ==========================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================== */
+
+@media (min-width: $tts-width-sm) {
+    .tts-banner {
+        padding: 16px 20px;  // Slightly more horizontal padding on larger screens
+    }
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-banner {
+        gap: 16px;  // More space between icon and text
+    }
+}
+
+/* ==========================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================== */
+
+// Ensure banners are keyboard focusable if they contain interactive elements
+.tts-banner {
+    &:focus-within {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+    .tts-banner {
+        border: 2px solid currentColor;
+    }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+    .tts-banner {
+        transition: none;
+    }
+}
+
+/* ==========================================================
+   ANIMATION UTILITIES (Optional)
+   ========================================================== */
+
+// Fade in animation for new banners
+@keyframes bannerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tts-banner-animated {
+    animation: bannerFadeIn 0.3s ease-out;
+}

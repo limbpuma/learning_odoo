@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Dashboard - Using common account_page_layout structure (same as orders, addresses) -->
+
+    <data>
+        <template id="tts_portal_my_home" inherit_id="portal.portal_my_home" name="TTS Portal My Home" priority="99">
+
+            <!-- Replace the entire portal_layout call with portal.frontend_layout -->
+            <xpath expr="//t[@t-call='portal.portal_layout']" position="replace">
+                <t t-call="portal.frontend_layout">
+                    <t t-set="page_title" t-value="'Dashboard'"/>
+                    <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+                <div class="wrap">
+                    <!-- DASHBOARD PAGE - Using common account_page_layout (same as orders, addresses, etc.) -->
+                    <t t-call="custom_shop_templates.account_page_layout">
+                        <t t-set="current_page" t-value="'dashboard'"/>
+                        <t t-set="with_shadow" t-value="False"/>
+
+                        <!-- DASHBOARD SECTION - Page-specific content -->
+                        <div class="tts-dashboard-section">
+                            <!-- User Info -->
+                            <div class="tts-user-info">
+                                <t t-esc="request.env.user.email"/> Customer No. <t t-esc="request.env.user.partner_id.id"/>
+                            </div>
+                        </div>
+
+                    </t>  <!-- Close t-call="account_page_layout" -->
+
+                </div>  <!-- Close wrap -->
+                </t>  <!-- Close t-call="portal.frontend_layout" -->
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

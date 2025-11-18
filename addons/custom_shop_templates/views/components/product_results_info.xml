@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product results info with sort dropdown -->
+
+    <data>
+        <!-- Product Results Info Component -->
+        <template id="product_results_info" name="Product Results Info">
+            
+            <t t-set="total_products" t-value="len(bins) * len(bins[0]) if bins and bins[0] else 0"/>
+
+            <!-- Simple calculation: show all products on page -->
+            <t t-set="showing_from" t-value="1 if total_products > 0 else 0"/>
+            <t t-set="showing_to" t-value="total_products"/>
+
+            <!--
+            ════════════════════════════════════════════════════════════════
+            CONTAINER - Full Bootstrap + Inline Styles
+            ════════════════════════════════════════════════════════════════
+            Same structure for SM, MD, LG
+            Bootstrap: w-100, h-100, d-inline-flex, justify-content-between
+            Inline: align-items from Figma (flex-start)
+            ════════════════════════════════════════════════════════════════
+            -->
+            <div class="w-100 h-100 d-inline-flex justify-content-between tts-align-start">
+
+                <!--
+                ════════════════════════════════════════════════════════════
+                LEFT SIDE ~ Results Count Text
+                ════════════════════════════════════════════════════════════
+                "Showing 1 to 6 (of 56)"
+                Mixed font-weight: 400 (regular) and 700 (bold)
+                Color: #FFEBDC (text-text-light variable)
+                Font: BentonSans 14px/20px
+                ════════════════════════════════════════════════════════════
+                -->
+                <div>
+                    <span class="tts-text-sm">Showing </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="showing_from"/>
+                    <span class="tts-text-sm"> to </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="showing_to"/>
+                    <span class="tts-text-sm"> (of </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="total_products"/>
+                    <span class="tts-text-sm">)</span>
+                </div>
+
+                <!--
+                ════════════════════════════════════════════════════════════
+                RIGHT SIDE - Sort Dropdown
+                ════════════════════════════════════════════════════════════
+                Custom styled dropdown matching Figma
+                Text: "Latest" (or other sort option)
+                Icon: Chevron down (20x20)
+                Full Bootstrap: d-inline-flex, flex-column, gap-1
+                ════════════════════════════════════════════════════════════
+                -->
+                <div class="d-inline-flex flex-column tts-flex-start tts-gap-4">
+
+                    <!-- Dropdown container -->
+                    <div class="d-inline-flex tts-radius-4 tts-justify-end-center">
+
+                        <!-- Dropdown wrapper -->
+                        <div class="d-flex overflow-hidden tts-justify-end-center">
+
+                            <!-- Dropdown content -->
+                            <div class="d-flex tts-justify-start-center-gap-4">
+
+                                <!-- Dropdown text -->
+                                <div class="tts-text-sm">
+                                    Latest
+                                </div>
+
+                                <!-- Chevron icon (20x20) -->
+                                <div class="d-flex tts-flex-center-both">
+                                    <div class="tts-icon-20">
+                                        <!-- Chevron path -->
+                                        <div class="tts-chevron-path"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
+                    ════════════════════════════════════════════════════════
+                    DROPDOWN OPTIONS (Hidden by default, shown on click)
+                    ════════════════════════════════════════════════════════
+                    This is simplified - in production, use proper select
+                    or JS-based dropdown for better UX
+                    TODO: Implement proper dropdown with JS
+                    ════════════════════════════════════════════════════════
+                    -->
+                    <!-- Placeholder for dropdown menu implementation -->
+
+                </div>
+
+            </div>
+
+        </template>
+
+        <!--
+        ════════════════════════════════════════════════════════════════════
+        ALTERNATIVE: Product Results Info with Functional Dropdown
+        ════════════════════════════════════════════════════════════════════
+        Uses native select styled to match Figma better
+        This version actually works for sorting
+        ════════════════════════════════════════════════════════════════════
+        -->
+        <template id="product_results_info_functional" name="Product Results Info (Functional)">
+            <!--
+            Calculate pagination values using Odoo bins structure
+            - bins contains actual products being shown on current page
+            - Show "1 to X (of X)" for current page (no pagination)
+            -->
+            <t t-set="total_products" t-value="len(bins) * len(bins[0]) if bins and bins[0] else 0"/>
+
+            <!-- Simple calculation: show all products on page -->
+            <t t-set="showing_from" t-value="1 if total_products > 0 else 0"/>
+            <t t-set="showing_to" t-value="total_products"/>
+
+            <div class="w-100 h-100 d-inline-flex justify-content-between tts-align-start">
+
+                <!-- Left: Results count -->
+                <div>
+                    <span class="tts-text-sm">Showing </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="showing_from"/>
+                    <span class="tts-text-sm"> to </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="showing_to"/>
+                    <span class="tts-text-sm"> (of </span>
+                    <span class="tts-text-sm-bold"
+                          t-esc="total_products"/>
+                    <span class="tts-text-sm">)</span>
+                </div>
+
+                <!-- Right: Functional sort dropdown -->
+                <div t-if="pager">
+                    <select name="order"
+                            class="border-0 bg-transparent tts-select-dropdown"
+                            onchange="window.location.href = this.value">
+                        <option value="/shop?order=create_date desc" selected="selected">Latest</option>
+                        <option value="/shop?order=name asc">Name: A-Z</option>
+                        <option value="/shop?order=list_price asc">Price: Low to High</option>
+                        <option value="/shop?order=list_price desc">Price: High to Low</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </template>
+
+    </data>
+</odoo>

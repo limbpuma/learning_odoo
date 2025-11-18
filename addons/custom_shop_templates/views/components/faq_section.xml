@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- FAQ Section - Responsive two-column layout (sticky heading + accordion) with Bootstrap Collapse -->
+    <template id="faq_section" name="FAQ Section - Static">
+        <!-- Section Container -->
+        <section class="px-3 px-md-5 px-lg-5 tts-section-surface-medium">
+
+            <!-- Container (max-width 1536px) -->
+            <div class="container-xxl">
+                <div class="mx-auto tts-max-w-1536">
+
+                    <!-- Two Column Layout -->
+                    <div class="row g-4 g-lg-3">
+
+                        <!-- LEFT COLUMN: Sticky Heading (Desktop) -->
+                        <div class="col-12 col-lg-4">
+                            <div class="tts-sticky-lg">
+                                <!-- Heading Image with Halftone Shadow -->
+                                <div class="tts-text-halftone-shadow mb-4 mb-lg-0"
+                                     style="--mask-url: url('/custom_shop_templates/static/src/img/faq/heading_faq.svg')">
+                                    <img src="/custom_shop_templates/static/src/img/faq/heading_faq.svg"
+                                         alt="Frequently Asked Questions"
+                                         class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN: FAQ Accordion List -->
+                        <div class="col-12 col-lg-8">
+                            <div class="d-flex flex-column gap-3">
+
+                                <!-- FAQ Item 1: Why are your prices excl. VAT? -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <!-- FAQ Card -->
+                                    <div class="border border-2 border-dark tts-card-elevated position-relative tts-z-1">
+
+                                        <!-- Question (Button) -->
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq1"
+                                                aria-expanded="false">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                Why are your prices excl. VAT?
+                                            </h3>
+                                            <!-- Chevron Icon (SVG) -->
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <!-- Answer (Collapse) -->
+                                        <div class="collapse" id="faq1">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <p class="mb-0 tts-faq-text">
+                                                    Our prices exclude VAT to provide transparent pricing for both B2B and B2C customers. VAT will be calculated and displayed during checkout based on your location.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 2: How much for Shipping Costs? -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <div class="border border-2 border-dark tts-card-elevated position-relative tts-z-1">
+
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq2"
+                                                aria-expanded="false">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                How much for Shipping Costs?
+                                            </h3>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <div class="collapse" id="faq2">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <p class="mb-0 tts-faq-text">
+                                                    Shipping costs vary by location and order size. Free shipping is available for orders over $100. Exact shipping costs will be calculated during checkout.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 3: Why am I being charged VAT on my order? -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <div class="border border-2 border-dark tts-card-elevated position-relative tts-z-1">
+
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq3"
+                                                aria-expanded="false">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                Why am I being charged VAT on my order?
+                                            </h3>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <div class="collapse" id="faq3">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <p class="mb-0 tts-faq-text">
+                                                    VAT is charged based on your shipping address and local tax regulations. The VAT rate applied depends on your country's tax laws.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 4: How do you handle returns? (EXPANDED + IMAGE) -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <div class="border border-2 border-dark position-relative tts-card-surface-dark tts-z-1">
+
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq4"
+                                                aria-expanded="true">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                How do you handle returns?
+                                            </h3>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <div class="collapse show" id="faq4">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <!-- Text Content -->
+                                                <div class="mb-3">
+                                                    <p class="tts-faq-text">
+                                                        Lorem ipsum dolor sit amet consectetur. Lacus volutpat eu eget ultricies dignissim at aenean mauris faucibus. Augue turpis elementum mus quisque purus blandit sed ut sed. Senectus sed commodo pharetra vulputate fermentum et.
+                                                    </p>
+                                                    <p class="mb-0 tts-faq-text">
+                                                        Porttitor dignissim maecenas sagittis ipsum. Ac egestas turpis egestas quis diam ornare non turpis. Lectus egestas ultricies consequat varius eget nulla rhoncus. Eget nisl non vulputate sagittis netus. Lacus dictum risus amet purus consequat arcu habitant enim facilisis nunc.
+                                                    </p>
+                                                </div>
+
+                                                <!-- Optional Image -->
+                                                <div class="border border-2 border-dark overflow-hidden tts-radius-24 tts-max-h-350">
+                                                    <img src="/custom_shop_templates/static/src/img/faq/faq_image.png"
+                                                         alt="Returns process illustration"
+                                                         class="w-100 h-100 tts-img-cover"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 5: Where do I get support? -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <div class="border border-2 border-dark tts-card-elevated position-relative tts-z-1">
+
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq5"
+                                                aria-expanded="false">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                Where do I get support?
+                                            </h3>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <div class="collapse" id="faq5">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <p class="mb-0 tts-faq-text">
+                                                    You can reach our support team via email at support@example.com or through our contact form. We typically respond within 24 hours during business days.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- FAQ Item 6: When will my order arrive? -->
+                                <div class="tts-halftone-shadow-faq">
+                                    <div class="border border-2 border-dark tts-card-elevated position-relative tts-z-1">
+
+                                        <button class="d-flex justify-content-between align-items-start w-100 p-3 p-md-4 border-0 bg-transparent text-start"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faq6"
+                                                aria-expanded="false">
+                                            <h3 class="h6 fw-bold mb-0 flex-grow-1 tts-faq-heading">
+                                                When will my order arrive?
+                                            </h3>
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="flex-shrink-0 tts-text-light tts-icon-transition">
+                                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                                      stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </button>
+
+                                        <div class="collapse" id="faq6">
+                                            <div class="px-3 px-md-4 pb-3 pb-md-4">
+                                                <p class="mb-0 tts-faq-text">
+                                                    Standard shipping typically takes 3-5 business days. Express shipping options are available for faster delivery. You'll receive a tracking number once your order ships.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

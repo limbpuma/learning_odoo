@@ -1,0 +1,475 @@
+// ========================================
+// TTS BOOTSTRAP WEBSITE - CART PAGE STYLES
+// ========================================
+// Migrated from shop_cart.xml <style> blocks (PHASE 5)
+// Using centralized variables and mixins from variables.scss
+
+// ========================================
+// CART PAGE - CSS-only Figma pattern (override Bootstrap)
+// ========================================
+
+/* Override Bootstrap .container to Figma measurements */
+.tts-cart-page.oe_website_sale .container {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 32px 16px 64px 16px;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-cart-page.oe_website_sale .container {
+        width: 768px;
+        padding: 40px 48px 80px 48px;
+    }
+}
+
+@media (min-width: $tts-width-lg) {
+    .tts-cart-page.oe_website_sale .container {
+        max-width: $tts-width-lg;  // 1280px - Figma spec
+        padding: 64px 80px 128px 80px;
+    }
+}
+
+// ========================================
+// CART PAGE HEADER (Breadcrumb + Title Container)
+// ========================================
+// This container wraps breadcrumb and title OUTSIDE .o_website_sale_checkout
+// to avoid ::before/::after interference
+
+/* Breadcrumb + Title Container - Custom width control (NO Bootstrap .container) */
+.tts-cart-header-container {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 0;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-cart-header-container {
+        padding-top: 40px;
+        padding-left: 48px;
+        padding-right: 48px;
+    }
+}
+
+@media (min-width: $tts-width-lg) {
+    .tts-cart-header-container {
+        width: $tts-width-lg;  // 1280px - matches checkout container
+        padding-top: 64px;
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+}
+
+// ========================================
+// CART PAGE TITLE
+// ========================================
+
+/* Page Title - Responsive Typography */
+.tts-cart-page-title-wrapper {
+    margin-bottom: 40px;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-cart-page-title-wrapper {
+        margin-bottom: 48px;
+    }
+}
+
+@media (min-width: $tts-width-lg) {
+    .tts-cart-page-title-wrapper {
+        margin-bottom: 64px;
+    }
+}
+
+.tts-cart-page-title {
+    font-family: var(--tts-font-family);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--tts-light);
+    margin: 0;
+
+    /* SM: 36px/40px, left-aligned */
+    font-size: 36px;
+    line-height: 40px;
+    text-align: left;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-cart-page-title {
+        /* MD: 48px/48px, centered */
+        font-size: 48px;
+        line-height: 48px;
+        text-align: center;
+    }
+}
+
+@media (min-width: $tts-width-lg) {
+    .tts-cart-page-title {
+        /* LG: 60px/64px, centered */
+        font-size: 60px;
+        line-height: 64px;
+        text-align: center;
+    }
+}
+
+/* 2-column layout with Figma gap at LG */
+@media (min-width: $tts-width-lg) {
+    /* Override Bootstrap .row to use Figma flexbox */
+    .tts-cart-page.oe_website_sale .container .row {
+        display: flex;
+        flex-direction: row;
+        gap: 119px;  // Figma gap between columns
+        margin: 0;
+    }
+
+    /* Products column - flexible width */
+    .tts-cart-page.oe_website_sale .container .row > .oe_cart,
+    .tts-cart-page.oe_website_sale .container .row > [class*="col-"] {
+        flex: 1 1 0;
+        max-width: none;
+        padding: 0;  // Remove Bootstrap padding since we use gap
+    }
+
+    /* Summary column - fixed 453px width from Figma */
+    .tts-cart-page.oe_website_sale .container .row > #o_cart_summary {
+        flex: 0 0 453px;
+        width: 453px;
+        max-width: 453px;
+        padding: 0;  // Remove Bootstrap padding since we use gap
+    }
+}
+
+// ========================================
+// DELIVERY BANNER
+// ========================================
+
+.delivery-banner {
+    background: #e0f2fe;  // Info surface from dictionary
+    border: 2px solid #bae6fd;  // Sky 200 from dictionary
+    border-radius: $tts-border-radius;  // 12px
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+.delivery-banner-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+}
+
+.delivery-banner-text {
+    font-family: var(--tts-font-family);
+    @include tts-text-body;  // 14px/400/20px
+    color: #0369a1;  // Info blue from dictionary
+    flex: 1;
+}
+
+// ========================================
+// CART ITEMS
+// ========================================
+
+.cart-item {
+    background: var(--tts-surface-dark);
+    border: 2px solid var(--tts-dark);
+    border-radius: $tts-border-radius;  // 12px
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+}
+
+@media (min-width: $tts-width-md) {
+    .cart-item {
+        padding: 24px;
+    }
+}
+
+.cart-item-image-wrapper {
+    /* Uses tts-halftone-shadow CSS class for halftone effect */
+    width: 64px;
+    flex-shrink: 0;
+}
+
+@media (min-width: $tts-width-md) {
+    .cart-item-image-wrapper {
+        width: 96px;
+    }
+}
+
+.cart-item-image {
+    background: var(--tts-card-dark);
+    border: 2px solid var(--tts-dark);
+    border-radius: $tts-border-radius;  // 12px
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.cart-item-image-inner {
+    background: var(--tts-light);
+    overflow: hidden;
+    border-radius: inherit;
+    position: relative;
+}
+
+.cart-item-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Halftone shadows now use tts-halftone-shadow CSS class from components.scss */
+
+.cart-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cart-item-header {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-title {
+    font-family: var(--tts-font-family);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--tts-light);
+    letter-spacing: 0.36px;
+    margin-bottom: 4px;
+}
+
+.cart-item-description,
+.cart-item-delivery {
+    font-family: var(--tts-font-family);
+    @include tts-text-body;  // 14px/400/20px
+    color: var(--tts-light);
+    margin-bottom: 4px;
+}
+
+.cart-item-price {
+    font-family: var(--tts-font-family);
+    @include tts-text-large-bold;  // 18px/700/28px
+    color: var(--tts-light);
+    white-space: nowrap;
+    text-align: right;
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+// ========================================
+// QUANTITY SELECTOR
+// ========================================
+
+.quantity-selector {
+    /* Uses tts-halftone-shadow CSS class for halftone effect */
+}
+
+.quantity-selector-inner {
+    background: var(--tts-surface-dark);
+    border: 2px solid var(--tts-light);
+    border-radius: $tts-border-radius-sm;  // 8px
+    padding: 6px 8px 6px 16px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    min-width: 76px;
+}
+
+.quantity-selector input {
+    background: transparent;
+    border: none;
+    color: var(--tts-light);
+    font-family: var(--tts-font-family);
+    @include tts-text-body;  // 14px/400/20px
+    width: 20px;
+    text-align: left;
+}
+
+.quantity-selector-dropdown {
+    width: 20px;
+    height: 20px;
+    background-image: url('/custom_shop_templates/static/src/img/payment/dropdown-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: relative;
+}
+
+/* Botones +/- sobre dropdown Figma */
+.quantity-dropdown-plus,
+.quantity-dropdown-minus {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.quantity-dropdown-plus {
+    top: 0; /* Mitad superior = + */
+}
+
+.quantity-dropdown-minus {
+    bottom: 0; /* Mitad inferior = - */
+}
+
+/* quantity-selector now uses tts-halftone-shadow CSS class */
+
+.delete-button {
+    width: 20px;
+    height: 20px;
+    background-image: url('/custom_shop_templates/static/src/img/payment/delete-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+// ========================================
+// CART SUMMARY
+// ========================================
+
+.cart-summary {
+    /* Uses tts-halftone-shadow CSS class for halftone effect (applied in class attribute) */
+}
+
+/* Sticky positioning on LG */
+@media (min-width: $tts-width-lg) {
+    .cart-summary {
+        position: sticky;
+        top: 24px;
+    }
+}
+
+.cart-summary-container {
+    background: var(--tts-surface-dark);
+    border: 2px solid var(--tts-dark);
+    border-radius: $tts-border-radius-xl;  // 24px
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.cart-summary-header {
+    padding: 24px 24px 16px;
+    border-bottom: 2px solid var(--tts-dark);
+}
+
+.cart-summary-title {
+    font-family: var(--tts-font-family);
+    @include tts-heading-bold;  // 20px/700/32px
+    color: var(--tts-light);
+    letter-spacing: 0.4px;
+}
+
+.cart-summary-price-section {
+    padding: 24px;
+    border-bottom: 2px solid var(--tts-dark);
+}
+
+.cart-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.cart-summary-row:last-child {
+    margin-bottom: 16px;
+}
+
+.cart-summary-row.total {
+    margin-bottom: 0;
+    align-items: flex-end;
+}
+
+.cart-summary-label {
+    font-family: var(--tts-font-family);
+    @include tts-text-body;  // 14px/400/20px
+    color: var(--tts-light);
+}
+
+.cart-summary-label.bold {
+    font-weight: 700;
+}
+
+.cart-summary-value {
+    font-family: var(--tts-font-family);
+    @include tts-text-body;  // 14px/400/20px
+    color: var(--tts-light);
+    text-align: right;
+}
+
+.cart-summary-value.bold {
+    font-weight: 700;
+}
+
+.cart-summary-total {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.cart-summary-actions {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.checkout-button {
+    /* Uses tts-halftone-shadow CSS class for halftone effect */
+    width: 100%;
+}
+
+/* checkout-button now uses tts-button CSS class from components.scss */
+
+.payment-methods {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.payment-method-icon {
+    width: 33.724px;
+    height: 23.805px;
+    background-color: white;
+    border-radius: 2.976px;
+    box-shadow: 0px 0px 2.794px 0px rgba(0,0,0,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-method-icon img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* cart-summary now uses tts-halftone-shadow CSS class */

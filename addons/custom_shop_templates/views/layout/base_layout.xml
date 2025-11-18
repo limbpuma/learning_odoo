@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ========================================
+         TTS BOOTSTRAP WEBSITE - BASE LAYOUT
+         ========================================
+         Main layout template inheriting from Odoo website.layout -->
+    
+    <data>
+        <!-- ====================================== 
+             MAIN WEBSITE LAYOUT OVERRIDE
+             ====================================== -->
+        <template id="layout" inherit_id="website.layout">
+
+            <!-- HTML HEAD - Add TTS Brand Colors CSS Variables -->
+            <xpath expr="//head" position="inside">
+                <!-- TTS Brand colors as CSS variables -->
+                <style>
+                    :root {
+                        --tts-brand-primary: #FF4600;
+                        --tts-dark: #000000;
+                        --tts-light: #FFEBDC;
+                        --tts-secondary: #C1A998;
+                        --tts-surface-dark: #171717;
+                        --tts-surface-medium: #404040;
+                        --tts-card-dark: #525252;
+                    }
+
+                    /* Hide optional Odoo elements in product detail page */
+                    #product_detail .s_share,
+                    #product_detail div[data-snippet="s_share"],
+                    #o_product_terms_and_share p.text-muted {
+                        display: none !important;
+                    }
+
+                    /* Hide Odoo's default product image gallery container */
+                    .o_wsale_product_images {
+                        display: none !important;
+                    }
+
+                    /* Hide Odoo's product variants selector (kept in DOM for JS functionality) */
+                    .js_add_cart_variants {
+                        display: none !important;
+                    }
+                </style>
+            </xpath>
+
+        </template>
+        
+        <!-- ======================================
+             HEADER CUSTOMIZATIONS
+             ====================================== -->
+        
+        <template id="header_layout" inherit_id="website.layout">
+
+            <xpath expr="//header[@id='top']" position="replace">
+                <header id="top" data-anchor="true">
+                    <t t-call="custom_shop_templates.header_navbar"/>
+                </header>
+            </xpath>
+
+        </template>
+       
+
+        <!-- ======================================
+             FOOTER CUSTOMIZATIONS
+             ====================================== -->
+        <template id="footer_layout" inherit_id="website.layout">
+
+            <xpath expr="//footer[@id='bottom']" position="replace">
+                <footer id="bottom" data-anchor="true">
+                    <!-- Import footer component using t-call -->
+                    <t t-call="custom_shop_templates.footer"/>
+                </footer>
+            </xpath>
+
+        </template>
+        
+    </data>
+</odoo>

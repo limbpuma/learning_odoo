@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Breadcrumb Navigation - Responsive breadcrumb trail with HOME link + dynamic items + current page -->
+    <!-- Usage: Set breadcrumb_items (list of dicts) and page_title, then t-call="custom_shop_templates.breadcrumb" -->
+
+    <template id="breadcrumb" name="Breadcrumb Navigation Trail">
+        <!-- Breadcrumb and Page Header Styles -->
+        <style>
+            /* Breadcrumb Spacing - Figma Specs */
+            .tts-breadcrumb {
+                padding-top: 16px;
+                padding-bottom: 16px;
+                margin-bottom: 0;
+            }
+
+            @media (min-width: 768px) {
+                .tts-breadcrumb {
+                    padding-top: 16px;
+                    padding-bottom: 16px;
+                    margin-bottom: 0;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .tts-breadcrumb {
+                    padding-top: 24px;
+                    padding-bottom: 24px;
+                    margin-bottom: 0;
+                }
+            }
+
+            /* Page Header - Responsive Typography - Figma Specs */
+            /* Used for: "Cart", "Checkout Address", etc. */
+            .cart-page-header {
+                font-family: 'BentonSans', sans-serif;
+                font-weight: 700;
+                font-size: 36px;
+                line-height: 40px;
+                color: var(--text-light, #ffebdc);
+                text-transform: uppercase;
+                padding: 0;
+                margin: 32px 0 40px 0;
+                text-align: left;
+                /* Force header to be on its own line, outside row flexbox */
+                width: 100%;
+                flex-basis: 100%;
+                order: -1;
+            }
+
+            @media (min-width: 768px) {
+                .cart-page-header {
+                    font-size: 48px;
+                    line-height: 48px;
+                    margin: 24px 0 32px 0;
+                    text-align: center;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .cart-page-header {
+                    font-size: 60px;
+                    line-height: 64px;
+                    margin: 32px 0 64px 0;
+                    text-align: center;
+                }
+            }
+
+            /* Force row to wrap when it contains cart-page-header */
+            .row:has(.cart-page-header) {
+                flex-wrap: wrap;
+            }
+        </style>
+
+        <nav aria-label="breadcrumb" class="tts-breadcrumb">
+            <div class="container-fluid">
+                <!-- Using TTS spacing variables -->
+                <div>
+                    <ol class="breadcrumb mb-0 bg-transparent p-0"
+                        style="font-family: var(--tts-font-family, BentonSans, sans-serif);">
+
+                        <!-- Home breadcrumb item (always present with underline) -->
+                        <li class="breadcrumb-item">
+                            <a href="/"
+                               class="text-decoration-underline text-uppercase fw-bold"
+                               style="color: var(--tts-light, #FFEBDC);">
+                                HOME
+                            </a>
+                        </li>
+
+                        <!-- Dynamic breadcrumb items (intermediate pages with links) -->
+                        <t t-if="breadcrumb_items">
+                            <t t-foreach="breadcrumb_items" t-as="item">
+                                <li class="breadcrumb-item">
+                                    <a t-att-href="item.get('url', '#')"
+                                       class="text-decoration-underline text-uppercase fw-bold"
+                                       style="color: var(--tts-light, #FFEBDC);">
+                                        <t t-esc="item.get('name', '')"/>
+                                    </a>
+                                </li>
+                            </t>
+                        </t>
+
+                        <!-- Current page breadcrumb item (inactive, no link) -->
+                        <li class="breadcrumb-item active text-uppercase"
+                            aria-current="page"
+                            style="color: var(--tts-light, #FFEBDC);">
+                            <t t-esc="page_title or 'Page'"/>
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+        </nav>
+    </template>
+
+    <template id="breadcrumb_shop" name="Shop Breadcrumb">
+        <t t-set="page_title" t-value="'Shop'"/>
+        <t t-call="custom_shop_templates.breadcrumb"/>
+    </template>
+
+    <template id="breadcrumb_product" name="Product Detail Breadcrumb">
+        <t t-set="page_title" t-value="product.name if product else 'Product'"/>
+        <t t-call="custom_shop_templates.breadcrumb"/>
+    </template>
+
+    <template id="breadcrumb_cart" name="Cart Breadcrumb">
+        <t t-set="page_title" t-value="'Cart'"/>
+        <t t-call="custom_shop_templates.breadcrumb"/>
+    </template>
+
+    <template id="breadcrumb_checkout" name="Checkout Breadcrumb">
+        <t t-set="page_title" t-value="'Checkout'"/>
+        <t t-call="custom_shop_templates.breadcrumb"/>
+    </template>
+
+</odoo>

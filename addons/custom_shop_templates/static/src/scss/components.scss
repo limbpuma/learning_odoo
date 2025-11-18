@@ -1,0 +1,689 @@
+// ========================================
+// TTS BOOTSTRAP WEBSITE - COMPONENTS
+// ========================================
+// TTS components using MOST FREQUENT COLORS ONLY
+// Other colors use hex values from dictionary
+
+// ========================================
+// GLOBAL OVERRIDES
+// ========================================
+
+// Apply BentonSans globally using typography variables
+body {
+  font-family: $tts-font-family;
+  @include tts-text-body;  // Default body text styling (14px/400/20px)
+}
+
+// ========================================
+// TTS BUTTON COMPONENTS
+// ========================================
+
+// TTS Primary Button (complements Bootstrap btn-primary)
+.btn-tts-primary {
+  background-color: $tts-brand-primary;
+  border-color: $tts-brand-primary;
+  color: white;
+  border-radius: $tts-border-radius;  // 12px
+  font-weight: $tts-font-weight-medium;  // 500
+
+  &:hover,
+  &:focus {
+    background-color: #FF5E00;  // Use dictionary color for hover (alternative orange)
+    border-color: #FF5E00;
+    color: white;
+  }
+}
+
+// TTS Outline Button
+.btn-tts-outline {
+  background-color: transparent;
+  border: 2px solid $tts-brand-primary;
+  color: $tts-brand-primary;
+  border-radius: $tts-border-radius;  // 12px
+  font-weight: $tts-font-weight-medium;  // 500
+
+  &:hover,
+  &:focus {
+    background-color: $tts-brand-primary;
+    border-color: $tts-brand-primary;
+    color: white;
+  }
+}
+
+// TTS Secondary Button (using secondary color)
+.btn-tts-secondary {
+  background-color: $tts-secondary;
+  border-color: $tts-secondary;
+  color: white;
+  border-radius: $tts-border-radius;  // 12px
+  font-weight: $tts-font-weight-medium;  // 500
+
+  &:hover,
+  &:focus {
+    background-color: darken($tts-secondary, 15%);
+    border-color: darken($tts-secondary, 15%);
+    color: white;
+  }
+}
+
+// ========================================
+// TTS STANDARDIZED BUTTON SYSTEM
+// ========================================
+// Centralized button styles to replace inline styles across the site
+// Used for: Load More, Get in touch, Visit Help Desk, Go to checkout
+
+// Base button class - Light background with dark border
+.tts-button {
+  background-color: $tts-light;  // #FFEBDC
+  color: $tts-dark;  // #000
+  border: 2px solid $tts-dark;
+  border-radius: $tts-border-radius;  // 12px
+  padding: 16px 24px;
+  font-family: $tts-font-family;  // BentonSans
+  font-size: 14px;
+  font-weight: $tts-font-weight-bold;  // 700
+  line-height: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background-color: $tts-dark;
+    color: $tts-light;
+    text-decoration: none;
+  }
+}
+
+// Outline variant - Transparent background with light border
+.tts-button-outline {
+  background-color: transparent;
+  color: $tts-light;  // #FFEBDC
+  border: 2px solid $tts-light;
+  border-radius: $tts-border-radius;  // 12px
+  padding: 16px 24px;
+  font-family: $tts-font-family;  // BentonSans
+  font-size: 14px;
+  font-weight: $tts-font-weight-bold;  // 700
+  line-height: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    background-color: $tts-light;
+    color: $tts-dark;
+    text-decoration: none;
+  }
+}
+
+// ========================================
+// TTS UTILITY CLASSES - MOST USED COLORS ONLY
+// ========================================
+
+// Text Color Utilities (using most frequent colors)
+.text-tts-brand { 
+  color: $tts-brand-primary !important; 
+}
+
+.text-tts-dark { 
+  color: $tts-dark !important; 
+}
+
+.text-tts-secondary { 
+  color: $tts-secondary !important; 
+}
+
+.text-tts-light { 
+  color: $tts-light !important; 
+}
+
+// Background Color Utilities (using most frequent colors)
+.bg-tts-brand { 
+  background-color: $tts-brand-primary !important; 
+}
+
+.bg-tts-dark { 
+  background-color: $tts-dark !important; 
+}
+
+.bg-tts-light { 
+  background-color: $tts-light !important; 
+}
+
+.bg-tts-surface-dark { 
+  background-color: $tts-surface-dark !important; 
+}
+
+.bg-tts-surface-medium { 
+  background-color: $tts-surface-medium !important; 
+}
+
+.bg-tts-card-dark { 
+  background-color: $tts-card-dark !important; 
+}
+
+// Border Utilities (using most frequent colors)
+.border-tts-dark { 
+  border-color: $tts-dark !important; 
+}
+
+.border-tts-light { 
+  border-color: $tts-light !important; 
+}
+
+// Status Utilities (using dictionary colors directly)
+.bg-tts-success { 
+  background-color: #DCFCE7 !important; /* Success surface from dictionary */
+}
+
+.text-tts-success { 
+  color: #22C55E !important; /* Success green from dictionary */
+}
+
+.bg-tts-error { 
+  background-color: #FEE2E2 !important; /* Error surface from dictionary */
+}
+
+.text-tts-error { 
+  color: #B91C1C !important; /* Error red from dictionary */
+}
+
+.bg-tts-info { 
+  background-color: #E0F2FE !important; /* Info surface from dictionary */
+}
+
+.text-tts-info { 
+  color: #0369A1 !important; /* Info blue from dictionary */
+}
+
+// Border Radius Utilities (using variables)
+.border-radius-tts {
+  border-radius: $tts-border-radius !important;  // 12px
+}
+
+.border-radius-tts-sm {
+  border-radius: $tts-border-radius-sm !important;  // 8px
+}
+
+.border-radius-tts-lg {
+  border-radius: $tts-border-radius-lg !important;  // 16px
+}
+
+// ========================================
+// ODOO SPECIFIC OVERRIDES (Minimal)
+// ========================================
+
+// Override Odoo default button styling when using TTS classes
+.oe_website_sale {
+  .btn-tts-primary,
+  .btn-tts-outline,
+  .btn-tts-secondary {
+    // Ensure our TTS buttons work in Odoo context
+    transition: all 0.3s ease;
+  }
+}
+
+// Product cards consistency with most used colors
+.oe_product {
+  .card {
+    border-radius: $tts-border-radius;  // 12px
+    border-color: $tts-light;
+
+    &:hover {
+      background-color: $tts-light;
+    }
+  }
+}
+
+// Text color overrides using typography mixins
+.product-description {
+  @include tts-text-body;           // 14px/400/20px
+  color: $tts-dark;
+}
+
+.product-price {
+  @include tts-text-body-bold;      // 14px/700/20px
+  color: $tts-brand-primary;
+}
+
+.form-control::placeholder {
+  @include tts-text-body;           // 14px/400/20px
+  color: $tts-secondary;
+}
+
+// ========================================
+// PRODUCT CARD COMPONENTS
+// ========================================
+// Product cards now use 100% Bootstrap + inline styles
+// SVG halftone shadows replace CSS backgrounds
+// All custom SCSS removed - see product_card.xml for full Bootstrap implementation
+
+// ========================================
+// HALFTONE SHADOW SYSTEM
+// ========================================
+// Universal halftone shadow using single SVG (replaces 16 individual SVG files)
+// Based on halftone-universal.svg with CSS ::before pseudo-element
+//
+// USAGE RULES:
+// 1. Apply halftone class to PARENT container (not the button/input itself)
+// 2. Child content MUST have position: relative; z-index: 1; to stay above shadow
+// 3. Do NOT add overflow: hidden to elements with halftone class
+// 4. Do NOT add position: absolute to elements with halftone class
+//    (use outer wrapper for positioning if needed)
+//
+// EXAMPLE (simple):
+//   <div class="tts-halftone-shadow">
+//     <button class="position-relative tts-z-1">Content</button>
+//   </div>
+//
+// EXAMPLE (with absolute positioning):
+//   <div class="position-absolute bottom-0 end-0 m-3">
+//     <div class="tts-halftone-shadow">
+//       <button class="position-relative tts-z-1">Content</button>
+//     </div>
+//   </div>
+
+// Base Mixin (configurable)
+@mixin tts-halftone-shadow-base(
+  $offset-x: $tts-halftone-offset-x,
+  $offset-y: $tts-halftone-offset-y,
+  $rotation: $tts-halftone-rotation,
+  $border-radius: $tts-border-radius-sm,
+  $opacity: 1
+) {
+  position: relative;
+  // IMPORTANT: Do NOT add overflow: hidden to elements with this class
+  // or the halftone shadow will be cut off
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: $offset-x;
+    top: $offset-y;
+    width: 100%;
+    height: 100%;
+    background-image: url(#{$tts-halftone-pattern-url});
+    background-size: 300px 300px;  // Fixed size for consistent dot rendering across all components
+    background-repeat: repeat;   // Allow pattern to repeat instead of stretch
+    background-position: center;
+    transform: rotate($rotation);
+    transform-origin: top left;
+    border-radius: $border-radius;
+    z-index: $tts-halftone-z-index;  // 0 - child content must have z-index: 1
+    pointer-events: none;
+    opacity: $opacity;
+  }
+}
+
+// ========================================
+// HALFTONE UTILITY CLASSES
+// ========================================
+
+// Generic halftone shadow (100% width/height)
+// Usage: Add to any element that needs halftone shadow
+.tts-halftone-shadow {
+  @include tts-halftone-shadow-base($opacity: 0.8);
+}
+
+// Product card image halftone (adaptive size, border-radius: 12px)
+// Usage: Apply to parent container of product images
+// Example: <div class="tts-halftone-shadow-image"><a><img/></a></div>
+.tts-halftone-shadow-image {
+  @include tts-halftone-shadow-base(
+    $offset-x: 6px,
+    $offset-y: 6px,
+    $rotation: -1deg,
+    $border-radius: $tts-border-radius,  // 12px to match image border-radius
+    $opacity: 0.8
+  );
+}
+
+// Product detail large image halftone (border-radius: 24px)
+// Usage: Apply to parent container of large product detail images
+// Example: <div class="tts-halftone-shadow-image-large"><img/></div>
+.tts-halftone-shadow-image-large {
+  @include tts-halftone-shadow-base(
+    $offset-x: 6px,
+    $offset-y: 8px,  // Increased from 6px to 8px for more pronounced shadow effect
+    $rotation: -1deg,
+    $border-radius: 24px,  // 24px to match large product image border-radius
+    $opacity: 0.8
+  );
+}
+
+// Add to cart button halftone (40x40px fixed)
+// Usage: Apply to parent container of add to cart button
+// Example: <div class="tts-halftone-shadow-button-cart"><button>Add to Cart</button></div>
+.tts-halftone-shadow-button-cart {
+  @include tts-halftone-shadow-base(
+    $offset-x: 4px,
+    $offset-y: 4px,
+    $rotation: -1deg,
+    $border-radius: $tts-border-radius-sm,  // 8px
+    $opacity: 0.8
+  );
+}
+
+// Login form halftone (responsive: SM/MD/LG)
+// Usage: Apply to form inputs or containers
+// Responsive sizing: SM: 343px, MD: 440px, LG: 358px
+.tts-halftone-shadow-login {
+  @include tts-halftone-shadow-base(
+    $offset-x: 6px,
+    $offset-y: 6px,
+    $rotation: -1deg,
+    $border-radius: $tts-border-radius,  // 12px
+    $opacity: 0.8
+  );
+
+  // Responsive adjustments for different breakpoints
+  // SVG scales automatically with preserveAspectRatio="none"
+
+  // Mobile (< 576px): Base styles apply
+  // Width: 343px (defined by Bootstrap container)
+
+  @media (min-width: $tts-width-md) {
+    // Tablet (MD ≥ 768px): 440px width
+    // No additional CSS needed - SVG scales automatically
+  }
+
+  @media (min-width: $tts-width-lg) {
+    // Desktop (LG ≥ 992px): 358px width
+    // No additional CSS needed - SVG scales automatically
+  }
+}
+
+// FAQ accordion halftone (matches original CSS shadow offset)
+// Usage: Apply to parent container of FAQ accordion cards
+// Example: <div class="tts-halftone-shadow-faq"><div class="card">FAQ Content</div></div>
+.tts-halftone-shadow-faq {
+  @include tts-halftone-shadow-base(
+    $offset-x: 4px,
+    $offset-y: 4px,
+    $rotation: -0.8deg,
+    $border-radius: $tts-border-radius,  // 12px
+    $opacity: 0.8
+  );
+}
+
+// Account selector halftone (responsive: SM/MD - 343px to 672px)
+// Usage: Apply to parent container of account selector button
+// Example: <div class="tts-halftone-shadow-account-selector"><a class="tts-account-selector-button">...</a></div>
+.tts-halftone-shadow-account-selector {
+  @include tts-halftone-shadow-base(
+    $offset-x: 6px,
+    $offset-y: 6px,
+    $rotation: -1deg,
+    $border-radius: $tts-border-radius,  // 12px
+    $opacity: 0.8
+  );
+}
+
+// Text/SVG halftone (follows text outline using CSS mask)
+// Usage: Apply to container with --mask-url CSS variable
+// Example: <div class="tts-text-halftone-shadow" style="--mask-url: url('/path/to/text.svg')"><img src="/path/to/text.svg"/></div>
+.tts-text-halftone-shadow {
+  @include tts-halftone-shadow-base(
+    $offset-x: 4px,
+    $offset-y: 4px,
+    $rotation: -1deg,
+    $border-radius: 0px,
+    $opacity: 1
+  );
+
+  &::before {
+    // Add CSS mask to follow text outline instead of rectangular background
+    -webkit-mask-image: var(--mask-url);
+    mask-image: var(--mask-url);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  // Ensure text/image content is above halftone
+  img, svg {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// ========================================
+// USAGE EXAMPLES
+// ========================================
+/*
+QWeb/XML Usage:
+
+1. Add to Cart Button (product_card.xml):
+   Replace 17 lines of SVG code with:
+
+   <div class="tts-halftone-shadow-button-cart">
+       <button class="btn btn-tts-primary">Add to Cart</button>
+   </div>
+
+2. Login Form Inputs (login.xml):
+   Replace 3 separate SVG files (SM/MD/LG) with:
+
+   <div class="tts-halftone-shadow-login">
+       <input type="email" class="form-control" />
+   </div>
+
+3. Generic Usage:
+   <div class="tts-halftone-shadow">
+       <div class="card">Content</div>
+   </div>
+
+SCSS Usage (for custom components):
+.custom-component {
+  @include tts-halftone-shadow-base(
+    $offset-x: 8px,
+    $offset-y: 8px,
+    $rotation: -2deg,
+    $border-radius: 16px
+  );
+}
+*/
+
+// ========================================
+// HEADER COMPONENTS (MINIMAL - BOOTSTRAP FIRST)
+// ========================================
+
+// Halftone shadow helper for header icons (56x56px)
+// Now uses tts-halftone-shadow-base mixin from the universal system
+.halftone-shadow-header {
+  @include tts-halftone-shadow-base(
+    $offset-x: 6px,
+    $offset-y: 6px,
+    $rotation: -1deg,
+    $border-radius: $tts-border-radius-sm,  // 8px
+    $opacity: 0.8
+  );
+  width: 56px !important;
+  height: 56px !important;
+}
+
+// Halftone shadow helper for zoom button (32x32px, circular)
+// Figma specs: 32x32, left: 4px, top: 4px, rotate -1deg
+.tts-halftone-shadow-zoom {
+  @include tts-halftone-shadow-base(
+    $offset-x: 4px,
+    $offset-y: 4px,
+    $rotation: -1deg,
+    $border-radius: 50%,  // Circular
+    $opacity: 0.8
+  );
+  width: 32px;
+  height: 32px;
+}
+
+// ========================================
+// BREADCRUMB COMPONENTS
+// ========================================
+// Custom breadcrumb separator using SVG
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "" !important;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url('/custom_shop_templates/static/src/img/icons/breamcrumb_separator.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  margin: 0 0.5rem;
+}
+
+// ========================================
+// PRODUCT DETAIL PAGE - LAYOUT STYLES (PHASE 5)
+// ========================================
+// Migrated from shop_product_detail.xml
+
+// Two-column responsive layout for product detail page
+.product-details-row {
+  padding-top: 32px;     // mobile
+  padding-bottom: 32px;  // mobile
+  row-gap: 40px;         // spacing between rows
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Force image gallery to appear on the left
+.image-gallery-col {
+  order: -1;
+}
+
+// Product details on the right
+#product_details {
+  order: 0;
+  flex: 1;
+}
+
+// Tablet breakpoint (≥768px)
+@media (min-width: $tts-width-md) {
+  .product-details-row {
+    padding-top: 40px;     // 40px tablet
+    padding-bottom: 40px;  // 40px tablet
+    column-gap: 82px;                 // Fixed gap (not in variables)
+    row-gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .image-gallery-col {
+    flex: 0 0 266px;
+    max-width: 266px;
+  }
+
+  #product_details {
+    flex: 1;
+  }
+}
+
+// Desktop breakpoint (≥992px)
+@media (min-width: $tts-width-lg) {
+  .product-details-row {
+    padding-top: 64px;     // 64px desktop
+    padding-bottom: 64px;  // 64px desktop
+    column-gap: 120px;                // Fixed gap (not in variables)
+  }
+
+  .image-gallery-col {
+    flex: 0 0 452px;
+    max-width: 452px;
+  }
+
+  #product_details {
+    flex: 1;
+  }
+}
+
+// ========================================
+// BREADCRUMB COMPONENT (PHASE 5) - Migrated from breadcrumb_trail.xml
+// ========================================
+
+// Breadcrumb Spacing - Figma Specs
+// IMPORTANT: Uses order: -2 to ensure it appears before title and row in flex containers
+.tts-breadcrumb {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 0;
+
+  // Ensure breadcrumb is always first in flex containers
+  order: -2;
+}
+
+@media (min-width: $tts-width-md) {
+  .tts-breadcrumb {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: $tts-width-lg) {
+  .tts-breadcrumb {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-bottom: 0;
+  }
+}
+
+// Override Bootstrap breadcrumb-item.active color
+.breadcrumb-item.tts-text-light,
+.breadcrumb-item.tts-text-light a {
+  color: $tts-light !important;
+}
+
+// ========================================
+// PAGE TITLE COMPONENT (PHASE 5) - Migrated from page_title.xml
+// ========================================
+
+.tts-page-title {
+  width: 100%;
+  color: $tts-light;  // #FFEBDC
+  font-family: $tts-font-family;  // 'BentonSans', sans-serif
+  font-weight: $tts-font-weight-bold;  // 700
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+
+  // SM - Mobile: 36px/40px, left-aligned per Figma
+  font-size: 36px;
+  line-height: 40px;
+  text-align: left;
+
+  // MD - Tablet: 48px/48px, center-aligned per Figma
+  @media (min-width: $tts-width-md) {
+    font-size: 48px;
+    line-height: 48px;
+    text-align: center;
+  }
+
+  // LG - Desktop: 60px/64px, center-aligned per Figma
+  @media (min-width: $tts-width-lg) {
+    font-size: 60px;
+    line-height: 64px;
+    text-align: center;
+  }
+}
+
+// ========================================
+// COMPONENT IMPORTS
+// ========================================
+// Component partials must be registered in __manifest__.py
+// Do NOT use @import for component files

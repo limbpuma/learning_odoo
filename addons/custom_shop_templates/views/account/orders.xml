@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Orders Page - Figma MCP Design with 3 responsive breakpoints (SM/MD/LG) -->
+
+    <data>
+        <template id="tts_portal_orders" inherit_id="sale.portal_my_orders" name="TTS Portal Orders">
+
+            <!-- Replace the entire portal_layout call with portal.frontend_layout -->
+            <xpath expr="//t[@t-call='portal.portal_layout']" position="replace">
+                <t t-call="portal.frontend_layout">
+                    <t t-set="page_title" t-value="'Orders'"/>
+                    <t t-set="additional_title"><t t-esc="page_title"/></t>
+
+                <div class="wrap">
+        <!-- Orders styles migrated to static/src/scss/pages/_orders.scss (PHASE 5) -->
+                <!-- ORDERS PAGE STRUCTURE - Using common account_page_layout -->
+                <t t-call="custom_shop_templates.account_page_layout">
+                    <t t-set="current_page" t-value="'orders'"/>
+                    <t t-set="with_shadow" t-value="True"/>
+
+                    <!-- ORDERS SECTION - Page-specific content -->
+                    <div class="tts-orders-section">
+                                <!-- Section Title -->
+                                <h2 class="tts-section-title">Orders</h2>
+
+                                <!-- Orders List -->
+                                <t t-if="orders">
+                                    <t t-foreach="orders" t-as="order">
+                                        <div class="tts-order-card-wrapper">
+                                            <div class="tts-order-card-container">
+                                                <!-- Halftone shadow -->
+                                                <div class="tts-order-card-shadow"></div>
+
+                                                <!-- Order Card -->
+                                                <div class="tts-order-card">
+                                                    <div class="tts-order-card-content">
+
+                                                        <!-- Order Header (Number + View) -->
+                                                        <div class="tts-order-header">
+                                                            <!-- Order Info -->
+                                                            <div class="tts-order-info">
+                                                                <div class="tts-order-number">
+                                                                    Order <strong>#<t t-esc="order.name"/></strong>
+                                                                </div>
+                                                                <div class="tts-order-details">
+                                                                    <div class="tts-order-detail-row">
+                                                                        <span class="tts-order-detail-label">Placed:</span>
+                                                                        <span class="tts-order-detail-value"><t t-esc="order.date_order.strftime('%Y-%m-%d')"/></span>
+                                                                    </div>
+                                                                    <div class="tts-order-detail-row">
+                                                                        <span class="tts-order-detail-label">Status:</span>
+                                                                        <span class="tts-order-detail-value">
+                                                                            <t t-if="order.state == 'sale'">Complete</t>
+                                                                            <t t-elif="order.state == 'draft'">Pending</t>
+                                                                            <t t-elif="order.state == 'cancel'">Cancelled</t>
+                                                                            <t t-else=""><t t-esc="order.state.title()"/></t>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- View Link -->
+                                                            <a t-attf-href="/my/orders/#{order.id}" class="tts-view-link">
+                                                                <div class="tts-view-link-text">View</div>
+                                                                <div class="tts-view-chevron">
+                                                                    <img src="/custom_shop_templates/static/src/img/icons/account_eye_icon.svg" alt="View"/>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+
+                                                        <!-- Products Grid -->
+                                                        <div class="tts-products-grid">
+                                                            <t t-set="displayed_lines" t-value="order.sudo().order_line[:2]"/>
+                                                            <t t-foreach="displayed_lines" t-as="line">
+                                                                <div class="tts-product-item">
+                                                                    <!-- Product Thumbnail -->
+                                                                    <div class="tts-product-thumbnail-wrapper">
+                                                                        <!-- Thumbnail Shadow -->
+                                                                        <div class="tts-thumbnail-shadow">
+                                                                            <img src="data:image/svg+xml,%3Csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='64' height='64' fill='%23000' opacity='0.2'/%3E%3C/svg%3E" alt=""/>
+                                                                        </div>
+
+                                                                        <!-- Thumbnail -->
+                                                                        <div class="tts-product-thumbnail">
+                                                                            <div class="tts-thumbnail-inner">
+                                                                                <div class="tts-thumbnail-image" t-attf-style="background-image: url('/web/image/product.product/#{line.product_id.id}/image_128');">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Product Info -->
+                                                                    <div class="tts-product-info">
+                                                                        <span class="tts-product-qty"><t t-esc="int(line.product_uom_qty)"/> x</span>
+                                                                        <div class="tts-product-name"><t t-esc="line.product_id.name"/></div>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </div>
+
+                                                        <!-- More Items Link (if more than 2 products) -->
+                                                        <t t-if="len(order.sudo().order_line) &gt; 2">
+                                                            <a t-attf-href="/my/orders/#{order.id}" class="tts-more-link">
+                                                                <div class="tts-more-link-inner">
+                                                                    <span class="tts-more-link-text">+ <t t-esc="len(order.sudo().order_line) - 2"/> more</span>
+                                                                    <div class="tts-more-link-underline"></div>
+                                                                </div>
+                                                            </a>
+                                                        </t>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
+
+                                <!-- Empty State: No Orders -->
+                                <t t-if="not orders">
+                                    <div class="tts-empty-orders">
+
+                                        <!-- Icon -->
+                                        <div class="tts-empty-icon">
+                                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M30 35L20 45V95C20 97.6522 21.0536 100.196 22.9289 102.071C24.8043 103.946 27.3478 105 30 105H90C92.6522 105 95.1957 103.946 97.0711 102.071C98.9464 100.196 100 97.6522 100 95V45L90 35H30Z" stroke="#FFEBDC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M20 45H100" stroke="#FFEBDC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M77.5 60C77.5 64.1421 75.8929 68.1146 72.9998 71.0533C70.1066 73.9919 66.1713 75.625 62 75.625C57.8287 75.625 53.8934 73.9919 51.0002 71.0533C48.1071 68.1146 46.5 64.1421 46.5 60" stroke="#FFEBDC" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <h3 class="tts-empty-title">
+                                            No orders yet
+                                        </h3>
+
+                                        <!-- Description -->
+                                        <p class="tts-empty-description">
+                                            When you place orders, they will appear here. Start shopping to see your order history.
+                                        </p>
+
+                                        <!-- CTA Button -->
+                                        <a href="/shop" class="tts-empty-cta">
+                                            Start Shopping
+                                        </a>
+
+                                    </div>
+                                </t>
+
+                    </div>  <!-- Close tts-orders-section -->
+
+                </t>  <!-- Close t-call="account_page_layout" -->
+
+                </div>  <!-- Close wrap -->
+                </t>  <!-- Close t-call="portal.frontend_layout" -->
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

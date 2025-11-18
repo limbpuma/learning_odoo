@@ -1,0 +1,409 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CHECKOUT SHIPPING PAGE STYLES
+ * Styles for the shipping method selection step in checkout flow
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+.tts-checkout-shipping {
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ADDRESS SUMMARY CARD
+   Shows billing + shipping addresses with edit link
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-address-summary {
+    position: relative;
+    background: var(--card-card-dark-default, #525252);
+    border-radius: 12px;
+    outline: 2px var(--border-border-primary, black) solid;
+    outline-offset: -2px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    /* Halftone background effect */
+    &::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+        background: linear-gradient(135deg, rgba(255, 235, 220, 0.1) 0%, transparent 50%);
+        border-radius: 12px;
+        pointer-events: none;
+        transform: rotate(-1deg);
+        z-index: -1;
+    }
+}
+
+.tts-address-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.tts-address-summary-title {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+.tts-address-edit-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--state-light-default, #FFEBDC);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    .tts-icon-edit {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.tts-address-summary-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(244px, 1fr));
+    gap: 24px;
+}
+
+.tts-address-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-address-column-title {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 0;
+}
+
+.tts-address-text {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SHIPPING FORM
+   Form for selecting shipping method
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-shipping-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 24px;
+}
+
+.tts-shipping-title {
+    align-self: stretch;
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SHIPPING METHODS GRID
+   Grid of shipping method cards
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-shipping-methods {
+    align-self: stretch;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
+    gap: 16px;
+}
+
+.tts-shipping-method {
+    position: relative;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* Halftone background */
+    &::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        background: linear-gradient(135deg, rgba(255, 235, 220, 0.1) 0%, transparent 50%);
+        border-radius: 12px;
+        pointer-events: none;
+        transform: rotate(-1deg);
+        z-index: 0;
+    }
+
+    /* Selected state */
+    &[data-selected="true"] .tts-shipping-method-label {
+        outline-color: var(--state-secondary-default, #FFEBDC);
+        background: var(--surface-surface-dark, #171717);
+    }
+
+    &[data-selected="true"] .tts-radio-custom {
+        border-color: var(--state-secondary-default, #FFEBDC);
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--state-secondary-default, #FFEBDC);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+.tts-shipping-method-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--surface-surface-dark, #171717);
+    border-radius: 12px;
+    outline: 2px var(--border-border-primary, black) solid;
+    outline-offset: -2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1;
+
+    &:hover {
+        outline-color: var(--border-border-secondary, #FFEBDC);
+    }
+
+    /* Hide native radio */
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARRIER LOGO/ICONS
+   Branded carrier logos and generic icon
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-carrier-icon {
+    flex-shrink: 0;
+}
+
+.tts-carrier-logo {
+    width: 34px;
+    height: 24px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2.82px rgba(0, 0, 0, 0.07);
+    position: relative;
+    overflow: hidden;
+}
+
+/* DHL Logo */
+.tts-carrier-dhl {
+    background: #FFCC00;
+
+    .tts-dhl-stripe {
+        position: absolute;
+        width: 30px;
+        height: 5.25px;
+        left: 1.83px;
+        top: 9.28px;
+        background: #D40511;
+    }
+}
+
+/* FedEx Logo */
+.tts-carrier-fedex {
+    background: white;
+    display: flex;
+
+    .tts-fedex-purple {
+        width: 15.63px;
+        height: 8.25px;
+        background: #312180;
+        align-self: center;
+        margin-left: 2.58px;
+    }
+
+    .tts-fedex-orange {
+        width: 11.29px;
+        height: 7.95px;
+        background: #E96213;
+        align-self: center;
+    }
+}
+
+/* UPS Logo */
+.tts-carrier-ups {
+    background: #331A13;
+
+    .tts-ups-shield {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 10.33px;
+        height: 13.14px;
+        background: #FEB305;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+}
+
+/* Generic carrier icon */
+.tts-carrier-generic {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        color: var(--text-text-light, #FFEBDC);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARRIER INFO
+   Carrier name and price
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-carrier-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-carrier-name {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    align-self: stretch;
+}
+
+.tts-carrier-price {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    align-self: stretch;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CUSTOM RADIO BUTTON
+   Styled radio button matching design system
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-radio-custom {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border-border-secondary, #FFEBDC);
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SHIPPING BUTTON
+   Submit button for shipping selection
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-shipping-button-wrapper {
+    position: relative;
+    display: inline-flex;
+
+    /* Halftone background */
+    &::before {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        background: linear-gradient(135deg, rgba(255, 235, 220, 0.1) 0%, transparent 50%);
+        border-radius: 12px;
+        pointer-events: none;
+        transform: rotate(-1deg);
+        z-index: 0;
+    }
+}
+
+.tts-shipping-button {
+    position: relative;
+    height: 56px;
+    padding: 23px 24px;
+    background: var(--state-secondary-default, #FFEBDC);
+    border: none;
+    border-radius: 12px;
+    outline: 2px var(--border-border-primary, black) solid;
+    outline-offset: -2px;
+    color: var(--text-text-dark, black);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 1;
+
+    &:hover {
+        background: var(--state-secondary-hover, #FFD9BC);
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .tts-checkout-shipping {
+        gap: 40px;
+    }
+
+    .tts-shipping-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .tts-address-summary-content {
+        grid-template-columns: 1fr;
+    }
+}

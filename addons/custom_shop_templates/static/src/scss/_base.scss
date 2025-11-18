@@ -1,0 +1,96 @@
+// ========================================
+// TTS BOOTSTRAP WEBSITE - BASE LAYOUT STYLES
+// ========================================
+// Applies base background #404040 to all pages
+
+// ========================================
+// BODY & MAIN LAYOUT - #404040 BACKGROUND
+// ========================================
+
+body {
+    background-color: $base-body-bg;  // #404040
+    color: $base-body-color;          // #FFEBDC
+    margin: 0;
+    padding: 0;
+
+    // Force BentonSans to override Odoo/Bootstrap defaults
+    font-family: $tts-font-family !important;
+}
+
+// Odoo main wrappers
+#wrapwrap {
+    background-color: $base-body-bg;  // #404040
+    overflow-x: hidden;
+}
+
+#wrap {
+    background-color: $base-body-bg;  // #404040
+    min-height: 100vh;
+}
+
+main {
+    background-color: $base-body-bg;  // #404040
+}
+
+// ========================================
+// ODOO OVERRIDES
+// ========================================
+
+.oe_structure {
+    background-color: transparent;
+}
+
+.o_header_standard {
+    background-color: transparent;
+}
+
+// ========================================
+// FORCE BENTONSANS ON ALL ELEMENTS
+// ========================================
+// Override Odoo/Bootstrap font declarations with !important
+// Note: BentonSans @font-face is currently DISABLED in variables.scss
+// because font files don't exist. System fonts are being used as fallback.
+// To enable BentonSans:
+// 1. Add font files to: static/src/fonts/
+//    - BentonSans-Regular.woff2
+//    - BentonSans-Medium.woff2
+//    - BentonSans-Bold.woff2
+// 2. Uncomment @font-face declarations in variables.scss (lines 92-118)
+
+* {
+    font-family: $tts-font-family !important;
+}
+
+// Specific overrides for Odoo/Bootstrap elements
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: $tts-font-family !important;
+}
+
+p, span, div, a, button, input, select, textarea {
+    font-family: $tts-font-family !important;
+}
+
+// ========================================
+// RESPONSIVE SPACING VARIABLES
+// ========================================
+// Update CSS custom properties based on breakpoints
+// Mobile (< 768px): 64px spacing
+// Tablet (≥ 768px): 120px spacing
+// Desktop (≥ 992px): 128px spacing
+
+// Tablet (MD ≥ 768px)
+@media (min-width: $tts-width-md) {
+    :root {
+        --tts-section-spacing-y: 7.5rem;      // 120px
+        --tts-section-padding-y: 3.75rem;     // 60px
+    }
+}
+
+// Desktop (LG ≥ 992px)
+@media (min-width: $tts-width-lg) {
+    :root {
+        --tts-section-spacing-y: 8rem;        // 128px
+        --tts-section-padding-y: 4rem;        // 64px
+    }
+}

@@ -1,0 +1,382 @@
+// ============================================================================
+// ORDER SUMMARY - BASE STYLES
+// ============================================================================
+// Shared styles for order summary component used in both cart and checkout flows
+//
+// USAGE:
+// - Cart page: Shows prices section only (show_shorter_cart_summary = TRUE)
+// - Checkout pages: Shows full summary with products and coupon (show_shorter_cart_summary = FALSE)
+//
+// RESPONSIVE BREAKPOINTS:
+// - sm (< 768px): 16px padding, 64px images
+// - md/lg (≥ 768px): 24px padding, 96px images
+//
+// DESIGN SPECS:
+// - Container: Dark surface (#171717), 24px radius, 2px black border
+// - Typography: Space Mono, various sizes
+// - Halftone shadow: Applied via .tts-halftone-shadow utility class
+// ============================================================================
+
+// ============================================================================
+// CONTAINER BASE
+// ============================================================================
+// CRITICAL: NO overflow: hidden - cuts off halftone shadow pseudo-element
+// Parent container must have position: relative and z-index: 1 for halftone to work
+
+.tts-checkout-summary {
+    background-color: $tts-surface-dark;
+    border: 2px solid $tts-dark;
+    border-radius: $tts-border-radius-xl; // 24px
+    // DO NOT ADD overflow: hidden - halftone shadow requires no overflow constraint
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1; // Required for content above halftone shadow (z-index: 0)
+}
+
+// ============================================================================
+// HEADER SECTION
+// ============================================================================
+// "Order Summary" title + "edit Cart" link
+
+.tts-summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 16px 24px 16px; // SM: 16px left/right, 16px top, 24px bottom
+    border-bottom: 2px solid $tts-dark;
+    gap: 16px;
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-header {
+        padding: 24px 24px 16px 24px; // MD/LG: 24px left/right/top, 16px bottom
+    }
+}
+
+.tts-summary-title {
+    font-family: $tts-font-family;
+    font-size: 20px;
+    font-weight: $tts-font-weight-bold;
+    line-height: 32px;
+    letter-spacing: 0.4px;
+    color: $tts-light;
+    margin: 0;
+    flex: 1;
+}
+
+.tts-edit-cart-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: $tts-font-family;
+    font-size: 12px;
+    font-weight: $tts-font-weight-bold;
+    line-height: 16px;
+    letter-spacing: 0.3px;
+    color: $tts-light;
+    text-transform: uppercase;
+    text-decoration: none;
+    overflow: hidden;
+
+    &:hover {
+        color: $tts-light;
+        opacity: 0.8;
+    }
+
+    span {
+        display: block;
+    }
+
+    // Underline effect
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background: $tts-light;
+        margin-top: 2px;
+    }
+}
+
+// ============================================================================
+// PRODUCT ITEM BASE
+// ============================================================================
+// Base structure for product display (used in checkout summary)
+
+.tts-summary-product-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    border-bottom: 2px solid $tts-dark;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-product-item {
+        padding: 24px;
+    }
+}
+
+// ============================================================================
+// PRODUCT IMAGE BASE
+// ============================================================================
+// Image container with border and light background
+
+.tts-product-image-wrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.tts-product-image {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    background-color: $tts-card-dark;
+    border: 2px solid $tts-dark;
+    border-radius: $tts-border-radius;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-product-image {
+        width: 96px;
+        height: 96px;
+    }
+}
+
+.tts-product-image-inner {
+    width: 100%;
+    height: 100%;
+    background-color: $tts-light;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 28px 65px 64px rgba(0, 0, 0, 0.25);
+    }
+}
+
+// ============================================================================
+// PRODUCT DETAILS BASE
+// ============================================================================
+// Name, description, delivery, quantity, price typography
+
+.tts-product-details {
+    display: flex;
+    flex: 1;
+    gap: 8px;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+}
+
+.tts-product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 1;
+
+    h6, p {
+        margin: 0;
+    }
+}
+
+.tts-product-name {
+    font-family: $tts-font-family;
+    font-size: 18px;
+    font-weight: $tts-font-weight-bold;
+    line-height: 24px;
+    color: $tts-light;
+    margin-bottom: 4px;
+}
+
+.tts-product-description,
+.tts-product-delivery,
+.tts-product-quantity {
+    font-family: $tts-font-family;
+    font-size: 14px;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+    color: $tts-light;
+}
+
+.tts-product-price {
+    font-family: $tts-font-family;
+    font-size: 18px;
+    font-weight: $tts-font-weight-bold;
+    line-height: 24px;
+    color: $tts-light;
+    text-align: right;
+    flex-shrink: 0;
+
+    span {
+        display: block;
+    }
+}
+
+// ============================================================================
+// PRICES SECTION BASE
+// ============================================================================
+// Subtotal, Shipping, VAT, Total rows
+
+.tts-summary-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 16px 24px 16px; // SM: 16px left/right/top, 24px bottom
+    background-color: $tts-surface-dark;
+    border-bottom: 2px solid $tts-dark;
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-prices {
+        padding: 24px; // MD/LG: 24px all around
+    }
+}
+
+.tts-price-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.tts-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .tts-price-label {
+        font-family: $tts-font-family;
+        font-size: 14px;
+        font-weight: $tts-font-weight-regular;
+        line-height: 20px;
+        color: $tts-light;
+
+        &.bold {
+            font-weight: $tts-font-weight-bold;
+        }
+    }
+
+    .tts-price-value {
+        font-family: $tts-font-family;
+        font-size: 14px;
+        font-weight: $tts-font-weight-regular;
+        line-height: 20px;
+        color: $tts-light;
+        text-align: right;
+
+        &.bold {
+            font-weight: $tts-font-weight-bold;
+        }
+
+        span {
+            display: inline;
+        }
+    }
+}
+
+.tts-price-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .tts-price-label {
+        font-family: $tts-font-family;
+        font-size: 14px;
+        font-weight: $tts-font-weight-bold;
+        line-height: 20px;
+        color: $tts-light;
+    }
+
+    .tts-price-value {
+        font-family: $tts-font-family;
+        font-size: 18px;
+        font-weight: $tts-font-weight-bold;
+        line-height: 24px;
+        color: $tts-light;
+        text-align: right;
+
+        &.tts-total-amount {
+            // Specific styling for total amount (can be extended)
+        }
+
+        span {
+            display: inline;
+        }
+    }
+}
+
+// ============================================================================
+// ACTION SECTION BASE
+// ============================================================================
+// Button container with responsive padding
+
+.tts-summary-action {
+    padding: 16px;
+    background-color: $tts-surface-dark;
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+}
+
+@media (min-width: $tts-width-md) {
+    .tts-summary-action {
+        padding: 24px;
+    }
+}
+
+.tts-action-button {
+    position: relative;
+    z-index: 1; // Required to stay above parent's halftone shadow (z-index: 0)
+    display: flex;
+    width: 100%;
+
+    button,
+    a {
+        flex: 1;
+        height: 56px;
+        padding: 16px 24px;
+        background-color: $tts-light;
+        border: 2px solid $tts-dark;
+        border-radius: $tts-border-radius;
+        font-family: $tts-font-family;
+        font-size: 14px;
+        font-weight: $tts-font-weight-bold;
+        line-height: 20px;
+        color: $tts-dark;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover:not(:disabled) {
+            background-color: $tts-dark;
+            color: $tts-light;
+        }
+
+        &:disabled,
+        &.tts-button-disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+    }
+}

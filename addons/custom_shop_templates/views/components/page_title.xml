@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Page Title Component - Responsive H1 title for pages -->
+    <!-- Usage: Set title variable, then t-call="custom_shop_templates.page_title" -->
+
+    <template id="page_title" name="Page Title">
+        <h1 class="tts-page-title">
+            <t t-esc="title or 'Page Title'"/>
+        </h1>
+
+        <!-- Page title styles migrated to static/src/scss/components.scss (PHASE 5) -->    </template>
+
+    <!-- Wrapper for account pages -->
+    <template id="account_page_title" name="Account Page Title">
+        <t t-set="title" t-value="'My Account'"/>
+        <t t-call="custom_shop_templates.page_title"/>
+    </template>
+
+</odoo>

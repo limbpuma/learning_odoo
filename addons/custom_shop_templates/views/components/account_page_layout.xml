@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <template id="account_page_layout" name="Account Page Layout">
+
+        <!-- Account page layout styles migrated to static/src/scss/pages/_account-layout.scss (PHASE 5) -->
+            <!-- Account Page Structure -->
+            <div t-attf-class="tts-account-page tts-page-{{ current_page }}">
+                <div class="tts-account-wrapper">
+
+                    <!-- Breadcrumb Navigation -->
+                    <t t-call="custom_shop_templates.breadcrumb_account"/>
+
+                    <!-- Page Title Header -->
+                    <div class="tts-account-header">
+                        <t t-call="custom_shop_templates.account_page_title"/>
+                    </div>
+
+                    <!-- Content (Navigation + Page-specific section) -->
+                    <div class="tts-account-content">
+
+                        <!-- Account Navigation (Reusable Component) -->
+                        <t t-call="custom_shop_templates.account_navigation">
+                            <t t-set="current_page" t-value="current_page"/>
+                            <t t-set="with_shadow" t-value="with_shadow if with_shadow is not None else False"/>
+                        </t>
+
+                        <!-- Page-specific Content (Slot) -->
+                        <div class="tts-account-section">
+                            <t t-out="0"/>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </template>
+
+    </data>
+</odoo>

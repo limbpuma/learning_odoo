@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Halftone button component with light/dark variants -->
+
+    <data>
+        <template id="button_halftone" name="TTS Button with Halftone (Full Bootstrap)">
+            <!-- Set defaults if not provided -->
+            <t t-set="button_type" t-value="button_type if button_type else 'light'"/>
+            <t t-set="with_halftone" t-value="with_halftone if with_halftone is not None else (button_type == 'light')"/>
+            <t t-set="icon_trailing" t-value="icon_trailing if icon_trailing is not None else True"/>
+            <t t-set="full_width" t-value="full_width if full_width is not None else True"/>
+
+            <!-- Define colors based on button type -->
+            <t t-if="button_type == 'light'">
+                <t t-set="bg_color" t-value="'#FFEBDC'"/>
+                <t t-set="text_color" t-value="'black'"/>
+                <t t-set="border_color" t-value="'black'"/>
+            </t>
+            <t t-else="">
+                <t t-set="bg_color" t-value="'transparent'"/>
+                <t t-set="text_color" t-value="'#FFEBDC'"/>
+                <t t-set="border_color" t-value="'#FFEBDC'"/>
+            </t>
+
+            <!-- Button wrapper -->
+            <div t-attf-class="#{('align-self-stretch' if full_width else '')} #{('tts-halftone-shadow' if with_halftone else '')} d-inline-flex align-items-center justify-content-center tts-h-56">
+
+                <!-- Button content -->
+                <t t-if="button_href">
+                    <!-- Anchor tag for links -->
+                    <a t-att-href="button_href"
+                       t-attf-class="#{('flex-fill' if full_width else '')} d-flex align-items-center justify-content-center position-relative text-decoration-none tts-btn-halftone-base"
+                       t-attf-style="background: #{bg_color}; outline-color: #{border_color};">
+                        <!-- Button Text -->
+                        <div class="text-uppercase tts-btn-halftone-text"
+                             t-attf-style="color: #{text_color};"
+                             t-esc="button_text"/>
+
+                        <!-- Icon Trailing (Arrow) -->
+                        <t t-if="icon_trailing">
+                            <div class="position-relative overflow-hidden tts-w-20 tts-h-20">
+                                <div class="position-absolute tts-btn-halftone-icon"
+                                     t-attf-style="outline-color: #{text_color};"/>
+                            </div>
+                        </t>
+                    </a>
+                </t>
+                <t t-else="">
+                    <!-- Button tag for forms/actions -->
+                    <button type="submit"
+                            t-attf-class="#{('flex-fill' if full_width else '')} d-flex align-items-center justify-content-center position-relative border-0 tts-btn-halftone-base"
+                            t-attf-style="background: #{bg_color}; outline-color: #{border_color};">
+                        <!-- Button Text -->
+                        <div class="text-uppercase tts-btn-halftone-text"
+                             t-attf-style="color: #{text_color};"
+                             t-esc="button_text"/>
+
+                        <!-- Icon Trailing (Arrow) -->
+                        <t t-if="icon_trailing">
+                            <div class="position-relative overflow-hidden tts-w-20 tts-h-20">
+                                <div class="position-absolute tts-btn-halftone-icon"
+                                     t-attf-style="outline-color: #{text_color};"/>
+                            </div>
+                        </t>
+                    </button>
+                </t>
+            </div>
+        </template>
+
+    </data>
+</odoo>

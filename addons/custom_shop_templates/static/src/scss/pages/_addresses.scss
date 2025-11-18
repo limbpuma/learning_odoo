@@ -1,0 +1,411 @@
+// ========================================
+// TTS ADDRESSES - ACCOUNT PAGE STYLES  
+// ========================================
+// Migrated from views/account/addresses.xml <style> blocks (PHASE 5)
+// Refactored to use account_page_layout (like orders)
+// Now defines only addresses-specific styles
+// Responsive breakpoints: SM (Mobile-first) / MD (768px+) / LG (1280px+)
+
+/* =======================================================
+   RESET AND BASE STYLES
+   ======================================================= */
+* {
+    box-sizing: border-box;
+}
+
+/* =======================================================
+   ADDRESSES SECTION - List View (portal_my_addresses)
+   ======================================================= */
+.tts-addresses-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-section-subtitle {
+    @include tts-text-medium;
+    color: $tts-light;
+    margin: 0;
+}
+
+/* Address Cards */
+.tts-address-cards {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Card wrapper with halftone shadow */
+.tts-address-card-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+/* Halftone shadow behind card */
+.tts-address-card-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: $tts-halftone-z-index;
+}
+
+.tts-address-card {
+    width: 100%;
+    background: $tts-card-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-address-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-address-card-title {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 20px;
+    margin: 0;
+}
+
+.tts-address-line {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+    margin: 0;
+}
+
+/* Edit button - transparent with text + icon */
+.tts-edit-btn {
+    background: transparent;
+    color: $tts-light;
+    border: none;
+    padding: 0;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.2s ease;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.tts-edit-btn:hover {
+    opacity: 0.8;
+}
+
+.tts-edit-icon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-edit-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Empty State */
+.tts-empty-state {
+    width: 100%;
+    background: #4A90E2;
+    border-radius: $tts-border-radius;
+    padding: 32px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.tts-empty-text {
+    color: white;
+    font-size: 16px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 24px;
+    margin: 0;
+}
+
+/* =======================================================
+   MD BREAKPOINT - Tablet (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+    .tts-address-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .tts-address-card {
+        flex: 1;
+        min-width: 300px;
+    }
+}
+
+/* =======================================================
+   LG BREAKPOINT - Desktop (1280px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    .tts-addresses-section {
+        flex: 1;
+        max-width: 738px;
+    }
+}
+
+/* =======================================================
+   FORM SECTION - Edit Form (portal_my_addresses_edit)
+   ======================================================= */
+.tts-addresses-form-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.tts-section-title {
+    color: $tts-light;
+    font-size: 28px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 36px;
+    margin: 0;
+    padding: 0;
+}
+
+.tts-form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Form Row */
+.tts-addresses-form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Form Group */
+.tts-addresses-form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tts-addresses-form-label {
+    color: $tts-light;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+}
+
+.tts-addresses-form-label-optional {
+    color: $tts-secondary;
+    font-size: 14px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 20px;
+    float: right;
+}
+
+/* Input with halftone shadow */
+.tts-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tts-input-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    right: -6px;
+    bottom: -6px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tts-addresses-form-input,
+.tts-form-select {
+    width: 100%;
+    padding: 16px;
+    background: $tts-surface-dark;
+    border: none;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    color: $tts-light;
+    font-size: 16px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-addresses-form-input::placeholder {
+    color: $tts-secondary;
+}
+
+.tts-addresses-form-input:focus,
+.tts-form-select:focus {
+    outline: 2px solid $tts-light;
+    outline-offset: -2px;
+}
+
+.tts-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%23FFEBDC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 48px;
+    cursor: pointer;
+}
+
+.tts-form-select option {
+    background: $tts-surface-dark;
+    color: $tts-light;
+}
+
+/* Shipping Checkbox (specific to addresses form) */
+.tts-shipping-checkbox {
+    display: flex;
+    align-items: flex-start;        /* Figma: align top */
+    justify-content: flex-start;    /* Figma: left align */
+    gap: 12px;                      /* Figma: 12px gap */
+    cursor: pointer;
+    width: auto;                    /* Override login/register 16px */
+    height: auto;                   /* Override login/register 20px */
+}
+
+.tts-checkbox {
+    display: none;
+}
+
+.tts-checkbox-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.tts-checkbox-label {
+    color: $tts-light;
+    font-size: 14px;                /* Figma: 14px */
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;  /* Figma: 400 */
+    line-height: 20px;              /* Figma: 20px */
+}
+
+/* Save Button */
+.tts-save-button-wrapper {
+    position: relative;
+    width: fit-content;
+}
+
+.tts-save-button-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    right: -4px;
+    bottom: -4px;
+    background: url($tts-halftone-pattern-url) repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius-sm;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tts-save-button {
+    padding: 14px 32px;
+    background: $tts-light;
+    border: none;
+    border-radius: $tts-border-radius-sm;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    color: $tts-surface-dark;
+    font-size: 16px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-save-button:hover {
+    opacity: 0.9;
+}
+
+/* =======================================================
+   MD BREAKPOINT - Form (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+    /* 2-column layout for name fields */
+    .tts-addresses-form-row-2col {
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .tts-addresses-form-row-2col .tts-addresses-form-group {
+        width: calc(50% - 12px);
+    }
+}
+
+/* =======================================================
+   LG BREAKPOINT - Form (1280px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    /* Main Content: Form Section */
+    .tts-addresses-form-section {
+        flex: 1;
+        max-width: 738px;
+    }
+}

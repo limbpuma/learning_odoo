@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Reseller section component with responsive layout -->
+
+    <!-- Main template -->
+    <template id="reseller_section" name="Reseller Section">
+        <!-- Section Container -->
+        <section class="px-3 px-md-5 tts-section-surface-medium">
+
+            <!-- Container -->
+            <div class="container-xxl">
+                <div class="mx-auto tts-max-w-1536">
+
+                   
+
+                    <!-- Content: Two Column Layout (Responsive) -->
+                    <div class="row g-4 g-lg-5 align-items-center">
+
+                        <!-- LEFT COLUMN: Text + Button -->
+                        <div class="col-12 col-md-6 order-2 order-md-1">
+                            <div class="d-flex flex-column gap-3 gap-lg-4">
+
+                                <!-- Description Text -->
+                                <p class="mb-0 text-center text-md-start tts-text-large">
+                                    Join us as a Tentacle Sync reseller and offer high-quality timecode synchronization solutions to your customers. Our products are easy to use, affordable, and enhance creative workflows. Partner with us to bring innovative filmmaking tools to a global market.
+                                </p>
+
+                                <!-- Call-to-Action Button with Halftone Shadow -->
+                                <div class="tts-halftone-shadow d-inline-flex align-self-center align-self-md-start">
+                                    <!-- Button -->
+                                    <a href="/contactus" class="tts-button">
+                                        <span>Get in touch with us!</span>
+                                        <img src="/custom_shop_templates/static/src/img/reseller/reseller_button_icon.svg"
+                                             alt="Arrow"
+                                             class="tts-w-20 tts-h-20"
+                                             loading="lazy"/>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN: Image with Halftone Shadow + Heading -->
+                        <div class="col-12 col-md-6 order-1 order-md-2">
+
+                            <div class="tts-halftone-shadow tts-mt-80">
+
+                                <!-- Heading with Halftone Shadow (positioned on top of image) -->
+                                <div class="position-absolute w-100 d-flex justify-content-center tts-top-neg-50 tts-left-0 tts-z-10">
+                                    <!-- Heading image with halftone (65% width of container) -->
+                                    <div class="tts-text-halftone-shadow tts-w-65"
+                                         style="--mask-url: url('/custom_shop_templates/static/src/img/reseller/reseller_text.svg');">
+                                        <img src="/custom_shop_templates/static/src/img/reseller/reseller_text.svg"
+                                             alt="Become our Reseller"
+                                             class="w-100 h-auto"
+                                             loading="lazy"/>
+                                    </div>
+                                </div>
+
+                                <!-- Main Image (foreground) -->
+                                <div class="position-relative overflow-hidden tts-radius-24 tts-z-1">
+                                    <img src="/custom_shop_templates/static/src/img/reseller/reseller_image.svg"
+                                         alt="Reseller illustration"
+                                         class="w-100 tts-img-cover"
+                                         loading="lazy"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

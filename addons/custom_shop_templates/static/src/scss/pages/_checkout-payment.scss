@@ -1,0 +1,372 @@
+/*
+ * ═══════════════════════════════════════════════════════════════════════════
+ * CHECKOUT PAYMENT PAGE STYLES
+ * Styles for the payment method selection step in checkout flow
+ * ═══════════════════════════════════════════════════════════════════════════
+ */
+
+.tts-checkout-payment {
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SUMMARY CARDS (ADDRESS + SHIPPING)
+   Reusable summary card component for previous steps
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-summary-card {
+    position: relative;
+    background: var(--card-card-dark-default, #525252);
+    border-radius: 12px;
+    outline: 2px var(--border-border-primary, black) solid;
+    outline-offset: -2px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    /* Halftone background effect */
+    &::before {
+        content: '';
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+        background: linear-gradient(135deg, rgba(255, 235, 220, 0.1) 0%, transparent 50%);
+        border-radius: 12px;
+        pointer-events: none;
+        transform: rotate(-1deg);
+        z-index: -1;
+    }
+}
+
+.tts-summary-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.tts-summary-card-title {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+.tts-summary-edit-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--state-light-default, #FFEBDC);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+    transition: opacity 0.2s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    .tts-icon-edit {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.tts-summary-card-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(244px, 1fr));
+    gap: 24px;
+}
+
+.tts-summary-column {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-summary-column-title {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin: 0;
+}
+
+.tts-summary-text {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHECKOUT PAYMENT FORM STYLES
+   Checkout-specific payment form (similar design to account payment_methods)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-payment-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-checkout-payment-title {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHECKOUT PAYMENT OPTIONS (PAYMENT METHODS CARDS)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-checkout-payment-method {
+    width: 100%;
+    position: relative;
+}
+
+/* Halftone Shadow Effect */
+.tts-checkout-payment-method-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: 12px;
+    transform: rotate(-1deg);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.tts-checkout-payment-method-content {
+    width: 100%;
+    padding: 18px 16px 20px;
+    background: var(--surface-surface-dark, #171717);
+    border-radius: 12px;
+    outline: 2px solid var(--border-border-primary, #000);
+    outline-offset: -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover {
+        background: #262626;
+    }
+}
+
+.tts-checkout-payment-method-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.tts-checkout-payment-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--text-text-light, #FFEBDC);
+}
+
+.tts-checkout-payment-method-name {
+    flex: 1;
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
+}
+
+/* Radio Button */
+.tts-checkout-payment-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tts-checkout-radio-custom {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--text-text-light, #FFEBDC);
+    background: transparent;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--text-text-light, #FFEBDC);
+        transition: transform 0.2s ease;
+    }
+}
+
+.tts-checkout-payment-radio:checked + .tts-checkout-radio-custom::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARD BRAND ICONS (Visa, Mastercard, Amex)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-card-brands {
+    display: flex;
+    gap: 8px;
+}
+
+.tts-checkout-card-brand {
+    width: 34px;
+    height: 24px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAYMENT DESCRIPTION
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-payment-description {
+    color: var(--text-text-light, #FFEBDC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+
+    a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+.tts-checkout-payment-link {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAYMENT METHOD FIELDS (EXPANDABLE - for inline forms)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-payment-method-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tts-checkout-payment-inline-form-container {
+    min-height: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CHECKOUT PAYMENT BUTTON
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.tts-checkout-payment-button-wrapper {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+}
+
+.tts-checkout-button-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 100%;
+    height: 100%;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: 12px;
+    transform: rotate(-1deg);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.tts-checkout-payment-button {
+    width: 100%;
+    height: 56px;
+    padding: 23px 24px;
+    background: var(--state-light-default, #FFEBDC);
+    border-radius: 12px;
+    outline: 2px solid var(--border-border-primary, #000);
+    outline-offset: -2px;
+    border: none;
+    color: var(--text-text-dark, #000);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 20px;
+    letter-spacing: 0.35px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    position: relative;
+    z-index: 1;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .tts-summary-card-content {
+        grid-template-columns: 1fr;
+    }
+
+    .tts-checkout-payment-methods {
+        gap: 16px;
+    }
+}

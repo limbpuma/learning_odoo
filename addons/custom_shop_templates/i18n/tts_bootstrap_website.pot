@@ -1,0 +1,13 @@
+# Translation template for TTS Bootstrap Website
+msgid ""
+msgstr ""
+"Project-Id-Version: TTS Bootstrap Website 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-14 10:00+0000\n"
+"PO-Revision-Date: 2024-10-14 10:00+0000\n"
+"Last-Translator: TTS Website Team\n"
+"Language-Team: TTS <contact@tts-website.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Odoo 19.0\n"

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- TTS Logo Placeholder - Simple and clean -->
+  <rect width="200" height="60" fill="none"/>
+
+  <!-- TTS Text -->
+  <text x="100" y="40"
+        font-family="Arial, sans-serif"
+        font-size="36"
+        font-weight="bold"
+        fill="#FF4600"
+        text-anchor="middle">
+    TTS
+  </text>
+
+  <!-- Underline accent -->
+  <rect x="70" y="48" width="60" height="3" fill="#FF4600" rx="1.5"/>
+</svg>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    ================================================================
+    TTS BOOTSTRAP WEBSITE - DYNAMIC HEADER NAVBAR
+    ================================================================
+    Bootstrap-first design with Odoo dynamic menus
+    - Dynamic navigation from Odoo website menus
+    - Dynamic cart quantity badge
+    - User login/logout functionality
+    - Responsive mobile + desktop
+    ================================================================
+    -->
+
+    <data>
+        <template id="header_navbar" name="TTS Dynamic Header Navbar">
+
+            <header class="bg-tts-surface-medium w-100 overflow-hidden">
+                <!-- Responsive padding: p-4 (16px) on SM, p-md-6 (24px) on MD+ -->
+                <div class="d-flex justify-content-between align-items-center w-100 p-4 p-md-6">
+
+                    <!-- LEFT: Horizontal Logo "TENTACLESYNC" - SM -->
+                    <a href="/"
+                       class="d-inline-flex align-items-center text-decoration-none d-md-none tts-h-24">
+                        <img t-att-src="'/custom_shop_templates/static/src/img/brand/brand_header.svg'"
+                             alt="TENTYNC"
+                             class="tts-h-12 tts-w-auto"/>
+                    </a>
+
+                    <!-- LEFT: Horizontal Logo "TENTACLESYNC" - MD/LG -->
+                    <a href="/"
+                       class="d-none d-md-inline-flex align-items-center text-decoration-none tts-h-32">
+                        <img t-att-src="'/custom_shop_templates/static/src/img/brand/brand_header.svg'"
+                             alt="TENTYNC"
+                             class="tts-h-16 tts-w-auto"/>
+                    </a>
+
+                    <!-- RIGHT: Action Buttons (Person + Cart) -->
+                    <div class="d-flex align-items-center gap-2">
+
+                        <!-- User/Person Button - Direct Navigation -->
+                        <!-- Not logged in → /web/login | Logged in → /my (Dashboard) -->
+                        <a t-attf-href="{{ '/my' if not request.env.user._is_public() else '/web/login' }}"
+                           class="halftone-shadow-header d-inline-flex text-decoration-none tts-w-56 tts-h-56">
+                            <!-- Button Content - Full Bootstrap -->
+                            <div class="position-relative d-flex align-items-center justify-content-center w-100 h-100 p-3 bg-tts-light rounded-3 border border-2 border-dark tts-z-1">
+                                <img t-att-src="'/custom_shop_templates/static/src/img/icons/person-header.svg'"
+                                     class="flex-shrink-0 tts-w-24 tts-h-24"
+                                     alt="User"/>
+                            </div>
+                        </a>
+
+                        <!-- Cart Button -->
+                        <a href="/shop/cart"
+                           class="halftone-shadow-header d-inline-flex text-decoration-none tts-w-56 tts-h-56">
+                            <!-- Button Content - Full Bootstrap -->
+                            <div class="position-relative d-flex align-items-center justify-content-center w-100 h-100 p-3 bg-tts-light rounded-3 border border-2 border-dark tts-z-1">
+                                <img t-att-src="'/custom_shop_templates/static/src/img/icons/cart-header.svg'"
+                                     class="flex-shrink-0 tts-w-24 tts-h-24"
+                                     alt="Cart"/>
+                            </div>
+                        </a>
+
+                    </div>
+
+                </div>
+            </header>
+
+        </template>
+    </data>
+</odoo>

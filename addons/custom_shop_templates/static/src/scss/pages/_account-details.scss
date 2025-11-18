@@ -1,0 +1,503 @@
+// ========================================
+// ACCOUNT DETAILS PAGE STYLES
+// ========================================
+// Migrated from views/account/account_details.xml
+// Extracted: 2025-11-04
+//
+// Contains TWO sections:
+// 1. Account Details Main View (Read-only Card) - Lines 16-324
+// 2. Account Details Edit View (Form) - Lines 408-784
+//
+// Responsive Behavior:
+// - SM (< 768px): Mobile layout, single column
+// - MD (768px+): Tablet layout
+// - LG (1280px+): Desktop layout with side navigation
+// ========================================
+
+/* ==========================================================
+   SECTION 1: ACCOUNT DETAILS MAIN VIEW - READ-ONLY CARD
+   Extracted from lines 16-324
+   ========================================================== */
+
+/* Reset */
+* {
+    box-sizing: border-box;
+}
+
+/* Hide Odoo default elements */
+.o_portal.o_portal_wrap .o_portal_breadcrumbs,
+.o_portal.o_portal_wrap .breadcrumb,
+.o_portal.o_portal_wrap h3 {
+    display: none !important;
+}
+
+/* Main Container - SM */
+.tts-account-details-page {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tts-account-details-wrapper {
+    width: 100%;
+    padding: 32px 16px 80px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: $tts-gap-40;
+}
+
+.tts-account-details-header {
+    width: 100%;
+}
+
+.tts-account-details-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Account Selector (SM/MD only) */
+.tts-account-selector-wrapper {
+    width: 100%;
+}
+
+.tts-account-selector-button {
+    width: 100%;
+    padding: 16px;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.tts-account-selector-button:hover {
+    background: rgba($tts-light, 0.05);
+}
+
+.tts-selector-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Dashboard Menu styles moved to _account-navigation.scss to avoid duplication */
+
+/* Account Details Card */
+.tts-details-card-wrapper {
+    width: 100%;
+    position: relative;
+}
+
+.tts-details-card-shadow {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    border-radius: $tts-border-radius;
+    transform: rotate(-1deg);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tts-details-card {
+    width: 100%;
+    padding: 16px;
+    background: $tts-card-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-details-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-details-card-title {
+    color: $tts-light;
+    @include tts-text-body-bold;
+    margin: 0 0 4px 0;
+}
+
+.tts-details-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tts-details-line {
+    color: $tts-light;
+    @include tts-text-body;
+    margin: 0;
+}
+
+.tts-details-line strong {
+    font-weight: $tts-font-weight-bold;
+}
+
+.tts-edit-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.tts-edit-btn:hover {
+    opacity: 0.8;
+}
+
+.tts-edit-btn span {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    text-transform: uppercase;
+    line-height: 16px;
+    letter-spacing: 0.30px;
+}
+
+.tts-edit-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.tts-edit-icon img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Success Banner */
+.tts-success-banner {
+    width: 100%;
+    padding: 16px;
+    background: #DCFCE7;
+    border-radius: $tts-border-radius;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.tts-success-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.tts-success-text {
+    flex: 1;
+    color: #15803D;
+    @include tts-text-body;
+    padding-top: 2px;
+}
+
+/* MD Breakpoint (768px+) */
+@media (min-width: $tts-width-md) {
+    .tts-account-details-wrapper {
+        width: $tts-width-md;
+        padding: $tts-gap-48 $tts-gap-48 96px $tts-gap-48;
+        gap: $tts-gap-48;
+    }
+}
+
+/* LG Breakpoint (1280px+) */
+@media (min-width: $tts-width-lg) {
+    .tts-account-details-wrapper {
+        width: $tts-width-lg;
+        padding: $tts-gap-64 80px 128px 80px;
+        gap: $tts-gap-64;
+    }
+
+    .tts-account-details-content {
+        flex-direction: row;
+        gap: $tts-gap-119;
+    }
+
+    /* Account selector and dashboard menu styles now handled by _account-navigation.scss */
+
+    .tts-details-section {
+        flex: 1;
+        max-width: 738px;
+    }
+}
+
+/* ==========================================================
+   SECTION 2: ACCOUNT DETAILS EDIT VIEW - FORM
+   Extracted from lines 408-784
+   ========================================================== */
+
+/* Main Container - SM */
+.tts-account-edit-page {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tts-account-edit-wrapper {
+    width: 100%;
+    padding: 32px 16px 80px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: $tts-gap-40;
+}
+
+/* Form Container */
+.tts-form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-account-form-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.tts-account-form-section-title {
+    color: $tts-light;
+    font-size: 24px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 32px;
+    letter-spacing: 0.48px;
+    margin: 0;
+}
+
+.tts-account-form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Form Field */
+.tts-account-form-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tts-account-form-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px;
+}
+
+.tts-account-form-label {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 16px;
+    margin: 0;
+}
+
+.tts-account-form-label-optional {
+    color: $tts-secondary;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 16px;
+}
+
+.tts-account-form-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tts-account-form-input-shadow {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    border-radius: $tts-border-radius;
+    background: url('/custom_shop_templates/static/src/img/halftone/halftone-universal.svg') repeat;
+    background-size: 300px 300px;
+    transform: rotate($tts-halftone-rotation);
+    transform-origin: top left;
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tts-account-form-input {
+    width: 100%;
+    padding: 18px 16px;
+    background: $tts-surface-dark;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    border: none;
+    color: $tts-light;
+    @include tts-text-body;
+    position: relative;
+    z-index: 1;
+}
+
+.tts-account-form-input:focus {
+    outline-color: $tts-secondary;
+}
+
+.tts-account-form-input.error {
+    outline-color: #B91C1C;
+}
+
+.tts-account-form-input::placeholder {
+    color: $tts-secondary;
+    opacity: 0.5;
+}
+
+.tts-form-help-text {
+    color: $tts-secondary;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-regular;
+    line-height: 16px;
+    letter-spacing: 0.12px;
+    margin: 0;
+}
+
+.tts-form-error-text {
+    color: $tts-light;
+    font-size: 12px;
+    font-family: $tts-font-family;
+    font-weight: $tts-font-weight-bold;
+    line-height: 16px;
+    margin: 0;
+}
+
+/* Password Input with Toggle */
+.tts-password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tts-password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 1;
+}
+
+.tts-password-toggle svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tts-account-form-input[type="password"] {
+    padding-right: 48px;
+}
+
+/* Button */
+.tts-button-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts-button-shadow {
+    position: absolute;
+    left: 6px;
+    top: 6px;
+    width: 100%;
+    height: 100%;
+    border-radius: $tts-border-radius;
+    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='halftone' x='0' y='0' width='4' height='4' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23C1AA99'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23halftone)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+.tts-button-primary {
+    padding: 23px 24px;
+    background: $tts-light;
+    border-radius: $tts-border-radius;
+    outline: 2px solid $tts-dark;
+    outline-offset: -2px;
+    border: none;
+    color: $tts-dark;
+    @include tts-text-body-bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.tts-button-primary:hover {
+    opacity: 0.9;
+}
+
+/* MD Breakpoint (768px+) */
+@media (min-width: $tts-width-md) {
+    .tts-account-edit-wrapper {
+        width: $tts-width-md;
+        padding: $tts-gap-48 $tts-gap-48 96px $tts-gap-48;
+        gap: $tts-gap-48;
+    }
+}
+
+/* LG Breakpoint (1280px+) */
+@media (min-width: $tts-width-lg) {
+    .tts-account-edit-wrapper {
+        width: $tts-width-lg;
+        padding: $tts-gap-64 80px 128px 80px;
+        gap: $tts-gap-64;
+    }
+
+    .tts-account-form-section {
+        max-width: 738px;
+    }
+
+    /* 2-column layout for first/last name in LG */
+    .tts-account-form-row.two-cols {
+        flex-direction: row;
+        gap: 24px;
+    }
+
+    .tts-account-form-row.two-cols .tts-account-form-field {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .tts-button-shadow {
+        width: 165px;
+        height: 56px;
+    }
+}

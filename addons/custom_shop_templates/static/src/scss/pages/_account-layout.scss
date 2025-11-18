@@ -1,0 +1,79 @@
+// Migrated from account_page_layout.xml <style> block (PHASE 5)
+
+/* =======================================================
+   ACCOUNT PAGE COMMON LAYOUT - Figma Exact Specs
+   ======================================================= */
+
+/* Main Container - Full viewport */
+.tts-account-page {
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Wrapper - SM (Mobile-First, 375px) */
+.tts-account-wrapper {
+    width: 100%;
+    padding: 32px 16px 64px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: $tts-gap-40;
+}
+
+/* Header Section */
+.tts-account-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Content Section (Navigation + Page Content) */
+.tts-account-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $tts-gap-40;
+}
+
+/* Page-specific content section */
+.tts-account-section {
+    width: 100%;
+}
+
+/* =======================================================
+   MD BREAKPOINT (768px+)
+   ======================================================= */
+@media (min-width: $tts-width-md) {
+    .tts-account-wrapper {
+        width: $tts-width-md;
+        padding: $tts-gap-40 $tts-gap-48 $tts-gap-40 $tts-gap-48;
+        gap: $tts-gap-48;
+    }
+}
+
+/* =======================================================
+   LG BREAKPOINT (1280px+)
+   ======================================================= */
+@media (min-width: $tts-width-lg) {
+    .tts-account-wrapper {
+        width: 100%;
+        max-width: 1280px;
+        padding: $tts-gap-64 80px 128px 80px;
+        gap: $tts-gap-64;
+        margin: 0 auto;
+    }
+
+    .tts-account-content {
+        flex-direction: row;
+        gap: $tts-gap-119;
+    }
+
+    .tts-account-section {
+        flex: 1;
+        max-width: 738px;
+    }
+}

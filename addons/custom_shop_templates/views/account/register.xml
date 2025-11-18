@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS Register Page - Figma MCP Design with 3 responsive breakpoints (SM/MD/LG) -->
+
+    <data>
+        <template id="tts_signup" inherit_id="auth_signup.signup" name="TTS Sign Up">
+
+            <!-- REPLACE ENTIRE SIGNUP CONTENT WITH FIGMA DESIGN -->
+            <xpath expr="//t[@t-call='web.login_layout']" position="replace">
+
+                <!-- Call frontend_layout to load assets (components.scss) -->
+                <t t-call="web.frontend_layout">
+                    <t t-set="no_header" t-value="True"/>
+                    <t t-set="no_footer" t-value="True"/>
+
+                <!-- Register styles migrated to static/src/scss/pages/_register.scss (PHASE 5) -->
+                <!-- REGISTER PAGE STRUCTURE -->
+                <div class="tts-register-page">
+                    <div class="tts-register-wrapper">
+
+                        <!-- ===========================================
+                             HEADER: Title + Login Link
+                             =========================================== -->
+                        <div class="tts-register-header">
+                            <div class="tts-register-title-wrapper">
+                                <h1 class="tts-register-title">My Account</h1>
+                            </div>
+
+                            <div class="tts-register-signin">
+                                <span class="tts-signin-text">Already have an account?</span>
+                                <a href="/web/login" class="tts-signin-link">
+                                    <span class="tts-signin-link-text">Login</span>
+                                    <div class="tts-signin-link-underline"></div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- ===========================================
+                             FORM SECTION
+                             =========================================== -->
+                        <div class="tts-register-form-section">
+                            <div class="tts-register-form-container">
+
+                                <!-- Alert/Error Message -->
+                                <t t-if="error">
+                                    <t t-call="custom_shop_templates.banner_alert">
+                                        <t t-set="banner_type" t-value="'error'"/>
+                                        <t t-set="banner_message" t-value="error"/>
+                                    </t>
+                                </t>
+
+                                <t t-if="message">
+                                    <t t-call="custom_shop_templates.banner_alert">
+                                        <t t-set="banner_type" t-value="'info'"/>
+                                        <t t-set="banner_message" t-value="message"/>
+                                    </t>
+                                </t>
+
+                                <!-- SIGNUP FORM -->
+                                <form class="oe_signup_form" role="form" method="post">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                                    <input type="hidden" name="token" t-att-value="token"/>
+
+                                    <!-- ======= FIRST NAME & LAST NAME ROW ======= -->
+                                    <div class="tts-fields-row">
+                                        <!-- First Name -->
+                                        <div class="tts-field-half">
+                                            <div class="tts-field-label-wrapper">
+                                                <label for="first_name" class="tts-field-label">First name</label>
+                                            </div>
+
+                                            <div class="tts-field-input-section">
+                                                <div class="tts-input-wrapper tts-halftone-shadow-login">
+                                                    <div class="tts-input-visual">
+                                                        <div class="tts-input-inner">
+                                                            <input type="text"
+                                                                   name="first_name"
+                                                                   id="first_name"
+                                                                   placeholder=""
+                                                                   required="required"
+                                                                   autofocus="autofocus"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Last Name -->
+                                        <div class="tts-field-half">
+                                            <div class="tts-field-label-wrapper">
+                                                <label for="last_name" class="tts-field-label">Last name</label>
+                                            </div>
+
+                                            <div class="tts-field-input-section">
+                                                <div class="tts-input-wrapper tts-halftone-shadow-login">
+                                                    <div class="tts-input-visual">
+                                                        <div class="tts-input-inner">
+                                                            <input type="text"
+                                                                   name="last_name"
+                                                                   id="last_name"
+                                                                   placeholder=""
+                                                                   required="required"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ======= EMAIL FIELD ======= -->
+                                    <div class="tts-field">
+                                        <div class="tts-field-label-wrapper">
+                                            <label for="login" class="tts-field-label">Email</label>
+                                        </div>
+
+                                        <div class="tts-field-input-section">
+                                            <div class="tts-input-wrapper tts-halftone-shadow-login">
+                                                <div class="tts-input-visual">
+                                                    <div class="tts-input-inner">
+                                                        <input type="email"
+                                                               name="login"
+                                                               id="login"
+                                                               placeholder=""
+                                                               t-att-value="login"
+                                                               required="required"
+                                                               autocomplete="email"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ======= PASSWORD FIELD ======= -->
+                                    <div class="tts-field">
+                                        <div class="tts-field-label-wrapper">
+                                            <label for="password" class="tts-field-label">Password</label>
+                                        </div>
+
+                                        <div class="tts-field-input-section">
+                                            <div class="tts-input-wrapper tts-halftone-shadow-login">
+                                                <div class="tts-input-visual">
+                                                    <div class="tts-input-inner">
+                                                        <input type="password"
+                                                               name="password"
+                                                               id="password"
+                                                               placeholder=""
+                                                               required="required"
+                                                               autocomplete="new-password"/>
+                                                        <button type="button"
+                                                                class="tts-password-icon"
+                                                                onclick="togglePasswordVisibility('password', 'passwordIcon')">
+                                                            <img id="passwordIcon"
+                                                                 src="/custom_shop_templates/static/src/img/icons/Icon-login.svg"
+                                                                 alt="Toggle password"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ======= CONFIRM PASSWORD FIELD ======= -->
+                                    <div class="tts-field">
+                                        <div class="tts-field-label-wrapper">
+                                            <label for="confirm_password" class="tts-field-label">Confirm Password</label>
+                                        </div>
+
+                                        <div class="tts-field-input-section">
+                                            <div class="tts-input-wrapper tts-halftone-shadow-login">
+                                                <div class="tts-input-visual">
+                                                    <div class="tts-input-inner">
+                                                        <input type="password"
+                                                               name="confirm_password"
+                                                               id="confirm_password"
+                                                               placeholder=""
+                                                               required="required"
+                                                               autocomplete="new-password"/>
+                                                        <button type="button"
+                                                                class="tts-password-icon"
+                                                                onclick="togglePasswordVisibility('confirm_password', 'confirmPasswordIcon')">
+                                                            <img id="confirmPasswordIcon"
+                                                                 src="/custom_shop_templates/static/src/img/icons/Icon-login.svg"
+                                                                 alt="Toggle password"/>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ======= TERMS CHECKBOX ======= -->
+                                    <div class="tts-checkbox-container">
+                                        <div class="tts-checkbox-content">
+                                            <div class="tts-checkbox-wrapper">
+                                                <input type="checkbox"
+                                                       name="terms_accepted"
+                                                       id="terms_accepted"
+                                                       class="tts-checkbox-input"
+                                                       required="required"
+                                                       onclick="toggleCheckbox()"/>
+                                                <img id="checkboxIcon"
+                                                     class="tts-checkbox-icon"
+                                                     src="/custom_shop_templates/static/src/img/icons/checkbox.svg"
+                                                     alt="Checkbox"/>
+                                            </div>
+                                            <div class="tts-checkbox-label-wrapper">
+                                                <label for="terms_accepted" class="tts-checkbox-label">
+                                                    I have read the <a href="/page/terms" target="_blank">Terms and Conditions.</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ======= SUBMIT BUTTON ======= -->
+                                    <div class="tts-button-wrapper tts-halftone-shadow-login">
+                                        <button type="submit" class="tts-button">
+                                            Register
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- JavaScript Functions -->
+                <script>
+                    // Password Toggle (flexible for multiple password fields)
+                    function togglePasswordVisibility(inputId, iconId) {
+                        const passwordInput = document.getElementById(inputId);
+                        const passwordIcon = document.getElementById(iconId);
+
+                        if (passwordInput) {
+                            if (passwordIcon) {
+                                if (passwordInput.type === 'password') {
+                                    passwordInput.type = 'text';
+                                    passwordIcon.style.opacity = '0.6';
+                                } else {
+                                    passwordInput.type = 'password';
+                                    passwordIcon.style.opacity = '1';
+                                }
+                            }
+                        }
+                    }
+
+                    // Checkbox Toggle
+                    function toggleCheckbox() {
+                        const checkbox = document.getElementById('terms_accepted');
+                        const checkboxIcon = document.getElementById('checkboxIcon');
+
+                        if (checkbox.checked) {
+                            checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox-checked.svg';
+                        } else {
+                            checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox.svg';
+                        }
+                    }
+
+                    // Form submission handler - Combine first and last name
+                    document.querySelector('.oe_signup_form').addEventListener('submit', function(e) {
+                        const firstName = document.getElementById('first_name').value;
+                        const lastName = document.getElementById('last_name').value;
+
+                        // Create hidden 'name' field for Odoo
+                        const nameInput = document.createElement('input');
+                        nameInput.type = 'hidden';
+                        nameInput.name = 'name';
+                        nameInput.value = firstName + ' ' + lastName;
+                        this.appendChild(nameInput);
+                    });
+                </script>
+
+                </t>  <!-- Close t-call="web.frontend_layout" -->
+            </xpath>
+
+        </template>
+
+    </data>
+</odoo>

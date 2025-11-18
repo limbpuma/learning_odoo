@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    CHECKOUT SHIPPING STEP - Shipping method selection for checkout flow
+    ═══════════════════════════════════════════════════════════════════════════
+    -->
+    <data>
+        <!-- Shipping Step Template -->
+        <template id="checkout_custom_step_shipping" inherit_id="website_sale.checkout" name="TTS Checkout Shipping">
+            <!-- Replace default checkout shipping selection -->
+            <xpath expr="//div[@id='shop_checkout']" position="replace">
+                <div id="shop_checkout" class="checkout_custom_step_shipping">
+
+                    <!-- Address Summary Card -->
+                    <div class="tts-address-summary">
+                        <div class="tts-address-summary-header">
+                            <h3 class="tts-address-summary-title">Address</h3>
+                            <a href="/shop/checkout" class="tts-address-edit-link">
+                                <span>edit</span>
+                                <svg class="tts-icon-edit" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M11.3333 2L14 4.66667L5.33333 13.3333H2.66667V10.6667L11.3333 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="tts-address-summary-content">
+                            <!-- Billing Address -->
+                            <div class="tts-address-column">
+                                <h4 class="tts-address-column-title">Billing Address</h4>
+                                <div class="tts-address-text">
+                                    <t t-if="website_sale_order.partner_id.company_name">
+                                        <t t-esc="website_sale_order.partner_id.company_name"/><br/>
+                                    </t>
+                                    <t t-esc="website_sale_order.partner_id.name"/><br/>
+                                    <t t-esc="website_sale_order.partner_id.street"/><br/>
+                                    <t t-if="website_sale_order.partner_id.street2">
+                                        <t t-esc="website_sale_order.partner_id.street2"/><br/>
+                                    </t>
+                                    <t t-esc="website_sale_order.partner_id.zip"/> <t t-esc="website_sale_order.partner_id.city"/>
+                                </div>
+                            </div>
+
+                            <!-- Shipping Address -->
+                            <div class="tts-address-column">
+                                <h4 class="tts-address-column-title">Shipping Address</h4>
+                                <div class="tts-address-text">
+                                    <t t-if="website_sale_order.partner_shipping_id.id != website_sale_order.partner_id.id">
+                                        <t t-if="website_sale_order.partner_shipping_id.company_name">
+                                            <t t-esc="website_sale_order.partner_shipping_id.company_name"/><br/>
+                                        </t>
+                                        <t t-esc="website_sale_order.partner_shipping_id.name"/><br/>
+                                        <t t-esc="website_sale_order.partner_shipping_id.street"/><br/>
+                                        <t t-if="website_sale_order.partner_shipping_id.street2">
+                                            <t t-esc="website_sale_order.partner_shipping_id.street2"/><br/>
+                                        </t>
+                                        <t t-esc="website_sale_order.partner_shipping_id.zip"/> <t t-esc="website_sale_order.partner_shipping_id.city"/>
+                                    </t>
+                                    <t t-else="">
+                                        Same as billing address
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shipping Methods Form -->
+                    <form method="POST" action="/shop/update_carrier" class="tts-shipping-form" id="shipping-form">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <h2 class="tts-shipping-title">Shipping</h2>
+
+                        <!-- Shipping Methods Grid -->
+                        <div class="tts-shipping-methods">
+                            <t t-foreach="website_sale_order.carrier_id.sudo().search([])" t-as="carrier">
+                                <div class="tts-shipping-method" t-att-data-selected="'true' if carrier.id == website_sale_order.carrier_id.id else 'false'">
+                                    <label class="tts-shipping-method-label">
+                                        <!-- Carrier Logo/Icon -->
+                                        <div class="tts-carrier-icon">
+                                            <t t-if="carrier.name.lower().find('dhl') != -1">
+                                                <div class="tts-carrier-logo tts-carrier-dhl">
+                                                    <div class="tts-dhl-stripe"></div>
+                                                </div>
+                                            </t>
+                                            <t t-elif="carrier.name.lower().find('fedex') != -1">
+                                                <div class="tts-carrier-logo tts-carrier-fedex">
+                                                    <div class="tts-fedex-purple"></div>
+                                                    <div class="tts-fedex-orange"></div>
+                                                </div>
+                                            </t>
+                                            <t t-elif="carrier.name.lower().find('ups') != -1">
+                                                <div class="tts-carrier-logo tts-carrier-ups">
+                                                    <div class="tts-ups-shield"></div>
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div class="tts-carrier-logo tts-carrier-generic">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                        <path d="M12 3L6 9H9V18H15V9H18L12 3Z" stroke="currentColor" stroke-width="1.5"/>
+                                                    </svg>
+                                                </div>
+                                            </t>
+                                        </div>
+
+                                        <!-- Carrier Info -->
+                                        <div class="tts-carrier-info">
+                                            <div class="tts-carrier-name" t-esc="carrier.name"/>
+                                            <div class="tts-carrier-price">
+                                                <t t-if="carrier.fixed_price">
+                                                    <span t-field="carrier.fixed_price" t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                                </t>
+                                                <t t-else="">
+                                                    € 0.00
+                                                </t>
+                                            </div>
+                                        </div>
+
+                                        <!-- Radio Button -->
+                                        <input type="radio"
+                                               name="carrier_id"
+                                               t-att-value="carrier.id"
+                                               class="tts-shipping-radio"
+                                               t-att-checked="'checked' if carrier.id == website_sale_order.carrier_id.id else None"/>
+                                        <div class="tts-radio-custom"></div>
+                                    </label>
+                                </div>
+                            </t>
+                        </div>
+
+                        <!-- Next Step Button -->
+                        <div class="tts-shipping-button-wrapper">
+                            <button type="submit" class="tts-shipping-button">Next Step</button>
+                        </div>
+                    </form>
+
+                </div>  <!-- End #shop_checkout -->
+            </xpath>
+        </template>
+    </data>
+</odoo>

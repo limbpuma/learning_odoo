@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+                <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CHECKOUT LAYOUT CUSTOMIZATION - CSS-only approach (Figma pattern)
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="checkout_layout_cart_header" inherit_id="website_sale.checkout_layout">
+            <!-- Insert breadcrumb and title BEFORE checkout (outside) -->
+            <xpath expr="//div[hasclass('oe_website_sale')]" position="before">
+                <div class="tts-account-wrapper">
+                <t t-if="show_shorter_cart_summary">
+                    <div class="custom_shop_templates.breadcrumb_account">
+                        <t t-call="custom_shop_templates.breadcrumb_cart"/>
+                        <div class="tts-account-header">
+                            <h1 class="tts-cart-page-title">Cart</h1>
+                        </div>
+                    </div>
+                </t>
+                </div>
+            </xpath>
+
+            <!-- Add custom class for CSS targeting (don't remove native classes) -->
+            <xpath expr="//div[hasclass('oe_website_sale')]" position="attributes">
+                <attribute name="class" add="o_website_sale_checkout tts-cart-page" separator=" "/>
+            </xpath>
+        </template>
+
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CART PAGE CUSTOMIZATION
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="cart_custom" inherit_id="website_sale.cart">
+
+            <!-- Disable Odoo wizard checkout (breadcrumb navigation) -->
+            <xpath expr="//t[@t-set='show_shorter_cart_summary']" position="after">
+                <t t-set="show_wizard_checkout" t-value="False"/>
+            </xpath>
+
+            <!-- Hide "ORDER OVERVIEW" text -->
+            <xpath expr="//h3[text()='Order overview']" position="attributes">
+                <attribute name="style">display: none;</attribute>
+            </xpath>
+
+            <!-- Column structure now handled by checkout_layout_cart_header template -->
+            <!-- No need to add .col-lg-7 here since we rebuilt the entire structure -->
+
+        </template>
+
+        <!-- Cart Lines Custom - Replaces cart_lines for AJAX updates with Figma design -->
+        <template id="cart_lines_custom" inherit_id="website_sale.cart_lines">
+            <!-- Replace the entire cart_lines content with our custom design -->
+            <xpath expr="//div[@id='cart_products']" position="replace">
+                <!-- Cart styles migrated to static/src/scss/pages/_cart.scss (PHASE 5) -->
+
+                <!-- Cart Products - Show when there are items -->
+                <div id="cart_products"       
+                     t-if="website_sale_order and website_sale_order.website_order_line"
+                     class="js_cart_lines">
+
+                    <!-- Delivery Banner - Figma Design (ONLY in cart page, NOT in checkout) -->
+                    <t t-if="request.httprequest.path == '/shop/cart' and not '/shop/checkout' in request.httprequest.path">
+                        <div class="delivery-banner">
+                            <div class="delivery-banner-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 8H17V4H3C1.9 4 1 4.9 1 6V17H3C3 18.66 4.34 20 6 20C7.66 20 9 18.66 9 17H15C15 18.66 16.34 20 18 20C19.66 20 21 18.66 21 17H23V12L20 8ZM6 18.5C5.17 18.5 4.5 17.83 4.5 17C4.5 16.17 5.17 15.5 6 15.5C6.83 15.5 7.5 16.17 7.5 17C7.5 17.83 6.83 18.5 6 18.5ZM19.5 9.5L21.46 12H17V9.5H19.5ZM18 18.5C17.17 18.5 16.5 17.83 16.5 17C16.5 16.17 17.17 15.5 18 15.5C18.83 15.5 19.5 16.17 19.5 17C19.5 17.83 18.83 18.5 18 18.5Z" fill="#0369a1" stroke="#0369a1" stroke-width="0.5"/>
+                                </svg>
+                            </div>
+                            <div class="delivery-banner-text">
+                                Estimated delivery time is 3 Weeks.
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Cart Items List - Figma Design -->
+                    <t t-foreach="website_sale_order.website_order_line" t-as="line">
+                        <div class="cart-item o_cart_product">
+                            <div class="cart-item-image-wrapper tts-halftone-shadow">
+                                <!-- Product Image -->
+                                <div class="cart-item-image">
+                                    <div class="cart-item-image-inner">
+                                        <img t-att-src="line.product_id.image_1920 and '/web/image/product.product/%s/image_1920' % line.product_id.id or '/web/static/img/placeholder.png'"
+                                             t-att-alt="line.product_id.name"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cart Item Content -->
+                            <div class="cart-item-content">
+                                <!-- Item Header -->
+                                <div class="cart-item-header">
+                                    <div class="cart-item-info">
+                                        <h3 class="cart-item-title" t-field="line.product_id.name"/>
+                                        <p class="cart-item-description">Short product description</p>
+                                        <p class="cart-item-delivery">
+                                            Delivery:
+                                            <t t-if="line.product_id.sale_delay">
+                                                <t t-esc="line.product_id.sale_delay"/> Days
+                                            </t>
+                                            <t t-else="">
+                                                1 Week
+                                            </t>
+                                        </p>
+                                    </div>
+                                    <div class="cart-item-price">
+                                        <span t-field="line.price_subtotal"
+                                              t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                                    </div>
+                                </div>
+
+                                <!-- Item Actions -->
+                                <div class="cart-item-actions">
+                                    <!-- Quantity Selector (Odoo Functional - input-group requerido) -->
+                                    <div class="quantity-selector tts-halftone-shadow input-group">
+                                        <div class="quantity-selector-inner">
+                                            <input type="text"
+                                                   t-att-value="int(line.product_uom_qty)"
+                                                   t-att-data-line-id="line.id"
+                                                   t-att-data-product-id="line.product_id.id"
+                                                   class="js_quantity form-control"
+                                                   name="quantity"/>
+
+                                            <!-- Dropdown Figma con botones +/- heredados -->
+                                            <div class="quantity-selector-dropdown">
+                                                <!-- Botón Superior: Incrementar (+) -->
+                                                <a href="#"
+                                                   class="js_add_cart_json quantity-dropdown-plus"
+                                                   aria-label="Add one"
+                                                   title="Add one">
+                                                    <i class="fa fa-plus tts-d-none"></i>
+                                                </a>
+
+                                                <!-- Botón Inferior: Decrementar (-) -->
+                                                <a href="#"
+                                                   class="js_add_cart_json quantity-dropdown-minus"
+                                                   aria-label="Remove one"
+                                                   title="Remove one">
+                                                    <i class="fa fa-minus tts-d-none"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Delete Button (Odoo Functional) -->
+                                    <a href="#"
+                                       class="delete-button js_delete_product"
+                                       t-att-data-line-id="line.id"
+                                       t-att-data-product-id="line.product_id.id"
+                                       title="Remove from cart">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                </div>
+            </xpath>
+
+            <!-- Also replace empty cart message - preserve Odoo's t-if condition -->
+            <xpath expr="//div[hasclass('js_cart_lines') and hasclass('alert')]" position="replace">
+                <div t-if="not website_sale_order or not website_sale_order.website_order_line"
+                     class="js_cart_lines">
+                    <div class="cart-item">
+                        <div class="cart-item-content">
+                            <div class="cart-item-header">
+                                <div class="cart-item-info">
+                                    <h3 class="cart-item-title">Your cart is empty</h3>
+                                    <p class="cart-item-description">Add some products to get started</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CHECKOUT LAYOUT CUSTOM - Replace o_total_card with direct call to total
+        ═══════════════════════════════════════════════════════════════════════════
+        This removes the .o_total_card and .card-body wrappers that add Bootstrap
+        styles (padding, borders) which break our Figma design.
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="checkout_layout_custom" inherit_id="website_sale.checkout_layout">
+            <!-- Replace the .o_total_card div with direct call to total -->
+            <xpath expr="//div[@class='o_total_card card sticky-lg-top']" position="replace">
+                <!-- Call total template directly (uses cart_summary_custom) -->
+                <t t-call="website_sale.total"/>
+            </xpath>
+        </template>
+
+        <!--
+        ═══════════════════════════════════════════════════════════════════════════
+        CART SUMMARY CUSTOM - Inherits from website_sale.total with Figma design
+        ═══════════════════════════════════════════════════════════════════════════
+        -->
+        <template id="cart_summary_custom" inherit_id="website_sale.total">
+            <xpath expr="//div[@id='cart_total']" position="replace">
+                <div id="cart_total" t-if="website_sale_order and website_sale_order.website_order_line" class="cart-summary tts-halftone-shadow">
+
+                    <div class="cart-summary-container">
+                        <!-- Summary Header -->
+                        <div class="cart-summary-header">
+                            <h2 class="cart-summary-title">
+                                Your Order (<t t-esc="len([l for l in website_sale_order.website_order_line if l.product_id and not l.display_type])"/>)
+                            </h2>
+                        </div>
+
+                        <!-- Price Breakdown -->
+                        <div class="cart-summary-price-section">
+                            <!-- Subtotal Row -->
+                            <div class="cart-summary-row" id="order_total_untaxed">
+                                <span class="cart-summary-label bold">Subtotal</span>
+                                <span class="cart-summary-value bold">
+                                    <span t-field="website_sale_order.amount_untaxed"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+
+                            <!-- Delivery Row -->
+                            <div class="cart-summary-row">
+                                <span class="cart-summary-label">Shipping</span>
+                                <span class="cart-summary-value">
+                                    <span t-if="website_sale_order._has_deliverable_products() and website_sale_order.carrier_id"
+                                          t-field="website_sale_order.amount_delivery"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                    <span t-else="">Calculated at checkout</span>
+                                </span>
+                            </div>
+
+                            <!-- Taxes Row -->
+                            <div class="cart-summary-row" id="order_total_taxes">
+                                <span class="cart-summary-label">VAT</span>
+                                <span class="cart-summary-value">
+                                    <span t-field="website_sale_order.amount_tax"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+
+                            <!-- Total Row -->
+                            <div class="cart-summary-row total" id="order_total">
+                                <span class="cart-summary-label bold">Total</span>
+                                <span class="cart-summary-value bold cart-summary-total">
+                                    <span t-field="website_sale_order.amount_total"
+                                          t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="cart-summary-actions">
+                            <!-- Checkout Button -->
+                            <div class="checkout-button tts-halftone-shadow">
+                                <a href="/shop/checkout"
+                                   t-attf-class="tts-button w-100 {{'' if website_sale_order and website_sale_order.website_order_line else 'disabled'}}"
+                                   t-att-aria-disabled="'true' if not website_sale_order or not website_sale_order.website_order_line else None">
+                                    <span>Go to checkout</span>
+                                </a>
+                            </div>
+
+                            <!-- Payment Methods -->
+                            <div class="payment-methods">
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/visa-icon.svg" alt="Visa"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/mastercard-icon.svg" alt="Mastercard"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/amex-icon.svg" alt="American Express"/>
+                                </div>
+                                <div class="payment-method-icon">
+                                    <img src="/custom_shop_templates/static/src/img/payment/paypal-icon.svg" alt="PayPal"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

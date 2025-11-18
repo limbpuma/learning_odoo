@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Product information accordion component -->
+    <template id="article_narrow" name="Article Narrow - Static">
+        <!-- Section -->
+        <section class="px-3 px-md-5 px-lg-5 tts-section-surface-medium">
+
+            <!-- Container (max-width 1536px) -->
+            <div class="container-xxl">
+                <div class="d-flex flex-column gap-4 mx-auto tts-max-w-1536">
+
+                    <!-- Features accordion (expanded by default) -->
+                    <div class="border border-2 border-dark tts-card-surface-dark">
+
+                        <!-- Header (Button) -->
+                        <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#accordionFeatures"
+                                aria-expanded="true">
+                            <!-- Title -->
+                            <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                Features
+                            </h3>
+                            <!-- Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 class="tts-text-light tts-icon-transition">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <!-- Content (Collapse) -->
+                        <div class="collapse show" id="accordionFeatures">
+                            <div class="px-3 px-md-4 pb-4">
+                                <!-- List -->
+                                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Integer varius imperdiet sed interdum felis cras in nec nunc.</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Lorem ipsum dolor sit amet consectetur consectetur.</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Integer varius imperdiet sed interdum felis cras in nec nunc.</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Lorem ipsum dolor sit amet consectetur scelerisque.</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Integer varius imperdiet sed interdum felis cras in nec nunc.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <!-- Description accordion -->
+                    <div class="border border-2 border-dark tts-card-dark">
+
+                        <!-- Header (Button) -->
+                        <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#accordionSpecs"
+                                aria-expanded="false">
+                            <!-- Title -->
+                            <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                Technical Specifications
+                            </h3>
+                            <!-- Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 class="tts-text-light tts-icon-transition">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <!-- Content (Collapse) -->
+                        <div class="collapse" id="accordionSpecs">
+                            <div class="px-3 px-md-4 pb-4">
+                                <!-- List -->
+                                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Dimensions: 120 x 80 x 25 mm</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Weight: 250g</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Power: USB-C, 5V/2A</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Operating temperature: -10°C to +50°C</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <!-- Shipping accordion -->
+                    <div class="border border-2 border-dark tts-card-dark">
+
+                        <!-- Header (Button) -->
+                        <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#accordionInbox"
+                                aria-expanded="false">
+                            <!-- Title -->
+                            <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                What's in the box?
+                            </h3>
+                            <!-- Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 class="tts-text-light tts-icon-transition">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <!-- Content (Collapse) -->
+                        <div class="collapse" id="accordionInbox">
+                            <div class="px-3 px-md-4 pb-4">
+                                <!-- List -->
+                                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>1x TIMEBAR device</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>1x USB-C cable</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>1x Quick start guide</span>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>1x Warranty card</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <!-- Return policy accordion -->
+                    <div class="border border-2 border-dark tts-card-dark">
+
+                        <!-- Header (Button) -->
+                        <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#accordionManuals"
+                                aria-expanded="false">
+                            <!-- Title -->
+                            <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                Manuals
+                            </h3>
+                            <!-- Icon -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 class="tts-text-light tts-icon-transition">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <!-- Content (Collapse) -->
+                        <div class="collapse" id="accordionManuals">
+                            <div class="px-3 px-md-4 pb-4">
+                                <!-- List -->
+                                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <a href="/manual-en.pdf"
+                                           class="text-decoration-underline fw-bold tts-text-light">
+                                            User Manual (English) - PDF
+                                        </a>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <a href="/manual-de.pdf"
+                                           class="text-decoration-underline fw-bold tts-text-light">
+                                            Benutzerhandbuch (Deutsch) - PDF
+                                        </a>
+                                    </li>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <a href="/quickstart.pdf"
+                                           class="text-decoration-underline fw-bold tts-text-light">
+                                            Quick Start Guide - PDF
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    DYNAMIC VERSION - Uses Odoo product data
+    ═══════════════════════════════════════════════════════════════════════════
+    -->
+    <template id="article_narrow_dynamic" name="Article Narrow - Dynamic">
+        <section class="py-5 px-3 px-md-5 px-lg-5 tts-section-surface-medium">
+
+            <!-- Container -->
+            <div class="container-xxl">
+                <div class="d-flex flex-column gap-4 mx-auto tts-max-w-1536">
+
+                    <!-- Determine which accordion should be open by default -->
+                    <t t-set="has_description" t-value="product.description or product.description_sale"/>
+                    <t t-set="has_specs" t-value="product.weight or product.volume"/>
+
+                    <!-- Description Accordion (FIRST - Open by default if exists) -->
+                    <t t-if="has_description">
+                        <div class="border border-2 border-dark tts-card-surface-dark">
+
+                            <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#accordionDesc{{ product.id }}"
+                                    aria-expanded="true">
+                                <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                    Description
+                                </h3>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     class="tts-text-light tts-icon-transition">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+
+                            <div class="collapse show" t-attf-id="accordionDesc{{ product.id }}">
+                                <div class="px-3 px-md-4 pb-4 tts-text-body">
+                                    <t t-if="product.description">
+                                        <t t-raw="product.description"/>
+                                    </t>
+                                    <t t-elif="product.description_sale">
+                                        <p t-esc="product.description_sale"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Technical Specifications (Open by default ONLY if no description) -->
+                    <t t-if="has_specs">
+                        <div t-attf-class="border border-2 border-dark #{has_description and 'tts-card-dark' or 'tts-card-surface-dark'}">
+
+                            <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    t-attf-data-bs-target="#accordionSpecs{{ product.id }}"
+                                    t-attf-aria-expanded="#{has_description and 'false' or 'true'}">
+                                <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                    Technical Specifications
+                                </h3>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     class="tts-text-light tts-icon-transition">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+
+                            <div t-attf-class="collapse#{has_description and '' or ' show'}" t-attf-id="accordionSpecs{{ product.id }}">
+                                <div class="px-3 px-md-4 pb-4">
+                                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                        <t t-if="product.weight">
+                                            <li class="d-flex align-items-start gap-3 tts-text-body">
+                                                <span class="flex-shrink-0 rounded-circle mt-2 tts-bullet-sm-light"></span>
+                                                <span>Weight: <t t-esc="product.weight"/> kg</span>
+                                            </li>
+                                        </t>
+                                        <t t-if="product.volume">
+                                            <li class="d-flex align-items-start gap-3 tts-text-body">
+                                                <span class="flex-shrink-0 rounded-circle mt-2 tts-bullet-sm-light"></span>
+                                                <span>Volume: <t t-esc="product.volume"/> m³</span>
+                                            </li>
+                                        </t>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Product Details (Open by default ONLY if no description AND no specs) -->
+                    <div t-attf-class="border border-2 border-dark #{(has_description or has_specs) and 'tts-card-dark' or 'tts-card-surface-dark'}">
+
+                        <button class="d-flex justify-content-between align-items-center w-100 p-3 p-md-4 border-0 bg-transparent"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                t-attf-data-bs-target="#accordionDetails{{ product.id }}"
+                                t-attf-aria-expanded="#{(has_description or has_specs) and 'false' or 'true'}">
+                            <h3 class="h5 fw-bold text-uppercase mb-0 tts-heading-spaced">
+                                Product Details
+                            </h3>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 class="tts-text-light tts-icon-transition">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+
+                        <div t-attf-class="collapse#{(has_description or has_specs) and '' or ' show'}" t-attf-id="accordionDetails{{ product.id }}">
+                            <div class="px-3 px-md-4 pb-4">
+                                <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                    <t t-if="product.default_code">
+                                        <li class="d-flex align-items-start gap-3 tts-text-body">
+                                            <span class="flex-shrink-0 rounded-circle mt-2 tts-bullet-sm-light"></span>
+                                            <span>SKU: <t t-esc="product.default_code"/></span>
+                                        </li>
+                                    </t>
+                                    <t t-if="product.categ_id">
+                                        <li class="d-flex align-items-start gap-3 tts-text-body">
+                                            <span class="flex-shrink-0 rounded-circle mt-2 tts-bullet-sm-light"></span>
+                                            <span>Category: <t t-esc="product.categ_id.name"/></span>
+                                        </li>
+                                    </t>
+                                    <t t-if="product.barcode">
+                                        <li class="d-flex align-items-start gap-3 tts-text-body">
+                                            <span class="flex-shrink-0 rounded-circle mt-2 tts-bullet-sm-light"></span>
+                                            <span>Barcode: <t t-esc="product.barcode"/></span>
+                                        </li>
+                                    </t>
+                                    <li class="d-flex align-items-start gap-3 tts-text-body">
+                                        <span class="rounded-circle tts-bullet-sm-light"></span>
+                                        <span>Stock: <t t-esc="product.qty_available"/> units available</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </template>
+</odoo>

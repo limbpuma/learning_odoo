@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- =========================================
+         TTS BOOTSTRAP WEBSITE - IMAGE MANAGEMENT
+         =========================================
+
+         Image attachments using ir.attachment model
+
+         IMPORTANT: Format for Odoo 19:
+         - Use type="base64" with file attribute
+         - Path is relative to module root
+         - Odoo automatically encodes the image
+
+         Example usage in templates:
+         <img src="/web/image/custom_shop_templates.logo_main" alt="Logo"/>
+
+    -->
+
+    <data noupdate="1">
+
+        <!-- =========================================
+             BRAND IMAGES
+             =========================================
+             Uncomment when you add the actual image files
+        -->
+
+        <!-- Main Logo -->
+        <!--
+        <record id="logo_main" model="ir.attachment">
+            <field name="name">TTS Website Logo</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/brand/logo.svg"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- White Logo (for dark backgrounds) -->
+        <!--
+        <record id="logo_white" model="ir.attachment">
+            <field name="name">TTS Website Logo White</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/brand/logo-white.svg"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- Favicon -->
+        <!--
+        <record id="favicon" model="ir.attachment">
+            <field name="name">TTS Website Favicon</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/brand/favicon.png"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- =========================================
+             PLACEHOLDER IMAGES
+             =========================================
+        -->
+
+        <!-- Product Placeholder -->
+        <!--
+        <record id="placeholder_product" model="ir.attachment">
+            <field name="name">Product Placeholder Image</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/placeholders/product-placeholder.jpg"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- Category Placeholder -->
+        <!--
+        <record id="placeholder_category" model="ir.attachment">
+            <field name="name">Category Placeholder Image</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/placeholders/category-placeholder.jpg"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- User Avatar Placeholder -->
+        <!--
+        <record id="placeholder_avatar" model="ir.attachment">
+            <field name="name">User Avatar Placeholder</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/placeholders/avatar-placeholder.png"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- =========================================
+             CONTENT IMAGES (Optional)
+             =========================================
+        -->
+
+        <!-- Hero Background -->
+        <!--
+        <record id="img_hero_background" model="ir.attachment">
+            <field name="name">Hero Section Background</field>
+            <field name="type">binary</field>
+            <field name="datas" type="base64" file="custom_shop_templates/static/src/img/content/hero-background.jpg"/>
+            <field name="res_model">ir.ui.view</field>
+            <field name="public" eval="True"/>
+        </record>
+        -->
+
+        <!-- =========================================
+             USAGE IN TEMPLATES
+             =========================================
+
+             Method 1: Using web/image URL
+             <img src="/web/image/custom_shop_templates.logo_main" alt="TTS Logo"/>
+
+             Method 2: Direct path (no need for ir.attachment record)
+             <img src="/custom_shop_templates/static/src/img/brand/logo.svg" alt="TTS Logo"/>
+
+             Method 3: For website logo (in data/website.xml)
+             <field name="logo" type="base64" file="custom_shop_templates/static/src/img/brand/logo.svg"/>
+
+             RECOMMENDATION:
+             For now, use Method 2 (direct paths) in your templates.
+             When you add actual images, uncomment the records above and use Method 1.
+        -->
+
+    </data>
+</odoo>

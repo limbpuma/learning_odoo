@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    CHECKOUT ADDRESS STEP - Address selection/entry for checkout flow
+    Uses checkout_page_layout wrapper for consistency
+    ═══════════════════════════════════════════════════════════════════════════
+    -->
+    <data>
+        <!-- Address Step Template -->
+        <template id="checkout_address_tts" inherit_id="website_sale.checkout" name="TTS Checkout Address">
+            <!-- Replace default checkout address selection -->
+            <xpath expr="//div[@id='shop_checkout']" position="replace">
+                <!-- Breadcrumb and title are now handled by checkout_layout_cart_header in parent layout -->
+                <!-- This template only renders address-specific content -->
+
+                <div id="shop_checkout" class="tts-checkout-address">
+                    <!-- Address Form -->
+                    <form method="POST" action="/shop/checkout" class="tts-checkout-address-form" id="checkout-address-form">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <!-- ===================================================================
+                             BILLING ADDRESS SECTION
+                             =================================================================== -->
+                        <div class="tts-checkout-billing-address">
+                            <h2 class="tts-checkout-address-title">Billing Address</h2>
+
+                            <!-- First Name + Last Name (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_first_name">First name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_first_name"
+                                               name="billing_first_name"
+                                               class="tts-checkout-form-input"
+                                               placeholder="John"
+                                               t-att-value="website_sale_order.partner_id.name.split()[0] if website_sale_order.partner_id.name else ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_last_name">Last name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_last_name"
+                                               name="billing_last_name"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Doe"
+                                               t-att-value="' '.join(website_sale_order.partner_id.name.split()[1:]) if website_sale_order.partner_id.name and len(website_sale_order.partner_id.name.split()) > 1 else ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Company Name (Optional) -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="company_name">
+                                        Company name
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="company_name"
+                                               name="company_name"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Company Inc."
+                                               t-att-value="website_sale_order.partner_id.company_name or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- VAT-ID (Optional) -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="vat">
+                                        VAT-ID
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="vat"
+                                               name="vat"
+                                               class="tts-checkout-form-input"
+                                               placeholder="DE123456789"
+                                               value=""/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 1 -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_street">Address 1</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_street"
+                                               name="billing_street"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Street name and house number"
+                                               t-att-value="website_sale_order.partner_id.street or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 2 (Optional) -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_street2">
+                                        Address 2
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_street2"
+                                               name="billing_street2"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Apartment, suite, unit, etc."
+                                               t-att-value="website_sale_order.partner_id.street2 or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Postcode/ZIP + City (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_zip">Postcode / ZIP</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_zip"
+                                               name="billing_zip"
+                                               class="tts-checkout-form-input"
+                                               placeholder="10115"
+                                               t-att-value="website_sale_order.partner_id.zip or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_city">City</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="billing_city"
+                                               name="billing_city"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Berlin"
+                                               t-att-value="website_sale_order.partner_id.city or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- State + Country (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_state_id">
+                                        State
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="billing_state_id" name="billing_state_id" class="tts-checkout-form-select">
+                                            <option value="">Select state</option>
+                                            <t t-foreach="request.env['res.country.state'].sudo().search([('country_id', '=', request.env.ref('base.de').id)])" t-as="state">
+                                                <option t-att-value="state.id"
+                                                        t-att-selected="'selected' if website_sale_order.partner_id.state_id and website_sale_order.partner_id.state_id.id == state.id else None"
+                                                        t-esc="state.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="billing_country_id">Country</label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="billing_country_id" name="billing_country_id" class="tts-checkout-form-select" required="required">
+                                            <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                                <option t-att-value="country.id"
+                                                        t-att-selected="'selected' if website_sale_order.partner_id.country_id and website_sale_order.partner_id.country_id.id == country.id else ('selected' if not website_sale_order.partner_id.country_id and country.id == request.env.ref('base.de').id else None)"
+                                                        t-esc="country.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="phone">Phone</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="tel"
+                                               id="phone"
+                                               name="phone"
+                                               class="tts-checkout-form-input"
+                                               placeholder="+49 123 456789"
+                                               t-att-value="website_sale_order.partner_id.phone or ''"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Checkbox: My shipping address is the same (CHECKED by default) -->
+                            <div class="tts-checkout-form-row">
+                                <label class="tts-shipping-checkbox" onclick="toggleShippingAddress()">
+                                    <input type="checkbox"
+                                           id="shipping_same"
+                                           name="shipping_same"
+                                           value="1"
+                                           checked="checked"
+                                           class="tts-checkbox"
+                                           onclick="toggleShippingAddress()"/>
+                                    <img id="shippingCheckboxIcon"
+                                         class="tts-checkbox-icon"
+                                         src="/custom_shop_templates/static/src/img/icons/checkbox-checked.svg"
+                                         alt="Checkbox"/>
+                                    <span class="tts-checkbox-label">My shipping address is the same</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================================
+                             SHIPPING ADDRESS SECTION (Visible statically for now)
+                             =================================================================== -->
+                        <div class="tts-checkout-shipping-address">
+                            <h2 class="tts-checkout-address-title">Shipping Address</h2>
+
+                            <!-- First Name + Last Name (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_first_name">First name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_first_name"
+                                               name="shipping_first_name"
+                                               class="tts-checkout-form-input"
+                                               placeholder="John"
+                                               t-att-value="website_sale_order.partner_shipping_id.name.split()[0] if website_sale_order.partner_shipping_id.name else ''"/>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_last_name">Last name</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_last_name"
+                                               name="shipping_last_name"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Doe"
+                                               t-att-value="' '.join(website_sale_order.partner_shipping_id.name.split()[1:]) if website_sale_order.partner_shipping_id.name and len(website_sale_order.partner_shipping_id.name.split()) > 1 else ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 1 -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_street">Address 1</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_street"
+                                               name="shipping_street"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Street name and house number"
+                                               t-att-value="website_sale_order.partner_shipping_id.street or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address 2 (Optional) -->
+                            <div class="tts-checkout-form-row">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_street2">
+                                        Address 2
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_street2"
+                                               name="shipping_street2"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Apartment, suite, unit, etc."
+                                               t-att-value="website_sale_order.partner_shipping_id.street2 or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Postcode/ZIP + City (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_zip">Postcode / ZIP</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_zip"
+                                               name="shipping_zip"
+                                               class="tts-checkout-form-input"
+                                               placeholder="10115"
+                                               t-att-value="website_sale_order.partner_shipping_id.zip or ''"/>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_city">City</label>
+                                    <div class="tts-input-wrapper">
+                                        <input type="text"
+                                               id="shipping_city"
+                                               name="shipping_city"
+                                               class="tts-checkout-form-input"
+                                               placeholder="Berlin"
+                                               t-att-value="website_sale_order.partner_shipping_id.city or ''"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- State + Country (2 columns in MD/LG) -->
+                            <div class="tts-checkout-form-row tts-checkout-form-row-2col">
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_state_id">
+                                        State
+                                        <span class="tts-checkout-form-label-optional">Optional</span>
+                                    </label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="shipping_state_id" name="shipping_state_id" class="tts-checkout-form-select">
+                                            <option value="">Select state</option>
+                                            <t t-foreach="request.env['res.country.state'].sudo().search([('country_id', '=', request.env.ref('base.de').id)])" t-as="state">
+                                                <option t-att-value="state.id"
+                                                        t-att-selected="'selected' if website_sale_order.partner_shipping_id.state_id and website_sale_order.partner_shipping_id.state_id.id == state.id else None"
+                                                        t-esc="state.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="tts-checkout-form-group">
+                                    <label class="tts-checkout-form-label" for="shipping_country_id">Country</label>
+                                    <div class="tts-input-wrapper">
+                                        <select id="shipping_country_id" name="shipping_country_id" class="tts-checkout-form-select">
+                                            <t t-foreach="request.env['res.country'].sudo().search([])" t-as="country">
+                                                <option t-att-value="country.id"
+                                                        t-att-selected="'selected' if website_sale_order.partner_shipping_id.country_id and website_sale_order.partner_shipping_id.country_id.id == country.id else ('selected' if not website_sale_order.partner_shipping_id.country_id and country.id == request.env.ref('base.de').id else None)"
+                                                        t-esc="country.name"/>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================================
+                             CONTINUE BUTTON (Always visible)
+                             =================================================================== -->
+                        <div class="tts-checkout-form-row">
+                            <div class="tts-checkout-button-wrapper">
+                                <button type="submit" class="tts-checkout-button">Continue to Shipping</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <script type="text/javascript">
+                        // Toggle shipping address visibility and checkbox icon
+                        function toggleShippingAddress() {
+                            const checkbox = document.getElementById('shipping_same');
+                            const checkboxIcon = document.getElementById('shippingCheckboxIcon');
+                            const shippingSection = document.querySelector('.tts-checkout-shipping-address');
+
+                            if (checkbox.checked) {
+                                // Hide shipping section
+                                shippingSection.classList.add('hidden');
+                                checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox-checked.svg';
+                            } else {
+                                // Show shipping section
+                                shippingSection.classList.remove('hidden');
+                                checkboxIcon.src = '/custom_shop_templates/static/src/img/icons/checkbox.svg';
+                            }
+                        }
+
+                        // Initialize on page load
+                        document.addEventListener('DOMContentLoaded', function() {
+                            toggleShippingAddress();
+                        });
+                    </script>
+                </div>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

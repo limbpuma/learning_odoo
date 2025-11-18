@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="product_card" name="TTS Product Card (Full Bootstrap)">
+            <!--
+            ═══════════════════════════════════════════════════════════════════
+            CARD WRAPPER - Full Bootstrap + Figma Inline Styles
+            ═══════════════════════════════════════════════════════════════════
+            Bootstrap: w-100, h-100, d-inline-flex, flex-column
+            Inline: gap: 16px (from Figma)
+            -->
+            <div class="w-100 h-100 d-inline-flex flex-column tts-flex-start tts-gap-16">
+
+                <!--
+                ═══════════════════════════════════════════════════════════════
+                IMAGE SECTION - Position Relative Container with Halftone
+                ═══════════════════════════════════════════════════════════════
+                Bootstrap: align-self-stretch, d-flex, flex-column
+                Halftone: tts-halftone-shadow-image CSS class (border-radius: 12px)
+                -->
+                <div class="align-self-stretch tts-halftone-shadow-image d-flex flex-column tts-flex-start">
+
+                    <!--
+                    Dark Container (#525252) - Link with overflow-hidden for image containment
+                    Bootstrap: align-self-stretch, d-flex, flex-column, overflow-hidden
+                    z-index: 1 ensures content stays above halftone shadow
+                    -->
+                    <a t-attf-href="/shop/product/#{slug(product)}"
+                       itemprop="url"
+                       class="align-self-stretch d-flex flex-column overflow-hidden text-decoration-none position-relative tts-radius-12 tts-outline-black tts-flex-start tts-z-1">
+
+                        <!--
+                        Light Wrapper (#FFEBDC)
+                        Bootstrap: align-self-stretch, d-flex, flex-column, overflow-hidden
+                        Inline: background #FFEBDC
+                        -->
+                        <div class="align-self-stretch d-flex flex-column overflow-hidden tts-bg-light tts-flex-start">
+
+                            <!--
+                            Product Image Container
+                            Bootstrap: align-self-stretch, d-flex, flex-column, overflow-hidden
+                            Inline: aspect-ratio 1:1, background-image for dynamic product
+                            -->
+                            <div class="align-self-stretch d-flex flex-column overflow-hidden tts-shadow-lg tts-flex-start">
+
+                                <!-- Product Image (Dynamic from Odoo) -->
+                                <img
+                                    t-att-src="'/web/image/product.template/' + str(product.id) + '/image_1920' if product.image_1920 else '/web/static/src/img/placeholder.png'"
+                                    t-att-alt="product.name"
+                                    class="w-100 object-fit-cover tts-aspect-square"
+                                    loading="lazy"/>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!--
+                ═══════════════════════════════════════════════════════════════
+                CARD BODY - Product Information
+                ═══════════════════════════════════════════════════════════════
+                Bootstrap: align-self-stretch, d-flex, flex-column
+                Inline: padding 8px, gap 8px
+                -->
+                <div class="align-self-stretch d-flex flex-column tts-px-8 tts-flex-start tts-gap-8">
+
+                    <!--
+                    ═══════════════════════════════════════════════════════════
+                    PRODUCT INFO SECTION
+                    ═══════════════════════════════════════════════════════════
+                    Bootstrap: align-self-stretch, d-flex, flex-column
+                    Inline: gap 4px
+                    -->
+                    <a t-attf-href="/shop/product/#{slug(product)}"
+                       itemprop="url"
+                       class="align-self-stretch d-flex flex-column text-decoration-none tts-flex-start tts-gap-4">
+
+                        <!-- Product Name (Heading) -->
+                        <div class="align-self-stretch tts-title-lg"
+                             t-field="product.name"/>
+
+                        <!-- Product Description (always reserves space, limited to 1 line) -->
+                        <div class="align-self-stretch text-truncate tts-text-sm"
+                             t-field="product.description_sale"/>
+
+                    </a>
+
+                    <!-- SKU (always reserves space, limited to 1 line) -->
+                    <div class="align-self-stretch text-truncate tts-text-sm">
+                        <t t-if="product.default_code">SKU: <t t-esc="product.default_code"/></t>
+                    </div>
+
+                    <!--
+                    ═══════════════════════════════════════════════════════
+                    STOCK INDICATOR - Dot + Text
+                    ═══════════════════════════════════════════════════════
+                    Bootstrap: align-self-stretch, d-inline-flex, align-items-center
+                    Inline: gap 4px, height 20px
+                    -->
+                    <!-- Calculate total stock -->
+                    <t t-set="total_stock" t-value="sum(product.sudo().product_variant_ids.mapped('qty_available')) if product.product_variant_ids else 0"/>
+
+                    <div class="align-self-stretch d-inline-flex align-items-center tts-h-20 tts-gap-4 tts-justify-start">
+
+                        <!-- Stock Dot (12x12 circle, dynamic background) -->
+                        <t t-set="stock_bg_color" t-value="'#22C55E' if total_stock > 10 else ('#F59E0B' if total_stock > 0 else '#EF4444')"/>
+                        <div class="position-relative tts-w-12 tts-h-12 tts-radius-full tts-border-2-black"
+                             t-attf-style="background: #{stock_bg_color};"></div>
+
+                        <!-- Stock Text -->
+                        <div class="flex-fill d-inline-flex flex-column tts-flex-start">
+                            <t t-if="total_stock > 10">
+                                <div class="align-self-stretch tts-text-sm-secondary">
+                                    In stock
+                                </div>
+                            </t>
+                            <t t-elif="total_stock > 0">
+                                <div class="align-self-stretch tts-text-sm-secondary">
+                                    Limited stock
+                                </div>
+                            </t>
+                            <t t-else="">
+                                <div class="align-self-stretch tts-text-sm-secondary">
+                                    Out of stock
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!--
+                    ═══════════════════════════════════════════════════════════
+                    PRICE & ACTION ROW
+                    ═══════════════════════════════════════════════════════════
+                    Bootstrap: align-self-stretch, d-inline-flex, align-items-end, justify-content-between
+                    -->
+                    <div class="align-self-stretch d-inline-flex align-items-end justify-content-between">
+
+                        <!-- Price -->
+                        <div class="d-flex align-items-center tts-justify-start tts-w-69">
+                            <div class="tts-price">
+                                <t t-esc="product.list_price"
+                                   t-options="{'widget': 'monetary', 'display_currency': website.currency_id}"/>
+                            </div>
+                        </div>
+
+                        <!--
+                        ═══════════════════════════════════════════════════════
+                        ADD TO CART BUTTON - 40x40 Icon Button with Halftone
+                        ═══════════════════════════════════════════════════════
+                        Bootstrap: Form POST with product_variant_id for correct variant handling
+                        Halftone: tts-halftone-shadow-button-cart CSS class
+                        -->
+                        <form action="/shop/cart/update" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <!-- Use product_variant_id.id for the variant (not template id) -->
+                            <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                            <input type="hidden" name="add_qty" value="1"/>
+
+                            <button type="submit"
+                                    class="tts-halftone-shadow-button-cart d-inline-flex flex-column align-items-center justify-content-center border-0 p-0 tts-btn-unstyled"
+                                    title="Add to cart">
+
+                                <!-- Button Content - z-index: 1 keeps it above halftone shadow -->
+                                <div class="d-inline-flex align-items-center justify-content-center position-relative tts-btn-primary">
+
+                                    <!-- Cart Icon SVG Container -->
+                                    <div class="position-relative overflow-hidden tts-w-20 tts-h-20">
+                                        <!-- Use cart-add.svg -->
+                                        <img t-att-src="'/custom_shop_templates/static/src/img/icons/cart-add.svg'"
+                                             alt="Add to cart"
+                                             class="position-absolute tts-icon-cart"/>
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

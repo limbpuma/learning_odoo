@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- TTS BANNER/ALERT COMPONENT (Reusable)
+         Purpose: Unified banner/alert component for all flows
+         Types: success, error, info, warning
+
+         Usage:
+         <t t-call="custom_shop_templates.banner_alert">
+             <t t-set="banner_type" t-value="'success'"/>
+             <t t-set="banner_message" t-value="'Your changes have been saved.'"/>
+             <t t-set="banner_class" t-value="'mb-24'"/>
+         </t>
+
+         Features:
+         - Automatic icon selection based on type
+         - Consistent styling across all pages
+         - Accessible with ARIA attributes
+         - Responsive design -->
+
+    <template id="banner_alert" name="TTS Banner Alert Component">
+        <!-- Banner container with type-specific class -->
+        <div t-attf-class="tts-banner tts-banner-{{banner_type or 'info'}} {{banner_class or ''}}"
+             role="status"
+             aria-live="polite">
+
+            <!-- Icon -->
+            <div class="tts-banner-icon-wrapper">
+                <t t-if="banner_type == 'success'">
+                    <svg class="tts-banner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#15803D" stroke-width="2"/>
+                        <path d="M8 12L11 15L16 9" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </t>
+                <t t-elif="banner_type == 'error'">
+                    <svg class="tts-banner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#B91C1C" stroke-width="2"/>
+                        <path d="M12 8v4m0 4h.01" stroke="#B91C1C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </t>
+                <t t-elif="banner_type == 'warning'">
+                    <svg class="tts-banner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 20h20L12 2z" stroke="#A16207" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 9v4m0 4h.01" stroke="#A16207" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </t>
+                <t t-else=""><!-- info -->
+                    <svg class="tts-banner-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="#0369A1" stroke-width="2"/>
+                        <path d="M12 16v-4m0-4h.01" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </t>
+            </div>
+
+            <!-- Message content -->
+            <div class="tts-banner-content">
+                <p class="tts-banner-text" t-raw="banner_message or 'Message not provided'"/>
+            </div>
+        </div>
+    </template>
+
+</odoo>

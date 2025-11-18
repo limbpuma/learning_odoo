@@ -1,0 +1,1642 @@
+// ========================================
+// TTS BOOTSTRAP WEBSITE - UTILITY CLASSES
+// ========================================
+// Utility classes to replace inline styles in templates
+// Using CSS custom properties from variables.scss
+
+// ========================================
+// TYPOGRAPHY UTILITIES
+// ========================================
+
+// Font Family
+.tts-font {
+  font-family: var(--tts-font-family);
+}
+
+// Text Colors
+.tts-text-light {
+  color: var(--tts-light, #FFEBDC);
+}
+
+.tts-text-dark {
+  color: var(--tts-dark);
+}
+
+.tts-text-black {
+  color: black;
+}
+
+.tts-text-secondary {
+  color: var(--tts-secondary);
+}
+
+// Typography Sizes & Weights - Product Card Title
+.tts-title-lg {
+  color: var(--tts-light);
+  font-size: 18px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 24px;
+  word-wrap: break-word;
+}
+
+// Typography - Product Description
+.tts-text-sm {
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 20px;
+  min-height: 20px;
+}
+
+// Typography - Secondary Text (Stock, etc)
+.tts-text-sm-secondary {
+  color: var(--tts-secondary);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+// Typography - Price
+.tts-price {
+  color: var(--tts-light);
+  font-size: 18px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+// Typography - Pill Text (14px, bold)
+.tts-pill-text {
+  color: black;
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.tts-pill-text-inactive {
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 20px;
+}
+
+// Typography - Input/Placeholder
+.tts-input-text {
+  color: var(--tts-secondary);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 20px;
+}
+
+// Typography - Bold variant of text-sm
+.tts-text-sm-bold {
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+// ========================================
+// FLEXBOX UTILITIES
+// ========================================
+
+// Common flex patterns
+.tts-flex-start {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tts-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+// Justify-content utilities (without affecting align-items)
+.tts-justify-start {
+  justify-content: flex-start;
+}
+
+// ========================================
+// GAP UTILITIES
+// ========================================
+
+.tts-gap-4 {
+  gap: 4px;
+}
+
+.tts-gap-8 {
+  gap: 8px;
+}
+
+.tts-gap-16 {
+  gap: 16px;
+}
+
+.tts-gap-24 {
+  gap: 24px;
+}
+
+// ========================================
+// BORDER & OUTLINE UTILITIES
+// ========================================
+
+// Black outline pattern (used in product cards, buttons)
+.tts-outline-black {
+  outline: 2px black solid;
+  outline-offset: -2px;
+}
+
+// Light outline pattern (inactive pills)
+.tts-outline-light {
+  outline: 2px var(--tts-light) solid;
+  outline-offset: -2px;
+}
+
+// Border radius patterns
+.tts-radius-8 {
+  border-radius: 8px;
+}
+
+.tts-radius-12 {
+  border-radius: 12px;
+}
+
+.tts-radius-pill {
+  border-radius: 384px;
+}
+
+.tts-radius-full {
+  border-radius: 400px;
+}
+
+// ========================================
+// BACKGROUND UTILITIES
+// ========================================
+
+.tts-bg-light {
+  background: var(--tts-light);
+}
+
+.tts-bg-dark {
+  background: var(--tts-dark);
+}
+
+.tts-bg-secondary {
+  background: var(--tts-secondary);
+}
+
+.tts-bg-surface-dark {
+  background: var(--tts-surface-dark);
+}
+
+.tts-bg-transparent {
+  background: transparent;
+}
+
+.tts-bg-none {
+  background: none;
+}
+
+// ========================================
+// SPACING UTILITIES
+// ========================================
+
+.tts-p-8 {
+  padding: 8px;
+}
+
+.tts-p-10 {
+  padding: 10px;
+}
+
+.tts-px-8 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tts-p-10-16 {
+  padding: 10px 16px;
+}
+
+.tts-p-18-16 {
+  padding: 18px 16px;
+}
+
+// ========================================
+// SHADOW UTILITIES
+// ========================================
+
+.tts-shadow-lg {
+  box-shadow: 28px 65px 64px rgba(0, 0, 0, 0.25);
+}
+
+// ========================================
+// Z-INDEX UTILITIES
+// ========================================
+
+.tts-z-0 {
+  z-index: 0;
+}
+
+.tts-z-1 {
+  z-index: 1;
+}
+
+.tts-z-2 {
+  z-index: 2;
+}
+
+.tts-z-3 {
+  z-index: 3;
+}
+
+// ========================================
+// ASPECT RATIO UTILITIES
+// ========================================
+
+.tts-aspect-square {
+  aspect-ratio: 1/1;
+}
+
+// ========================================
+// BUTTON UTILITIES
+// ========================================
+
+.tts-btn-primary {
+  padding: 10px;
+  background: var(--tts-light);
+  border-radius: 8px;
+  outline: 2px black solid;
+  outline-offset: -2px;
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.tts-btn-unstyled {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+// ========================================
+// WIDTH/HEIGHT UTILITIES
+// ========================================
+
+.tts-w-16 {
+  width: 16px;
+}
+
+.tts-h-16 {
+  height: 16px;
+}
+
+.tts-w-20 {
+  width: 20px;
+}
+
+.tts-h-20 {
+  height: 20px;
+}
+
+.tts-h-40 {
+  height: 40px;
+}
+
+.tts-w-12 {
+  width: 12px;
+}
+
+.tts-h-12 {
+  height: 12px;
+}
+
+// ========================================
+// MIN HEIGHT UTILITIES
+// ========================================
+
+.tts-min-h-20 {
+  min-height: 20px;
+}
+
+// ========================================
+// PILL/FILTER UTILITIES
+// ========================================
+
+// Active pill (used in filters)
+.tts-pill-active {
+  height: 40px;
+  padding: 10px 16px;
+  background: var(--tts-light);
+  border-radius: 384px;
+  outline: 2px black solid;
+  outline-offset: -2px;
+}
+
+// Inactive pill
+.tts-pill-inactive {
+  height: 40px;
+  padding: 10px 16px;
+  border-radius: 384px;
+  outline: 2px var(--tts-light) solid;
+  outline-offset: -2px;
+}
+
+// ========================================
+// INPUT/SEARCH UTILITIES
+// ========================================
+
+.tts-search-container {
+  padding: 18px 16px;
+  background: var(--tts-surface-dark);
+  border-radius: 12px;
+  outline: 2px black solid;
+  outline-offset: -2px;
+  gap: 8px;
+}
+
+// ========================================
+// SECTION UTILITIES (PHASE 1)
+// ========================================
+
+// Section with surface-medium background
+.tts-section-surface-medium {
+  background-color: var(--tts-surface-medium);
+  padding-top: var(--tts-section-padding-y);
+  padding-bottom: var(--tts-section-padding-y);
+}
+
+.tts-section-padding {
+  padding-top: var(--tts-section-padding-y);
+  padding-bottom: var(--tts-section-padding-y);
+}
+
+// ========================================
+// CARD UTILITIES (PHASE 1)
+// ========================================
+
+// Card with surface-dark background
+.tts-card-surface-dark {
+  border-radius: 12px;
+  background-color: var(--tts-surface-dark);
+}
+
+// Card with card-dark background (collapsed state)
+.tts-card-dark {
+  border-radius: 12px;
+  background-color: var(--tts-card-dark);
+}
+
+// Card with elevation (z-index)
+.tts-card-elevated {
+  position: relative;
+  z-index: 1;
+  border-radius: 12px;
+  background-color: var(--tts-card-dark);
+}
+
+// Card border (2px dark)
+.tts-card-border {
+  border: 2px solid var(--tts-dark);
+  border-radius: 12px;
+}
+
+// ========================================
+// TYPOGRAPHY ADDITIONS (PHASE 1)
+// ========================================
+
+// Body text (14px, 24px line-height)
+.tts-text-body {
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  line-height: 24px;
+}
+
+// FAQ text (14px, 22px line-height)
+.tts-faq-text {
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  line-height: 22px;
+}
+
+// Heading with letter spacing
+.tts-heading-spaced {
+  color: var(--tts-light);
+  letter-spacing: 0.4px;
+}
+
+// FAQ heading (18px/28px)
+.tts-faq-heading {
+  color: var(--tts-light);
+  letter-spacing: 0.4px;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+// Uppercase text with spacing
+.tts-text-uppercase-spaced {
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+// ========================================
+// EFFECTS & SHADOWS (PHASE 1)
+// ========================================
+
+// Halftone shadow effect (small variant)
+.tts-shadow-halftone-small {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translate(4px, 4px) rotate(-0.8deg);
+    z-index: 0;
+    border: 2px solid black;
+    border-radius: 12px;
+    background-color: rgba(0,0,0,0.2);
+  }
+}
+
+// Drop shadow filter
+.tts-drop-shadow-sm {
+  filter: drop-shadow(4px 4px 3px rgba(0,0,0,0.4));
+}
+
+// Icon transition for accordion arrows
+.tts-icon-transition {
+  transition: transform 0.3s ease;
+}
+
+// Rotate icon when accordion is open (uses Bootstrap's aria-expanded attribute)
+button[aria-expanded="true"] .tts-icon-transition {
+  transform: rotate(180deg);
+}
+
+// ========================================
+// COMPONENT UTILITIES (PHASE 1)
+// ========================================
+
+// Bullet point (6px circle)
+.tts-bullet-point {
+  width: 6px;
+  height: 6px;
+  background-color: var(--tts-brand-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+
+// Bullet point small light (4px circle)
+.tts-bullet-sm-light {
+  width: 4px;
+  height: 4px;
+  background: var(--tts-light);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+// Accordion header button
+.tts-accordion-header {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  @media (min-width: $tts-width-md) {
+    padding: 1rem 1.5rem;
+  }
+}
+
+// Max width container (1536px)
+.tts-max-w-1536 {
+  max-width: 1536px;
+}
+
+// Position sticky for desktop
+.tts-sticky-lg {
+  @media (min-width: $tts-width-lg) {
+    position: sticky;
+    top: 2rem;
+  }
+}
+
+// ========================================
+// PHASE 2 UTILITIES
+// ========================================
+
+// Typography - Large Text (18px/400/32px)
+.tts-text-large {
+  color: var(--tts-light);
+  font-size: 18px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 32px;
+}
+
+// Typography - Extra Small (10px for badges)
+.tts-text-xs {
+  font-size: 10px;
+}
+
+// Width Utilities
+.tts-w-24 {
+  width: 24px;
+}
+
+.tts-w-56 {
+  width: 56px;
+}
+
+.tts-w-65 {
+  width: 65%;
+}
+
+.tts-w-auto {
+  width: auto;
+}
+
+// Height Utilities
+.tts-h-24 {
+  height: 24px;
+}
+
+.tts-h-32 {
+  height: 32px;
+}
+
+.tts-h-56 {
+  height: 56px;
+}
+
+// Margin Utilities
+.tts-mt-80 {
+  margin-top: 80px;
+}
+
+// Position Utilities
+.tts-top-neg-50 {
+  top: -50%;
+}
+
+.tts-left-0 {
+  left: 0;
+}
+
+// Z-index Utilities
+.tts-z-10 {
+  z-index: 10;
+}
+
+// Border Radius
+.tts-radius-24 {
+  border-radius: 24px;
+}
+
+// Image Utilities
+.tts-img-cover {
+  display: block;
+  object-fit: cover;
+}
+
+// Padding Utilities
+.tts-p-2-6 {
+  padding: 2px 6px;
+}
+
+// Button - Reseller CTA (DEPRECATED - use .tts-button from components.scss instead)
+// .tts-btn-reseller removed - replaced by centralized .tts-button system
+
+// ========================================
+// PHASE 3 UTILITIES
+// ========================================
+
+// Display Utilities
+.tts-d-none {
+  display: none;
+}
+
+// Max-Width Utilities
+.tts-max-w-150 {
+  max-width: 150px;
+}
+
+.tts-max-w-70 {
+  max-width: 70px;
+}
+
+// Alert Component - Info (Blue)
+.tts-alert-info {
+  background: #DBEAFE;
+}
+
+.tts-alert-icon-info {
+  border-color: #1E40AF;
+}
+
+.tts-alert-text-info {
+  color: #1E40AF;
+}
+
+// Section Heading - Large
+.tts-section-heading-lg {
+  color: var(--tts-light);
+  font-size: 32px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+// ========================================
+// PHASE 4B PRIORITY 2: FOOTER UTILITIES
+// ========================================
+
+// Padding Utilities
+.tts-py-64 {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+// Image Utilities
+.tts-team-img {
+  max-height: 270px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.tts-img-full-auto {
+  width: 100%;
+  height: auto;
+}
+
+// Typography Utilities
+.tts-footer-text {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.tts-footer-link {
+  color: var(--tts-light, #FFEBDC);
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.35px;
+}
+
+.tts-footer-copyright {
+  color: var(--tts-light, #FFEBDC);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+// Footer Link Underline
+.tts-footer-link-underline {
+  height: 2px;
+  background-color: var(--tts-light, #FFEBDC);
+}
+
+// Border Utilities
+.tts-border-light {
+  border-color: var(--tts-light, #FFEBDC) !important;
+}
+
+// Newsletter Form Utilities
+.tts-newsletter-input {
+  background-color: var(--tts-surface-dark, #171717);
+  color: var(--tts-light, #FFEBDC);
+  border: 2px solid #000;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 16px;
+  font-size: 14px;
+  height: 56px;
+}
+
+.tts-newsletter-button {
+  background-color: var(--tts-light, #FFEBDC);
+  color: #000;
+  border: 2px solid #000;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  padding: 16px 20px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+// ========================================
+// PHASE 4B PRIORITY 3: PRODUCT RESULTS & SEARCH UTILITIES
+// ========================================
+
+// Alignment Utilities (complementing existing tts-flex-start, tts-flex-center)
+.tts-align-start {
+  align-items: flex-start;
+}
+
+.tts-align-center {
+  align-items: center;
+}
+
+.tts-justify-end {
+  justify-content: flex-end;
+}
+
+.tts-justify-center {
+  justify-content: center;
+}
+
+// Combined Flexbox Utilities (for common patterns)
+.tts-justify-end-center {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tts-justify-start-center {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.tts-flex-center-both {
+  justify-content: center;
+  align-items: center;
+}
+
+.tts-justify-start-center-gap-4 {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 4px;
+}
+
+// Border Radius
+.tts-radius-4 {
+  border-radius: 4px;
+}
+
+// Icon Container (20x20, relative, overflow hidden)
+.tts-icon-20 {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+// Select/Dropdown Styling
+.tts-select-dropdown {
+  color: var(--tts-light, #FFEBDC);
+  font-size: 14px;
+  font-family: var(--tts-font-family, BentonSans, sans-serif);
+  font-weight: 400;
+  line-height: 20px;
+  outline: none;
+  cursor: pointer;
+}
+
+// Chevron Icon Path (specific positioning for dropdown arrows)
+.tts-chevron-path {
+  width: 6.67px;
+  height: 12.78px;
+  left: 6.67px;
+  top: 3.61px;
+  position: absolute;
+  outline: 1px var(--tts-light, #FFEBDC) solid;
+  outline-offset: -0.50px;
+}
+
+// ========================================
+// SEARCH FILTER ADDITIONAL UTILITIES
+// ========================================
+
+// Gap Utilities (additional sizes)
+.tts-gap-12 {
+  gap: 12px;
+}
+
+// Width Utilities (specific widths for search box)
+.tts-w-262 {
+  width: 262px;
+}
+
+// Outline Utilities
+.tts-outline-none {
+  outline: none;
+}
+
+// Align Content Utilities
+.tts-align-content-start {
+  align-content: flex-start;
+}
+
+// Combined Flex Utilities (for filter pills container)
+.tts-flex-grow-align-start {
+  flex: 1 1 0;
+  align-content: flex-start;
+}
+
+// Combined Border Radius + Gap (for search form containers)
+.tts-search-form-container {
+  border-radius: 384px;
+  gap: 12px;
+}
+
+// ========================================
+// PRODUCT DETAIL PAGE UTILITIES
+// ========================================
+
+// Width/Height Utilities (Product Detail specific)
+.tts-w-64 {
+  width: 64px;
+}
+
+.tts-h-64 {
+  height: 64px;
+}
+
+.tts-w-40 {
+  width: 40px;
+}
+
+.tts-h-40 {
+  height: 40px;
+}
+
+.tts-h-2 {
+  height: 2px;
+}
+
+
+// Margin/Padding Utilities
+.tts-mt-16 {
+  margin-top: 16px;
+}
+
+.tts-pb-8 {
+  padding-bottom: 8px;
+}
+
+// Background Utilities (Brand)
+.tts-bg-brand-primary {
+  background-color: var(--tts-brand-primary);
+}
+
+// Border Utilities
+.tts-border-dark {
+  border-color: var(--tts-dark) !important;
+}
+
+// Combined Gallery Container
+.tts-gallery-container {
+  margin-top: 16px;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+// Combined Thumbnail Styles
+.tts-thumbnail-64 {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 8px !important;
+  border-color: var(--tts-dark) !important;
+  z-index: 1;
+}
+
+// Combined Button Styles (transparent background)
+.tts-btn-transparent {
+  background: transparent;
+  text-decoration: none;
+  width: 24px;
+  height: 24px;
+}
+
+// ========================================
+// BUTTON HALFTONE COMPONENT UTILITIES
+// ========================================
+
+// Button Base Structure (non-color properties)
+.tts-btn-halftone-base {
+  height: 56px;
+  padding: 23px 24px;
+  border-radius: 12px;
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: -2px;
+  gap: 12px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+// Button Text Styling
+.tts-btn-halftone-text {
+  font-size: 14px;
+  font-family: var(--tts-font-family, BentonSans, sans-serif);
+  font-weight: 700;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+// Button Icon (15x15 arrow icon)
+.tts-btn-halftone-icon {
+  width: 15px;
+  height: 15px;
+  left: 2.50px;
+  top: 2.50px;
+  outline-width: 2px;
+  outline-style: solid;
+  outline-offset: -1px;
+}
+
+// ========================================
+// PRODUCT CARD COMPONENT UTILITIES
+// ========================================
+
+// Price container width
+.tts-w-69 {
+  width: 69px;
+}
+
+// Stock indicator border (2px black)
+.tts-border-2-black {
+  border: 2px black solid;
+}
+
+// Cart icon positioning (16.08x12.50 at 1.67,4.17)
+.tts-icon-cart {
+  width: 16.08px;
+  height: 12.50px;
+  left: 1.67px;
+  top: 4.17px;
+}
+
+// ========================================
+// QUANTITY SELECTOR COMPONENT UTILITIES
+// ========================================
+
+// Input group max-width
+.tts-max-w-150 {
+  max-width: 150px;
+}
+
+// Number input max-width
+.tts-max-w-70 {
+  max-width: 70px;
+}
+
+// ========================================
+// SECTION HEADING UTILITIES
+// ========================================
+
+// Related products section heading
+.tts-heading-section {
+  color: var(--tts-light);
+  font-size: 32px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+// Font family utility
+.tts-font-family {
+  font-family: var(--tts-font-family, BentonSans, sans-serif);
+}
+
+// ========================================
+// ORDERS PAGE UTILITIES
+// ========================================
+
+// Card Backgrounds
+.tts-card-dark {
+  background: #525252;
+}
+
+.tts-card-light {
+  background: #FFEBDC;
+}
+
+// Product Thumbnail
+.tts-thumbnail-64 {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  outline: 2px solid black;
+  outline-offset: -2px;
+  overflow: hidden;
+}
+
+// Order Status Text Colors
+.tts-status-pending {
+  color: #FFEBDC;
+}
+
+.tts-status-complete {
+  color: #FFEBDC;
+}
+
+.tts-status-cancelled {
+  color: #FF6B6B;
+}
+
+// Order Card Container
+.tts-order-card {
+  padding: 16px;
+  background: #525252;
+  border-radius: 12px;
+  outline: 2px solid black;
+  outline-offset: -2px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// Order Number Bold Text
+.tts-order-number {
+  color: #FFEBDC;
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 20px;
+}
+
+// Order Info Text (Date, Status labels)
+.tts-order-info-label {
+  color: #FFEBDC;
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 20px;
+}
+
+// Section Title (Orders)
+.tts-section-title {
+  color: #FFEBDC;
+  font-size: 24px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.48px;
+}
+
+// Product Quantity Text
+.tts-product-qty {
+  color: #FFEBDC;
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 16px;
+}
+
+// View Link with Chevron
+.tts-view-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFEBDC;
+  font-size: 12px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 16px;
+  letter-spacing: 0.30px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.tts-view-link:hover {
+  opacity: 0.8;
+}
+
+// More Items Link
+.tts-more-link {
+  display: inline-flex;
+  flex-direction: column;
+  color: #FFEBDC;
+  font-size: 12px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 16px;
+  letter-spacing: 0.30px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tts-more-link-text {
+  color: #FFEBDC;
+}
+
+.tts-more-link-underline {
+  width: 100%;
+  height: 2px;
+  background: #FFEBDC;
+}
+
+.tts-more-link:hover {
+  opacity: 0.8;
+}
+
+// ========================================
+// PHASE 4B PRIORITY 1: PRODUCT DETAIL UTILITIES
+// ========================================
+
+// Image Utilities
+.tts-aspect-1 {
+  aspect-ratio: 1;
+}
+
+// Badge Utilities
+.tts-badge-discount {
+  border-color: var(--tts-dark) !important;
+  font-family: var(--tts-font-family);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 10px;
+  color: var(--tts-dark);
+  text-transform: uppercase;
+}
+
+// Typography - Meta Information (SKU, Category)
+.tts-meta-text {
+  font-family: var(--tts-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.tts-meta-link {
+  font-family: var(--tts-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+// Product Title
+.tts-product-title {
+  color: var(--tts-light);
+  font-family: var(--tts-font-family);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  text-transform: uppercase;
+}
+
+// Product Description
+.tts-product-description {
+  color: var(--tts-light);
+  font-family: var(--tts-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+// Pricing
+.tts-price-original {
+  color: var(--tts-secondary);
+  font-family: var(--tts-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.tts-price-current {
+  color: var(--tts-light);
+  font-family: var(--tts-font-family);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  text-transform: uppercase;
+}
+
+// VAT and Shipping Info
+.tts-vat-info {
+  color: var(--tts-light);
+  font-family: var(--tts-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.tts-shipping-link {
+  font-family: var(--tts-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+// Link Underline (reusable)
+.tts-link-underline {
+  height: 2px;
+  background-color: var(--tts-light);
+}
+
+// Stock Dot
+.tts-stock-dot {
+  width: 12px;
+  height: 12px;
+  border-color: var(--tts-dark) !important;
+}
+
+// Stock Text
+.tts-stock-text {
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 400;
+  line-height: 20px;
+}
+
+// CTA Container
+.tts-cta-border {
+  border-radius: 12px !important;
+  border-color: var(--tts-dark) !important;
+  z-index: 1;
+}
+
+// Quantity Selector
+.tts-quantity-bg {
+  background-color: var(--tts-surface-dark);
+  min-height: 56px;
+}
+
+.tts-quantity-input {
+  width: 40px;
+  background: transparent;
+  color: var(--tts-light);
+  font-size: 14px;
+  font-family: var(--tts-font-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 20px;
+  min-width: 20px;
+}
+
+// Button Utilities
+.tts-btn-transparent {
+  background: transparent;
+  text-decoration: none;
+  width: 24px;
+  height: 24px;
+}
+
+.tts-add-to-cart-btn {
+  background-color: var(--tts-light);
+  color: var(--tts-dark);
+  font-family: var(--tts-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  text-transform: uppercase;
+  min-height: 56px;
+}
+
+// Icon Sizing
+.tts-icon-20 {
+  width: 20px;
+  height: 20px;
+}
+
+.tts-icon-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.tts-icon-no-events {
+  pointer-events: none;
+}
+
+// ========================================
+// PHASE 4B PRIORITY 2: PAYMENT METHODS UTILITIES
+// ========================================
+
+// Spacing Utilities
+.tts-mb-24 {
+  margin-bottom: 24px;
+}
+
+.tts-mb-64 {
+  margin-bottom: 64px;
+}
+
+.tts-mt-8 {
+  margin-top: 8px;
+}
+
+.tts-mx-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+// Flex Container Utilities
+.tts-flex-col-gap-24 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Display Utilities
+.tts-display-none {
+  display: none;
+}
+
+// Demo Note Text
+.tts-demo-note {
+  color: #C1AA99;
+  font-size: 12px;
+  font-family: var(--tts-font-family);
+}
+
+// ========================================
+// PHASE 4B PRIORITY 3: QUICK WINS UTILITIES
+// ========================================
+
+// Button Color Variants
+.tts-btn-bg-light {
+  background: var(--state-secondary-default, #FFEBDC);
+}
+
+.tts-btn-outline-dark {
+  outline-color: var(--border-border-primary, black);
+}
+
+.tts-btn-text-dark {
+  color: var(--text-text-dark, black);
+}
+
+// Max Height Utilities
+.tts-max-h-350 {
+  max-height: 350px;
+}
+
+// ========================================
+// PHASE 5: ADDITIONAL UTILITIES FOR STYLE BLOCKS MIGRATION
+// ========================================
+
+// Gap Utilities (additional sizes from style blocks)
+.tts-gap-40 {
+  gap: 40px;
+}
+
+.tts-gap-48 {
+  gap: 48px;
+}
+
+.tts-gap-64 {
+  gap: 64px;
+}
+
+.tts-gap-82 {
+  gap: 82px;
+}
+
+.tts-gap-119 {
+  gap: 119px;
+}
+
+.tts-gap-120 {
+  gap: 120px;
+}
+
+// Padding Utilities (commonly used in style blocks)
+.tts-px-16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.tts-px-20 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.tts-px-48 {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.tts-px-80 {
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.tts-py-32 {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+
+.tts-py-40 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.tts-py-48 {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.tts-py-80 {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.tts-py-128 {
+  padding-top: 128px;
+  padding-bottom: 128px;
+}
+
+// Combined Padding (specific patterns from style blocks)
+.tts-p-16 {
+  padding: 16px;
+}
+
+.tts-p-16-20 {
+  padding: 16px 20px;
+}
+
+.tts-p-16-48 {
+  padding: 16px 48px;
+}
+
+// Border Radius XL
+.tts-radius-xl {
+  border-radius: 24px;
+}
+
+// Width Utilities (specific values from style blocks)
+.tts-w-343 {
+  width: 343px;
+}
+
+.tts-w-440 {
+  width: 440px;
+}
+
+.tts-w-672 {
+  width: 672px;
+}
+
+.tts-w-738 {
+  width: 738px;
+}
+
+.tts-w-263 {
+  width: 263px;
+}
+
+.tts-w-280 {
+  width: 280px;
+}
+
+// Responsive Container Widths
+.tts-container-sm {
+  width: 100%;
+  max-width: 375px;
+}
+
+.tts-container-md {
+  width: 100%;
+  max-width: 768px;
+}
+
+.tts-container-lg {
+  width: 100%;
+  max-width: 1280px;
+}
+
+.tts-container-xl {
+  width: 100%;
+  max-width: 1536px;
+}
+
+// Min Height Utilities
+.tts-min-h-100vh {
+  min-height: 100vh;
+}
+
+// Overflow Utilities
+.tts-overflow-hidden {
+  overflow: hidden;
+}
+
+.tts-overflow-auto {
+  overflow: auto;
+}
+
+// Display Utilities (additional)
+.tts-d-inline-flex {
+  display: inline-flex;
+}
+
+.tts-d-block {
+  display: block;
+}
+
+// Flex Direction
+.tts-flex-column {
+  flex-direction: column;
+}
+
+.tts-flex-row {
+  flex-direction: row;
+}
+
+// Flex Wrap
+.tts-flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.tts-flex-wrap {
+  flex-wrap: wrap;
+}
+
+// Flex Utilities
+.tts-flex-1 {
+  flex: 1;
+}
+
+.tts-flex-grow-1 {
+  flex-grow: 1;
+}
+
+.tts-flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+// Order Utilities
+.tts-order-neg-1 {
+  order: -1;
+}
+
+.tts-order-0 {
+  order: 0;
+}
+
+// Text Alignment
+.tts-text-center {
+  text-align: center;
+}
+
+.tts-text-left {
+  text-align: left;
+}
+
+.tts-text-right {
+  text-align: right;
+}
+
+// Letter Spacing
+.tts-letter-spacing-035 {
+  letter-spacing: 0.35px;
+}
+
+.tts-letter-spacing-040 {
+  letter-spacing: 0.40px;
+}
+
+.tts-letter-spacing-048 {
+  letter-spacing: 0.48px;
+}
+
+// Cursor
+.tts-cursor-pointer {
+  cursor: pointer;
+}
+
+// Pointer Events
+.tts-pointer-events-none {
+  pointer-events: none;
+}
+
+// White Space
+.tts-whitespace-nowrap {
+  white-space: nowrap;
+}
+
+// Word Wrap
+.tts-word-wrap {
+  word-wrap: break-word;
+}
+
+// Transition
+.tts-transition-all {
+  transition: all 0.3s ease;
+}

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="checkout_page_layout" name="Checkout Page Layout">
+        <div t-attf-class="tts-checkout-page tts-page-{{ current_step }}">
+            <div class="tts-checkout-wrapper">
+
+                <!-- Breadcrumb Navigation (using existing component) -->
+                <t t-call="custom_shop_templates.breadcrumb_checkout"/>
+
+                <!-- Page Title Header (using existing component) -->
+                <div class="tts-checkout-header">
+                    <t t-set="title" t-value="'Checkout'"/>
+                    <t t-call="custom_shop_templates.page_title"/>
+                </div>
+
+                <!-- Content (Page-specific section) -->
+                <div class="tts-checkout-content">
+                    <!-- Page-specific Content (Slot) -->
+                    <div class="tts-checkout-section">
+                        <t t-out="0"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <style>
+            .tts-checkout-page {
+                background: #595959;
+                font-family: 'BentonSans', sans-serif;
+                color: #FFEBDC;
+                min-height: 100vh;
+            }
+
+            .tts-checkout-wrapper {
+                max-width: 1440px;
+                margin: 0 auto;
+                padding: 32px 16px;
+            }
+
+            .tts-checkout-header {
+                margin-bottom: 40px;
+            }
+
+            .tts-checkout-content {
+                display: flex;
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .tts-checkout-section {
+                width: 100%;
+            }
+
+            /* Responsive Design */
+            @media (min-width: 768px) {
+                .tts-checkout-wrapper {
+                    padding: 40px 48px;
+                }
+
+                .tts-checkout-header {
+                    margin-bottom: 48px;
+                }
+
+                .tts-checkout-content {
+                    gap: 48px;
+                }
+            }
+
+            @media (min-width: 1280px) {
+                .tts-checkout-wrapper {
+                    padding: 64px 80px 128px 80px;
+                }
+
+                .tts-checkout-header {
+                    margin-bottom: 64px;
+                }
+
+                .tts-checkout-content {
+                    gap: 64px;
+                }
+            }
+        </style>
+    </template>
+</odoo>
