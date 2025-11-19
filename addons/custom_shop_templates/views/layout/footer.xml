@@ -24,7 +24,7 @@
                     <div class="row mb-4 mb-lg-5">
                         <div class="col-12">
                             <img src="/custom_shop_templates/static/src/img/footer/team-photo.png"
-                                 alt="Tentacle Sync Team"
+                                 alt="Tent Web Team"
                                  class="img-fluid w-100 tts-team-img"
                                  loading="lazy"/>
                         </div>
@@ -68,8 +68,8 @@
                                 </div>
 
                                 <!-- Go to Website Button (Secondary) - NO halftone -->
-                                <a href="https://tent-co.com" target="_blank" class="tts-button-outline">
-                                    <span>Go to tent-co.com</span>
+                                <a href="https://tent-web.com" target="_blank" class="tts-button-outline">
+                                    <span>Go to tent-web.com</span>
                                     <!-- External link icon -->
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15 10.8333V15C15 15.442 14.8244 15.866 14.5118 16.1785C14.1993 16.4911 13.7754 16.6667 13.3333 16.6667H5C4.55797 16.6667 4.13405 16.4911 3.82149 16.1785C3.50893 15.866 3.33333 15.442 3.33333 15V6.66667C3.33333 6.22464 3.50893 5.80072 3.82149 5.48816C4.13405 5.17559 4.55797 5 5 5H9.16667M12.5 3.33333H16.6667M16.6667 3.33333V7.5M16.6667 3.33333L8.33333 11.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -89,7 +89,7 @@
                                     <div class="tts-text-halftone-shadow"
                                          style="--mask-url: url('/custom_shop_templates/static/src/img/footer/heading_tentacle_newsletter.svg'); max-width: 273px;">
                                         <img src="/custom_shop_templates/static/src/img/footer/heading_tentacle_newsletter.svg"
-                                             alt="Tentacle Newsletter"
+                                             alt="Tent Web Newsletter"
                                              class="tts-img-full-auto"/>
                                     </div>
                                 </div>
@@ -185,7 +185,7 @@
 
                         <!-- Copyright -->
                         <div class="text-center fw-bold tts-footer-copyright">
-                            © <span t-esc="datetime.datetime.now().year"/> TentSync
+                            © <span t-esc="datetime.datetime.now().year"/> Tent Web
                         </div>
 
                     </div>

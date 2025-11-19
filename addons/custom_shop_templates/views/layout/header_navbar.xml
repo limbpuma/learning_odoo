@@ -19,19 +19,19 @@
                 <!-- Responsive padding: p-4 (16px) on SM, p-md-6 (24px) on MD+ -->
                 <div class="d-flex justify-content-between align-items-center w-100 p-4 p-md-6">
 
-                    <!-- LEFT: Horizontal Logo "TENTACLESYNC" - SM -->
+                    <!-- LEFT: Horizontal Logo "TENT-WEB" - SM -->
                     <a href="/"
                        class="d-inline-flex align-items-center text-decoration-none d-md-none tts-h-24">
                         <img t-att-src="'/custom_shop_templates/static/src/img/brand/brand_header.svg'"
-                             alt="TENTYNC"
+                             alt="TENT-WEB"
                              class="tts-h-12 tts-w-auto"/>
                     </a>
 
-                    <!-- LEFT: Horizontal Logo "TENTACLESYNC" - MD/LG -->
+                    <!-- LEFT: Horizontal Logo "TENT-WEB" - MD/LG -->
                     <a href="/"
                        class="d-none d-md-inline-flex align-items-center text-decoration-none tts-h-32">
                         <img t-att-src="'/custom_shop_templates/static/src/img/brand/brand_header.svg'"
-                             alt="TENTYNC"
+                             alt="TENT-WEB"
                              class="tts-h-16 tts-w-auto"/>
                     </a>
 
